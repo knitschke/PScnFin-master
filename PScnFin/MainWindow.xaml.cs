@@ -79,25 +79,7 @@ namespace PScnFin
             st.Show();
             //this.Close();
         }
-        Stopwatch sw = new Stopwatch();/*
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Rozpoczęto szukanie aktywnych adresów");
-            try { 
-            SqliteDataAccess.AddProcess(CB.Text.ToString());
-            CB.Items.Add(CB.Text.ToString());
-            PM = SqliteDataAccess.LoadProcs();
-            }
-            catch (Exception ex)
-            {
-            }
-            // 
-            UM = new List<UsersModel>();
-            RunPingSweep_Async();
-            
-
-            MessageBox.Show("Zakończono szykanie adresów");
-        }*/
+        Stopwatch sw = new Stopwatch();
 
         private int timeout = 100;
         public int nFound = 0;
@@ -384,13 +366,6 @@ namespace PScnFin
             //Thread.Sleep(30000);
 
         }
-
-
-
-
-
-
-
 
         private void procscananddatabase(List<UsersModel> um, string[] prc, int sv)
         {
@@ -705,31 +680,31 @@ namespace PScnFin
             BackgroundWorker worker6 = new BackgroundWorker();
 
             BackgroundWorker timeelsapsedworker = new BackgroundWorker();
-            worker.WorkerReportsProgress = true;
+            //worker.WorkerReportsProgress = true;
             timeelsapsedworker.WorkerReportsProgress = true;
             worker.DoWork += worker_DoWork;
             timeelsapsedworker.DoWork += timeelsapsedworker_DoWork;
             //worker.ProgressChanged += worker_ProgressChanged;
             timeelsapsedworker.ProgressChanged += timeelsapsedworker_ProgressChanged;
-            worker.RunWorkerCompleted += worker_RunWorkerCompleted;
+            //worker.RunWorkerCompleted += worker_RunWorkerCompleted;
             timeelsapsedworker.RunWorkerCompleted += timeelsapsedworker_RunWorkerCompleted;
             addingprocesses();//copy
             namebox = listname.Text.ToString();
-            worker2.WorkerReportsProgress = true;
+            //worker2.WorkerReportsProgress = true;
             worker2.DoWork += worker2_DoWork;
-            worker2.RunWorkerCompleted += worker2_RunWorkerCompleted;
+            //worker2.RunWorkerCompleted += worker2_RunWorkerCompleted;
             worker3.WorkerReportsProgress = true;
             worker3.DoWork += worker3_DoWork;
-            worker3.RunWorkerCompleted += worker3_RunWorkerCompleted;
-            worker4.WorkerReportsProgress = true;
+            //worker3.RunWorkerCompleted += worker3_RunWorkerCompleted;
+            //worker4.WorkerReportsProgress = true;
             worker4.DoWork += worker4_DoWork;
-            worker4.RunWorkerCompleted += worker4_RunWorkerCompleted;
-            worker5.WorkerReportsProgress = true;
+            //worker4.RunWorkerCompleted += worker4_RunWorkerCompleted;
+            //worker5.WorkerReportsProgress = true;
             worker5.DoWork += worker5_DoWork;
-            worker5.RunWorkerCompleted += worker5_RunWorkerCompleted;
-            worker6.WorkerReportsProgress = true;
+            //worker5.RunWorkerCompleted += worker5_RunWorkerCompleted;
+            //worker6.WorkerReportsProgress = true;
             worker6.DoWork += worker6_DoWork;
-            worker6.RunWorkerCompleted += worker6_RunWorkerCompleted;
+            //worker6.RunWorkerCompleted += worker6_RunWorkerCompleted;
             slidervalue = slider.Value;
             sw.Reset();
             dates = new List<string>();
@@ -890,7 +865,7 @@ namespace PScnFin
 
         private void timeelsapsedworker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            //sw2.Stop();
+            sw2.Stop();
         }
 
         private void timeelsapsedworker_DoWork(object sender, DoWorkEventArgs e)
@@ -922,65 +897,29 @@ namespace PScnFin
         private string namebox5;
         private string namebox6;
 
-        private void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        void scan_starter(object x)
         {
-            //is_finished++;
-            //MessageBox.Show("worker1 finished "+ is_finished);
-
-        }
-        private void worker2_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            //is_finished++;
-            //MessageBox.Show("worker2 finished -" + is_finished);
-        }
-        private void worker3_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            //is_finished++;
-            //MessageBox.Show("worker3 finished -" + is_finished);
-        }
-        private void worker4_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            //is_finished++;
-            //MessageBox.Show("worker4 finished -" + is_finished);
-        }
-        private void worker5_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            //is_finished++;
-            //MessageBox.Show("worker5 finished -" + is_finished);
-        }
-        private void worker6_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            //is_finished++;
-            //MessageBox.Show("worker6 finished -" + is_finished);
+            DateTime starthr = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 7, 30, 0);//od 11;30
+            DateTime now = DateTime.Now;
+            if (dates.Contains(now.Day.ToString() + "." + now.Month.ToString()) && now > starthr)
+            {
+                scan(x);
+            }
         }
 
         private void worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            
-
             while (dates.Count > 0)
             {
-                DateTime starthr = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 7, 30, 0);//od 11;30
-                DateTime now = DateTime.Now;
-                if (dates.Contains(now.Day.ToString() + "." + now.Month.ToString()) && now > starthr)
-                {
-                    scan(e.Argument);
-                }
+                scan_starter(e.Argument);
                 Thread.Sleep(150000);
             }
         }
         private void worker2_DoWork(object sender, DoWorkEventArgs e)
         {
-            
-
             while (dates.Count > 0)
             {
-                DateTime starthr = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 7, 30, 0);//od 11;30
-                DateTime now = DateTime.Now;
-                if (dates.Contains(now.Day.ToString() + "." + now.Month.ToString()) && now > starthr)
-                {
-                    scan(e.Argument);
-                }
+                scan_starter(e.Argument);
                 Thread.Sleep(150000);
             }
         }
@@ -990,13 +929,7 @@ namespace PScnFin
 
             while (dates.Count > 0)
             {
-                DateTime starthr = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 7, 30, 0);//od 11;30
-                DateTime now = DateTime.Now;
-                if (dates.Contains(now.Day.ToString() + "." + now.Month.ToString()) && now > starthr)
-                {
-                    scan(e.Argument);
-                    
-                }
+                scan_starter(e.Argument);
                 Thread.Sleep(150000);
             }
         }
@@ -1006,13 +939,7 @@ namespace PScnFin
 
             while (dates.Count > 0)
             {
-                DateTime starthr = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 7, 30, 0);//od 11;30
-                DateTime now = DateTime.Now;
-                if (dates.Contains(now.Day.ToString() + "." + now.Month.ToString()) && now > starthr)
-                {
-                    scan(e.Argument);
-                    
-                }
+                scan_starter(e.Argument);
                 Thread.Sleep(150000);
             }
         }
@@ -1022,29 +949,15 @@ namespace PScnFin
 
             while (dates.Count > 0)
             {
-                DateTime starthr = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 7, 30, 0);//od 11;30
-                DateTime now = DateTime.Now;
-                if (dates.Contains(now.Day.ToString() + "." + now.Month.ToString()) && now > starthr)
-                {
-                    scan(e.Argument);
-                    
-                }
+                scan_starter(e.Argument);
                 Thread.Sleep(150000);
             }
         }
         private void worker6_DoWork(object sender, DoWorkEventArgs e)
         {
-            
-
             while (dates.Count > 0)
             {
-                DateTime starthr = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 7, 30, 0);//od 11;30
-                DateTime now = DateTime.Now;
-                if (dates.Contains(now.Day.ToString() + "." + now.Month.ToString()) && now > starthr)
-                {
-                    scan(e.Argument);
-                    
-                }
+                scan_starter(e.Argument);
                 Thread.Sleep(150000);
             }
         }
@@ -1056,20 +969,12 @@ namespace PScnFin
 
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {
-            CB2.Visibility = Visibility.Visible;
-            CB3.Visibility = Visibility.Hidden;
-            CB4.Visibility = Visibility.Hidden;
-            CB5.Visibility = Visibility.Hidden;
-            LabProc.Content = "Nazwy procesów:";
+            visibility2();
         }
 
         private void RadioButton_Checked_1(object sender, RoutedEventArgs e)
         {
-            CB2.Visibility = Visibility.Hidden;
-            CB3.Visibility = Visibility.Hidden;
-            CB4.Visibility = Visibility.Hidden;
-            CB5.Visibility = Visibility.Hidden;
-            LabProc.Content = "Nazwa procesu:";
+            visibility1();
         }
 
         private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -1128,29 +1033,17 @@ namespace PScnFin
 
         private void RadioButton_Checked_2(object sender, RoutedEventArgs e)
         {
-            CB2.Visibility = Visibility.Visible;
-            CB3.Visibility = Visibility.Visible;
-            CB4.Visibility = Visibility.Hidden;
-            CB5.Visibility = Visibility.Hidden;
-            LabProc.Content = "Nazwy procesów:";
+            visibility3();
         }
 
         private void RadioButton_Checked_3(object sender, RoutedEventArgs e)
         {
-            CB2.Visibility = Visibility.Visible;
-            CB3.Visibility = Visibility.Visible;
-            CB4.Visibility = Visibility.Visible;
-            CB5.Visibility = Visibility.Hidden;
-            LabProc.Content = "Nazwy procesów:";
+            visibility4();
         }
 
         private void RadioButton_Checked_4(object sender, RoutedEventArgs e)
         {
-            CB2.Visibility = Visibility.Visible;
-            CB3.Visibility = Visibility.Visible;
-            CB4.Visibility = Visibility.Visible;
-            CB5.Visibility = Visibility.Visible;
-            LabProc.Content = "Nazwy procesów:";
+            visibility5();
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -1167,11 +1060,7 @@ namespace PScnFin
             lmod = SqliteDataAccess.LoadList(listname.SelectedItem.ToString());
             if (lmod[lmod.Count-1].proc5 != "")
             {
-                CB2.Visibility = Visibility.Visible;
-                CB3.Visibility = Visibility.Visible;
-                CB4.Visibility = Visibility.Visible;
-                CB5.Visibility = Visibility.Visible;
-                LabProc.Content = "Nazwy procesów:";
+                visibility5();
                 CB.Text = lmod[lmod.Count - 1].proc1;
                 CB2.Text = lmod[lmod.Count - 1].proc2;
                 CB3.Text = lmod[lmod.Count - 1].proc3;
@@ -1181,11 +1070,7 @@ namespace PScnFin
             }
             else if (lmod[lmod.Count - 1].proc4 != "")
             {
-                CB2.Visibility = Visibility.Visible;
-                CB3.Visibility = Visibility.Visible;
-                CB4.Visibility = Visibility.Visible;
-                CB5.Visibility = Visibility.Hidden;
-                LabProc.Content = "Nazwy procesów:";
+                visibility4();
                 CB.Text = lmod[lmod.Count - 1].proc1;
                 CB2.Text = lmod[lmod.Count - 1].proc2;
                 CB3.Text = lmod[lmod.Count - 1].proc3;
@@ -1194,11 +1079,7 @@ namespace PScnFin
             }
             else if (lmod[lmod.Count - 1].proc3 != "")
             {
-                CB2.Visibility = Visibility.Visible;
-                CB3.Visibility = Visibility.Visible;
-                CB4.Visibility = Visibility.Hidden;
-                CB5.Visibility = Visibility.Hidden;
-                LabProc.Content = "Nazwy procesów:";
+                visibility3();
                 CB.Text = lmod[lmod.Count - 1].proc1;
                 CB2.Text = lmod[lmod.Count - 1].proc2;
                 CB3.Text = lmod[lmod.Count - 1].proc3;
@@ -1206,22 +1087,14 @@ namespace PScnFin
             }
             else if (lmod[lmod.Count - 1].proc2 != "")
             {
-                CB2.Visibility = Visibility.Visible;
-                CB3.Visibility = Visibility.Hidden;
-                CB4.Visibility = Visibility.Hidden;
-                CB5.Visibility = Visibility.Hidden;
-                LabProc.Content = "Nazwy procesów:";
+                visibility2();
                 CB.Text = lmod[lmod.Count - 1].proc1;
                 CB2.Text = lmod[lmod.Count - 1].proc2;
                 RB2.IsChecked = true;
             }
             else
             {
-                CB2.Visibility = Visibility.Hidden;
-                CB3.Visibility = Visibility.Hidden;
-                CB4.Visibility = Visibility.Hidden;
-                CB5.Visibility = Visibility.Hidden;
-                LabProc.Content = "Nazwa procesu:";
+                visibility1();
                 CB.Text = lmod[lmod.Count - 1].proc1;
                 RB1.IsChecked = true;
             }
@@ -1236,11 +1109,7 @@ namespace PScnFin
             lmod2 = SqliteDataAccess.LoadList(listname2.SelectedItem.ToString());
             if (lmod2[lmod2.Count - 1].proc5 != "")
             {
-                CB2.Visibility = Visibility.Visible;
-                CB3.Visibility = Visibility.Visible;
-                CB4.Visibility = Visibility.Visible;
-                CB5.Visibility = Visibility.Visible;
-                LabProc.Content = "Nazwy procesów:";
+                visibility5();
                 CB.Text = lmod2[lmod2.Count - 1].proc1;
                 CB2.Text = lmod2[lmod2.Count - 1].proc2;
                 CB3.Text = lmod2[lmod2.Count - 1].proc3;
@@ -1250,11 +1119,7 @@ namespace PScnFin
             }
             else if (lmod2[lmod2.Count - 1].proc4 != "")
             {
-                CB2.Visibility = Visibility.Visible;
-                CB3.Visibility = Visibility.Visible;
-                CB4.Visibility = Visibility.Visible;
-                CB5.Visibility = Visibility.Hidden;
-                LabProc.Content = "Nazwy procesów:";
+                visibility4();
                 CB.Text = lmod2[lmod2.Count - 1].proc1;
                 CB2.Text = lmod2[lmod2.Count - 1].proc2;
                 CB3.Text = lmod2[lmod2.Count - 1].proc3;
@@ -1263,11 +1128,7 @@ namespace PScnFin
             }
             else if (lmod2[lmod2.Count - 1].proc3 != "")
             {
-                CB2.Visibility = Visibility.Visible;
-                CB3.Visibility = Visibility.Visible;
-                CB4.Visibility = Visibility.Hidden;
-                CB5.Visibility = Visibility.Hidden;
-                LabProc.Content = "Nazwy procesów:";
+                visibility3();
                 CB.Text = lmod2[lmod2.Count - 1].proc1;
                 CB2.Text = lmod2[lmod2.Count - 1].proc2;
                 CB3.Text = lmod2[lmod2.Count - 1].proc3;
@@ -1275,22 +1136,14 @@ namespace PScnFin
             }
             else if (lmod2[lmod2.Count - 1].proc2 != "")
             {
-                CB2.Visibility = Visibility.Visible;
-                CB3.Visibility = Visibility.Hidden;
-                CB4.Visibility = Visibility.Hidden;
-                CB5.Visibility = Visibility.Hidden;
-                LabProc.Content = "Nazwy procesów:";
+                visibility2();
                 CB.Text = lmod2[lmod2.Count - 1].proc1;
                 CB2.Text = lmod2[lmod2.Count - 1].proc2;
                 RB2.IsChecked = true;
             }
             else
             {
-                CB2.Visibility = Visibility.Hidden;
-                CB3.Visibility = Visibility.Hidden;
-                CB4.Visibility = Visibility.Hidden;
-                CB5.Visibility = Visibility.Hidden;
-                LabProc.Content = "Nazwa procesu:";
+                visibility1();
                 CB.Text = lmod2[lmod2.Count - 1].proc1;
                 RB1.IsChecked = true;
             }
@@ -1304,11 +1157,7 @@ namespace PScnFin
             lmod3 = SqliteDataAccess.LoadList(listname3.SelectedItem.ToString());
             if (lmod3[lmod3.Count - 1].proc5 != "")
             {
-                CB2.Visibility = Visibility.Visible;
-                CB3.Visibility = Visibility.Visible;
-                CB4.Visibility = Visibility.Visible;
-                CB5.Visibility = Visibility.Visible;
-                LabProc.Content = "Nazwy procesów:";
+                visibility5();
                 CB.Text = lmod3[lmod3.Count - 1].proc1;
                 CB2.Text = lmod3[lmod3.Count - 1].proc2;
                 CB3.Text = lmod3[lmod3.Count - 1].proc3;
@@ -1318,11 +1167,7 @@ namespace PScnFin
             }
             else if (lmod3[lmod3.Count - 1].proc4 != "")
             {
-                CB2.Visibility = Visibility.Visible;
-                CB3.Visibility = Visibility.Visible;
-                CB4.Visibility = Visibility.Visible;
-                CB5.Visibility = Visibility.Hidden;
-                LabProc.Content = "Nazwy procesów:";
+                visibility4();
                 CB.Text = lmod3[lmod3.Count - 1].proc1;
                 CB2.Text = lmod3[lmod3.Count - 1].proc2;
                 CB3.Text = lmod3[lmod3.Count - 1].proc3;
@@ -1331,11 +1176,7 @@ namespace PScnFin
             }
             else if (lmod3[lmod3.Count - 1].proc3 != "")
             {
-                CB2.Visibility = Visibility.Visible;
-                CB3.Visibility = Visibility.Visible;
-                CB4.Visibility = Visibility.Hidden;
-                CB5.Visibility = Visibility.Hidden;
-                LabProc.Content = "Nazwy procesów:";
+                visibility3();
                 CB.Text = lmod3[lmod3.Count - 1].proc1;
                 CB2.Text = lmod3[lmod3.Count - 1].proc2;
                 CB3.Text = lmod3[lmod3.Count - 1].proc3;
@@ -1343,22 +1184,14 @@ namespace PScnFin
             }
             else if (lmod3[lmod3.Count - 1].proc2 != "")
             {
-                CB2.Visibility = Visibility.Visible;
-                CB3.Visibility = Visibility.Hidden;
-                CB4.Visibility = Visibility.Hidden;
-                CB5.Visibility = Visibility.Hidden;
-                LabProc.Content = "Nazwy procesów:";
+                visibility2();
                 CB.Text = lmod3[lmod3.Count - 1].proc1;
                 CB2.Text = lmod3[lmod3.Count - 1].proc2;
                 RB2.IsChecked = true;
             }
             else
             {
-                CB2.Visibility = Visibility.Hidden;
-                CB3.Visibility = Visibility.Hidden;
-                CB4.Visibility = Visibility.Hidden;
-                CB5.Visibility = Visibility.Hidden;
-                LabProc.Content = "Nazwa procesu:";
+                visibility1();
                 CB.Text = lmod3[lmod3.Count - 1].proc1;
                 RB1.IsChecked = true;
             }
@@ -1372,11 +1205,7 @@ namespace PScnFin
             lmod4 = SqliteDataAccess.LoadList(listname4.SelectedItem.ToString());
             if (lmod4[lmod4.Count - 1].proc5 != "")
             {
-                CB2.Visibility = Visibility.Visible;
-                CB3.Visibility = Visibility.Visible;
-                CB4.Visibility = Visibility.Visible;
-                CB5.Visibility = Visibility.Visible;
-                LabProc.Content = "Nazwy procesów:";
+                visibility5();
                 CB.Text = lmod4[lmod4.Count - 1].proc1;
                 CB2.Text = lmod4[lmod4.Count - 1].proc2;
                 CB3.Text = lmod4[lmod4.Count - 1].proc3;
@@ -1386,11 +1215,7 @@ namespace PScnFin
             }
             else if (lmod4[lmod4.Count - 1].proc4 != "")
             {
-                CB2.Visibility = Visibility.Visible;
-                CB3.Visibility = Visibility.Visible;
-                CB4.Visibility = Visibility.Visible;
-                CB5.Visibility = Visibility.Hidden;
-                LabProc.Content = "Nazwy procesów:";
+                visibility4();
                 CB.Text = lmod4[lmod4.Count - 1].proc1;
                 CB2.Text = lmod4[lmod4.Count - 1].proc2;
                 CB3.Text = lmod4[lmod4.Count - 1].proc3;
@@ -1399,11 +1224,7 @@ namespace PScnFin
             }
             else if (lmod4[lmod4.Count - 1].proc3 != "")
             {
-                CB2.Visibility = Visibility.Visible;
-                CB3.Visibility = Visibility.Visible;
-                CB4.Visibility = Visibility.Hidden;
-                CB5.Visibility = Visibility.Hidden;
-                LabProc.Content = "Nazwy procesów:";
+                visibility3();
                 CB.Text = lmod4[lmod4.Count - 1].proc1;
                 CB2.Text = lmod4[lmod4.Count - 1].proc2;
                 CB3.Text = lmod4[lmod4.Count - 1].proc3;
@@ -1411,22 +1232,14 @@ namespace PScnFin
             }
             else if (lmod4[lmod4.Count - 1].proc2 != "")
             {
-                CB2.Visibility = Visibility.Visible;
-                CB3.Visibility = Visibility.Hidden;
-                CB4.Visibility = Visibility.Hidden;
-                CB5.Visibility = Visibility.Hidden;
-                LabProc.Content = "Nazwy procesów:";
+                visibility2();
                 CB.Text = lmod4[lmod4.Count - 1].proc1;
                 CB2.Text = lmod4[lmod4.Count - 1].proc2;
                 RB2.IsChecked = true;
             }
             else
             {
-                CB2.Visibility = Visibility.Hidden;
-                CB3.Visibility = Visibility.Hidden;
-                CB4.Visibility = Visibility.Hidden;
-                CB5.Visibility = Visibility.Hidden;
-                LabProc.Content = "Nazwa procesu:";
+                visibility1();
                 CB.Text = lmod4[lmod4.Count - 1].proc1;
                 RB1.IsChecked = true;
             }
@@ -1440,11 +1253,7 @@ namespace PScnFin
             lmod5 = SqliteDataAccess.LoadList(listname5.SelectedItem.ToString());
             if (lmod5[lmod5.Count - 1].proc5 != "")
             {
-                CB2.Visibility = Visibility.Visible;
-                CB3.Visibility = Visibility.Visible;
-                CB4.Visibility = Visibility.Visible;
-                CB5.Visibility = Visibility.Visible;
-                LabProc.Content = "Nazwy procesów:";
+                visibility5();
                 CB.Text = lmod5[lmod5.Count - 1].proc1;
                 CB2.Text = lmod5[lmod5.Count - 1].proc2;
                 CB3.Text = lmod5[lmod5.Count - 1].proc3;
@@ -1454,11 +1263,7 @@ namespace PScnFin
             }
             else if (lmod5[lmod5.Count - 1].proc4 != "")
             {
-                CB2.Visibility = Visibility.Visible;
-                CB3.Visibility = Visibility.Visible;
-                CB4.Visibility = Visibility.Visible;
-                CB5.Visibility = Visibility.Hidden;
-                LabProc.Content = "Nazwy procesów:";
+                visibility4();
                 CB.Text = lmod5[lmod5.Count - 1].proc1;
                 CB2.Text = lmod5[lmod5.Count - 1].proc2;
                 CB3.Text = lmod5[lmod5.Count - 1].proc3;
@@ -1467,11 +1272,7 @@ namespace PScnFin
             }
             else if (lmod5[lmod5.Count - 1].proc3 != "")
             {
-                CB2.Visibility = Visibility.Visible;
-                CB3.Visibility = Visibility.Visible;
-                CB4.Visibility = Visibility.Hidden;
-                CB5.Visibility = Visibility.Hidden;
-                LabProc.Content = "Nazwy procesów:";
+                visibility3();
                 CB.Text = lmod5[lmod5.Count - 1].proc1;
                 CB2.Text = lmod5[lmod5.Count - 1].proc2;
                 CB3.Text = lmod5[lmod5.Count - 1].proc3;
@@ -1479,22 +1280,14 @@ namespace PScnFin
             }
             else if (lmod5[lmod5.Count - 1].proc2 != "")
             {
-                CB2.Visibility = Visibility.Visible;
-                CB3.Visibility = Visibility.Hidden;
-                CB4.Visibility = Visibility.Hidden;
-                CB5.Visibility = Visibility.Hidden;
-                LabProc.Content = "Nazwy procesów:";
+                visibility2();
                 CB.Text = lmod5[lmod5.Count - 1].proc1;
                 CB2.Text = lmod5[lmod5.Count - 1].proc2;
                 RB2.IsChecked = true;
             }
             else
             {
-                CB2.Visibility = Visibility.Hidden;
-                CB3.Visibility = Visibility.Hidden;
-                CB4.Visibility = Visibility.Hidden;
-                CB5.Visibility = Visibility.Hidden;
-                LabProc.Content = "Nazwa procesu:";
+                visibility1();
                 CB.Text = lmod5[lmod5.Count - 1].proc1;
                 RB1.IsChecked = true;
             }
@@ -1523,11 +1316,7 @@ namespace PScnFin
                 lmod = SqliteDataAccess.LoadList(listname.SelectedItem.ToString());
                 if (lmod[lmod.Count - 1].proc5 != "")
                 {
-                    CB2.Visibility = Visibility.Visible;
-                    CB3.Visibility = Visibility.Visible;
-                    CB4.Visibility = Visibility.Visible;
-                    CB5.Visibility = Visibility.Visible;
-                    LabProc.Content = "Nazwy procesów:";
+                    visibility5();
                     CB.Text = lmod[lmod.Count - 1].proc1;
                     CB2.Text = lmod[lmod.Count - 1].proc2;
                     CB3.Text = lmod[lmod.Count - 1].proc3;
@@ -1537,11 +1326,7 @@ namespace PScnFin
                 }
                 else if (lmod[lmod.Count - 1].proc4 != "")
                 {
-                    CB2.Visibility = Visibility.Visible;
-                    CB3.Visibility = Visibility.Visible;
-                    CB4.Visibility = Visibility.Visible;
-                    CB5.Visibility = Visibility.Hidden;
-                    LabProc.Content = "Nazwy procesów:";
+                    visibility4();
                     CB.Text = lmod[lmod.Count - 1].proc1;
                     CB2.Text = lmod[lmod.Count - 1].proc2;
                     CB3.Text = lmod[lmod.Count - 1].proc3;
@@ -1550,11 +1335,7 @@ namespace PScnFin
                 }
                 else if (lmod[lmod.Count - 1].proc3 != "")
                 {
-                    CB2.Visibility = Visibility.Visible;
-                    CB3.Visibility = Visibility.Visible;
-                    CB4.Visibility = Visibility.Hidden;
-                    CB5.Visibility = Visibility.Hidden;
-                    LabProc.Content = "Nazwy procesów:";
+                    visibility3();
                     CB.Text = lmod[lmod.Count - 1].proc1;
                     CB2.Text = lmod[lmod.Count - 1].proc2;
                     CB3.Text = lmod[lmod.Count - 1].proc3;
@@ -1562,22 +1343,14 @@ namespace PScnFin
                 }
                 else if (lmod[lmod.Count - 1].proc2 != "")
                 {
-                    CB2.Visibility = Visibility.Visible;
-                    CB3.Visibility = Visibility.Hidden;
-                    CB4.Visibility = Visibility.Hidden;
-                    CB5.Visibility = Visibility.Hidden;
-                    LabProc.Content = "Nazwy procesów:";
+                    visibility2();
                     CB.Text = lmod[lmod.Count - 1].proc1;
                     CB2.Text = lmod[lmod.Count - 1].proc2;
                     RB2.IsChecked = true;
                 }
                 else
                 {
-                    CB2.Visibility = Visibility.Hidden;
-                    CB3.Visibility = Visibility.Hidden;
-                    CB4.Visibility = Visibility.Hidden;
-                    CB5.Visibility = Visibility.Hidden;
-                    LabProc.Content = "Nazwa procesu:";
+                    visibility1();
                     CB.Text = lmod[lmod.Count - 1].proc1;
                     RB1.IsChecked = true;
                 }
@@ -1591,11 +1364,7 @@ namespace PScnFin
                 lmod2 = SqliteDataAccess.LoadList(listname2.SelectedItem.ToString());
                 if (lmod2[lmod2.Count - 1].proc5 != "")
                 {
-                    CB2.Visibility = Visibility.Visible;
-                    CB3.Visibility = Visibility.Visible;
-                    CB4.Visibility = Visibility.Visible;
-                    CB5.Visibility = Visibility.Visible;
-                    LabProc.Content = "Nazwy procesów:";
+                    visibility5();
                     CB.Text = lmod2[lmod2.Count - 1].proc1;
                     CB2.Text = lmod2[lmod2.Count - 1].proc2;
                     CB3.Text = lmod2[lmod2.Count - 1].proc3;
@@ -1605,11 +1374,7 @@ namespace PScnFin
                 }
                 else if (lmod2[lmod2.Count - 1].proc4 != "")
                 {
-                    CB2.Visibility = Visibility.Visible;
-                    CB3.Visibility = Visibility.Visible;
-                    CB4.Visibility = Visibility.Visible;
-                    CB5.Visibility = Visibility.Hidden;
-                    LabProc.Content = "Nazwy procesów:";
+                    visibility4();
                     CB.Text = lmod2[lmod2.Count - 1].proc1;
                     CB2.Text = lmod2[lmod2.Count - 1].proc2;
                     CB3.Text = lmod2[lmod2.Count - 1].proc3;
@@ -1618,11 +1383,7 @@ namespace PScnFin
                 }
                 else if (lmod2[lmod2.Count - 1].proc3 != "")
                 {
-                    CB2.Visibility = Visibility.Visible;
-                    CB3.Visibility = Visibility.Visible;
-                    CB4.Visibility = Visibility.Hidden;
-                    CB5.Visibility = Visibility.Hidden;
-                    LabProc.Content = "Nazwy procesów:";
+                    visibility3();
                     CB.Text = lmod2[lmod2.Count - 1].proc1;
                     CB2.Text = lmod2[lmod2.Count - 1].proc2;
                     CB3.Text = lmod2[lmod2.Count - 1].proc3;
@@ -1630,22 +1391,14 @@ namespace PScnFin
                 }
                 else if (lmod2[lmod2.Count - 1].proc2 != "")
                 {
-                    CB2.Visibility = Visibility.Visible;
-                    CB3.Visibility = Visibility.Hidden;
-                    CB4.Visibility = Visibility.Hidden;
-                    CB5.Visibility = Visibility.Hidden;
-                    LabProc.Content = "Nazwy procesów:";
+                    visibility2();
                     CB.Text = lmod2[lmod2.Count - 1].proc1;
                     CB2.Text = lmod2[lmod2.Count - 1].proc2;
                     RB2.IsChecked = true;
                 }
                 else
                 {
-                    CB2.Visibility = Visibility.Hidden;
-                    CB3.Visibility = Visibility.Hidden;
-                    CB4.Visibility = Visibility.Hidden;
-                    CB5.Visibility = Visibility.Hidden;
-                    LabProc.Content = "Nazwa procesu:";
+                    visibility1();
                     CB.Text = lmod2[lmod2.Count - 1].proc1;
                     RB1.IsChecked = true;
                 }
@@ -1660,11 +1413,7 @@ namespace PScnFin
                 lmod3 = SqliteDataAccess.LoadList(listname3.SelectedItem.ToString());
                 if (lmod3[lmod3.Count - 1].proc5 != "")
                 {
-                    CB2.Visibility = Visibility.Visible;
-                    CB3.Visibility = Visibility.Visible;
-                    CB4.Visibility = Visibility.Visible;
-                    CB5.Visibility = Visibility.Visible;
-                    LabProc.Content = "Nazwy procesów:";
+                    visibility5();
                     CB.Text = lmod3[lmod3.Count - 1].proc1;
                     CB2.Text = lmod3[lmod3.Count - 1].proc2;
                     CB3.Text = lmod3[lmod3.Count - 1].proc3;
@@ -1674,11 +1423,7 @@ namespace PScnFin
                 }
                 else if (lmod3[lmod3.Count - 1].proc4 != "")
                 {
-                    CB2.Visibility = Visibility.Visible;
-                    CB3.Visibility = Visibility.Visible;
-                    CB4.Visibility = Visibility.Visible;
-                    CB5.Visibility = Visibility.Hidden;
-                    LabProc.Content = "Nazwy procesów:";
+                    visibility4();
                     CB.Text = lmod3[lmod3.Count - 1].proc1;
                     CB2.Text = lmod3[lmod3.Count - 1].proc2;
                     CB3.Text = lmod3[lmod3.Count - 1].proc3;
@@ -1687,11 +1432,7 @@ namespace PScnFin
                 }
                 else if (lmod3[lmod3.Count - 1].proc3 != "")
                 {
-                    CB2.Visibility = Visibility.Visible;
-                    CB3.Visibility = Visibility.Visible;
-                    CB4.Visibility = Visibility.Hidden;
-                    CB5.Visibility = Visibility.Hidden;
-                    LabProc.Content = "Nazwy procesów:";
+                    visibility3();
                     CB.Text = lmod3[lmod3.Count - 1].proc1;
                     CB2.Text = lmod3[lmod3.Count - 1].proc2;
                     CB3.Text = lmod3[lmod3.Count - 1].proc3;
@@ -1699,22 +1440,14 @@ namespace PScnFin
                 }
                 else if (lmod3[lmod3.Count - 1].proc2 != "")
                 {
-                    CB2.Visibility = Visibility.Visible;
-                    CB3.Visibility = Visibility.Hidden;
-                    CB4.Visibility = Visibility.Hidden;
-                    CB5.Visibility = Visibility.Hidden;
-                    LabProc.Content = "Nazwy procesów:";
+                    visibility2();
                     CB.Text = lmod3[lmod3.Count - 1].proc1;
                     CB2.Text = lmod3[lmod3.Count - 1].proc2;
                     RB2.IsChecked = true;
                 }
                 else
                 {
-                    CB2.Visibility = Visibility.Hidden;
-                    CB3.Visibility = Visibility.Hidden;
-                    CB4.Visibility = Visibility.Hidden;
-                    CB5.Visibility = Visibility.Hidden;
-                    LabProc.Content = "Nazwa procesu:";
+                    visibility1();
                     CB.Text = lmod3[lmod3.Count - 1].proc1;
                     RB1.IsChecked = true;
                 }
@@ -1728,11 +1461,7 @@ namespace PScnFin
                 lmod4 = SqliteDataAccess.LoadList(listname4.SelectedItem.ToString());
                 if (lmod4[lmod4.Count - 1].proc5 != "")
                 {
-                    CB2.Visibility = Visibility.Visible;
-                    CB3.Visibility = Visibility.Visible;
-                    CB4.Visibility = Visibility.Visible;
-                    CB5.Visibility = Visibility.Visible;
-                    LabProc.Content = "Nazwy procesów:";
+                    visibility5();
                     CB.Text = lmod4[lmod4.Count - 1].proc1;
                     CB2.Text = lmod4[lmod4.Count - 1].proc2;
                     CB3.Text = lmod4[lmod4.Count - 1].proc3;
@@ -1742,11 +1471,7 @@ namespace PScnFin
                 }
                 else if (lmod4[lmod4.Count - 1].proc4 != "")
                 {
-                    CB2.Visibility = Visibility.Visible;
-                    CB3.Visibility = Visibility.Visible;
-                    CB4.Visibility = Visibility.Visible;
-                    CB5.Visibility = Visibility.Hidden;
-                    LabProc.Content = "Nazwy procesów:";
+                    visibility4();
                     CB.Text = lmod4[lmod4.Count - 1].proc1;
                     CB2.Text = lmod4[lmod4.Count - 1].proc2;
                     CB3.Text = lmod4[lmod4.Count - 1].proc3;
@@ -1755,11 +1480,7 @@ namespace PScnFin
                 }
                 else if (lmod4[lmod4.Count - 1].proc3 != "")
                 {
-                    CB2.Visibility = Visibility.Visible;
-                    CB3.Visibility = Visibility.Visible;
-                    CB4.Visibility = Visibility.Hidden;
-                    CB5.Visibility = Visibility.Hidden;
-                    LabProc.Content = "Nazwy procesów:";
+                    visibility3();
                     CB.Text = lmod4[lmod4.Count - 1].proc1;
                     CB2.Text = lmod4[lmod4.Count - 1].proc2;
                     CB3.Text = lmod4[lmod4.Count - 1].proc3;
@@ -1767,22 +1488,14 @@ namespace PScnFin
                 }
                 else if (lmod4[lmod4.Count - 1].proc2 != "")
                 {
-                    CB2.Visibility = Visibility.Visible;
-                    CB3.Visibility = Visibility.Hidden;
-                    CB4.Visibility = Visibility.Hidden;
-                    CB5.Visibility = Visibility.Hidden;
-                    LabProc.Content = "Nazwy procesów:";
+                    visibility2();
                     CB.Text = lmod4[lmod4.Count - 1].proc1;
                     CB2.Text = lmod4[lmod4.Count - 1].proc2;
                     RB2.IsChecked = true;
                 }
                 else
                 {
-                    CB2.Visibility = Visibility.Hidden;
-                    CB3.Visibility = Visibility.Hidden;
-                    CB4.Visibility = Visibility.Hidden;
-                    CB5.Visibility = Visibility.Hidden;
-                    LabProc.Content = "Nazwa procesu:";
+                    visibility1();
                     CB.Text = lmod4[lmod4.Count - 1].proc1;
                     RB1.IsChecked = true;
                 }
@@ -1796,11 +1509,7 @@ namespace PScnFin
                 lmod5 = SqliteDataAccess.LoadList(listname5.SelectedItem.ToString());
                 if (lmod5[lmod5.Count - 1].proc5 != "")
                 {
-                    CB2.Visibility = Visibility.Visible;
-                    CB3.Visibility = Visibility.Visible;
-                    CB4.Visibility = Visibility.Visible;
-                    CB5.Visibility = Visibility.Visible;
-                    LabProc.Content = "Nazwy procesów:";
+                    visibility5();
                     CB.Text = lmod5[lmod5.Count - 1].proc1;
                     CB2.Text = lmod5[lmod5.Count - 1].proc2;
                     CB3.Text = lmod5[lmod5.Count - 1].proc3;
@@ -1810,11 +1519,7 @@ namespace PScnFin
                 }
                 else if (lmod5[lmod5.Count - 1].proc4 != "")
                 {
-                    CB2.Visibility = Visibility.Visible;
-                    CB3.Visibility = Visibility.Visible;
-                    CB4.Visibility = Visibility.Visible;
-                    CB5.Visibility = Visibility.Hidden;
-                    LabProc.Content = "Nazwy procesów:";
+                    visibility4();
                     CB.Text = lmod5[lmod5.Count - 1].proc1;
                     CB2.Text = lmod5[lmod5.Count - 1].proc2;
                     CB3.Text = lmod5[lmod5.Count - 1].proc3;
@@ -1823,11 +1528,7 @@ namespace PScnFin
                 }
                 else if (lmod5[lmod5.Count - 1].proc3 != "")
                 {
-                    CB2.Visibility = Visibility.Visible;
-                    CB3.Visibility = Visibility.Visible;
-                    CB4.Visibility = Visibility.Hidden;
-                    CB5.Visibility = Visibility.Hidden;
-                    LabProc.Content = "Nazwy procesów:";
+                    visibility3();
                     CB.Text = lmod5[lmod5.Count - 1].proc1;
                     CB2.Text = lmod5[lmod5.Count - 1].proc2;
                     CB3.Text = lmod5[lmod5.Count - 1].proc3;
@@ -1835,22 +1536,14 @@ namespace PScnFin
                 }
                 else if (lmod5[lmod5.Count - 1].proc2 != "")
                 {
-                    CB2.Visibility = Visibility.Visible;
-                    CB3.Visibility = Visibility.Hidden;
-                    CB4.Visibility = Visibility.Hidden;
-                    CB5.Visibility = Visibility.Hidden;
-                    LabProc.Content = "Nazwy procesów:";
+                    visibility2();
                     CB.Text = lmod5[lmod5.Count - 1].proc1;
                     CB2.Text = lmod5[lmod5.Count - 1].proc2;
                     RB2.IsChecked = true;
                 }
                 else
                 {
-                    CB2.Visibility = Visibility.Hidden;
-                    CB3.Visibility = Visibility.Hidden;
-                    CB4.Visibility = Visibility.Hidden;
-                    CB5.Visibility = Visibility.Hidden;
-                    LabProc.Content = "Nazwa procesu:";
+                    visibility1();
                     CB.Text = lmod5[lmod5.Count - 1].proc1;
                     RB1.IsChecked = true;
                 }
@@ -1864,11 +1557,7 @@ namespace PScnFin
                 lmod6 = SqliteDataAccess.LoadList(listname6.SelectedItem.ToString());
                 if (lmod6[lmod6.Count - 1].proc5 != "")
                 {
-                    CB2.Visibility = Visibility.Visible;
-                    CB3.Visibility = Visibility.Visible;
-                    CB4.Visibility = Visibility.Visible;
-                    CB5.Visibility = Visibility.Visible;
-                    LabProc.Content = "Nazwy procesów:";
+                    visibility5();
                     CB.Text = lmod6[lmod6.Count - 1].proc1;
                     CB2.Text = lmod6[lmod6.Count - 1].proc2;
                     CB3.Text = lmod6[lmod6.Count - 1].proc3;
@@ -1878,11 +1567,7 @@ namespace PScnFin
                 }
                 else if (lmod6[lmod6.Count - 1].proc4 != "")
                 {
-                    CB2.Visibility = Visibility.Visible;
-                    CB3.Visibility = Visibility.Visible;
-                    CB4.Visibility = Visibility.Visible;
-                    CB5.Visibility = Visibility.Hidden;
-                    LabProc.Content = "Nazwy procesów:";
+                    visibility4();
                     CB.Text = lmod6[lmod6.Count - 1].proc1;
                     CB2.Text = lmod6[lmod6.Count - 1].proc2;
                     CB3.Text = lmod6[lmod6.Count - 1].proc3;
@@ -1891,11 +1576,7 @@ namespace PScnFin
                 }
                 else if (lmod6[lmod6.Count - 1].proc3 != "")
                 {
-                    CB2.Visibility = Visibility.Visible;
-                    CB3.Visibility = Visibility.Visible;
-                    CB4.Visibility = Visibility.Hidden;
-                    CB5.Visibility = Visibility.Hidden;
-                    LabProc.Content = "Nazwy procesów:";
+                    visibility3();
                     CB.Text = lmod6[lmod6.Count - 1].proc1;
                     CB2.Text = lmod6[lmod6.Count - 1].proc2;
                     CB3.Text = lmod6[lmod6.Count - 1].proc3;
@@ -1903,22 +1584,14 @@ namespace PScnFin
                 }
                 else if (lmod6[lmod6.Count - 1].proc2 != "")
                 {
-                    CB2.Visibility = Visibility.Visible;
-                    CB3.Visibility = Visibility.Hidden;
-                    CB4.Visibility = Visibility.Hidden;
-                    CB5.Visibility = Visibility.Hidden;
-                    LabProc.Content = "Nazwy procesów:";
+                    visibility2();
                     CB.Text = lmod6[lmod6.Count - 1].proc1;
                     CB2.Text = lmod6[lmod6.Count - 1].proc2;
                     RB2.IsChecked = true;
                 }
                 else
                 {
-                    CB2.Visibility = Visibility.Hidden;
-                    CB3.Visibility = Visibility.Hidden;
-                    CB4.Visibility = Visibility.Hidden;
-                    CB5.Visibility = Visibility.Hidden;
-                    LabProc.Content = "Nazwa procesu:";
+                    visibility1();
                     CB.Text = lmod6[lmod6.Count - 1].proc1;
                     RB1.IsChecked = true;
                 }
@@ -1928,6 +1601,7 @@ namespace PScnFin
         private void cal_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
         {
             cbcalendar.Text = "qwe";// cal.SelectedDates.Count.ToString() + " dni";
+            
         }
 
         private void cbcalendar_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -1945,11 +1619,7 @@ namespace PScnFin
             lmod6 = SqliteDataAccess.LoadList(listname6.SelectedItem.ToString());
             if (lmod6[lmod6.Count - 1].proc5 != "")
             {
-                CB2.Visibility = Visibility.Visible;
-                CB3.Visibility = Visibility.Visible;
-                CB4.Visibility = Visibility.Visible;
-                CB5.Visibility = Visibility.Visible;
-                LabProc.Content = "Nazwy procesów:";
+                visibility5();
                 CB.Text = lmod6[lmod6.Count - 1].proc1;
                 CB2.Text = lmod6[lmod6.Count - 1].proc2;
                 CB3.Text = lmod6[lmod6.Count - 1].proc3;
@@ -1959,11 +1629,7 @@ namespace PScnFin
             }
             else if (lmod6[lmod6.Count - 1].proc4 != "")
             {
-                CB2.Visibility = Visibility.Visible;
-                CB3.Visibility = Visibility.Visible;
-                CB4.Visibility = Visibility.Visible;
-                CB5.Visibility = Visibility.Hidden;
-                LabProc.Content = "Nazwy procesów:";
+                visibility4();
                 CB.Text = lmod6[lmod6.Count - 1].proc1;
                 CB2.Text = lmod6[lmod6.Count - 1].proc2;
                 CB3.Text = lmod6[lmod6.Count - 1].proc3;
@@ -1972,11 +1638,7 @@ namespace PScnFin
             }
             else if (lmod6[lmod6.Count - 1].proc3 != "")
             {
-                CB2.Visibility = Visibility.Visible;
-                CB3.Visibility = Visibility.Visible;
-                CB4.Visibility = Visibility.Hidden;
-                CB5.Visibility = Visibility.Hidden;
-                LabProc.Content = "Nazwy procesów:";
+                visibility3();
                 CB.Text = lmod6[lmod6.Count - 1].proc1;
                 CB2.Text = lmod6[lmod6.Count - 1].proc2;
                 CB3.Text = lmod6[lmod6.Count - 1].proc3;
@@ -1984,22 +1646,15 @@ namespace PScnFin
             }
             else if (lmod6[lmod6.Count - 1].proc2 != "")
             {
-                CB2.Visibility = Visibility.Visible;
-                CB3.Visibility = Visibility.Hidden;
-                CB4.Visibility = Visibility.Hidden;
-                CB5.Visibility = Visibility.Hidden;
-                LabProc.Content = "Nazwy procesów:";
+                visibility2();
                 CB.Text = lmod6[lmod6.Count - 1].proc1;
                 CB2.Text = lmod6[lmod6.Count - 1].proc2;
                 RB2.IsChecked = true;
             }
             else
             {
-                CB2.Visibility = Visibility.Hidden;
-                CB3.Visibility = Visibility.Hidden;
-                CB4.Visibility = Visibility.Hidden;
-                CB5.Visibility = Visibility.Hidden;  
-                LabProc.Content = "Nazwa procesu:";
+                visibility1();
+                
                 CB.Text = lmod6[lmod6.Count - 1].proc1;
                 RB1.IsChecked = true;
             }
@@ -2007,6 +1662,50 @@ namespace PScnFin
 
 
         }
+
+        void visibility1()
+        {
+            CB2.Visibility = Visibility.Hidden;
+            CB3.Visibility = Visibility.Hidden;
+            CB4.Visibility = Visibility.Hidden;
+            CB5.Visibility = Visibility.Hidden;
+            LabProc.Content = "Nazwa procesu:";
+        }
+
+        void visibility2()
+        {
+            CB2.Visibility = Visibility.Visible;
+            CB3.Visibility = Visibility.Hidden;
+            CB4.Visibility = Visibility.Hidden;
+            CB5.Visibility = Visibility.Hidden;
+            LabProc.Content = "Nazwy procesów:";
+        }
+        void visibility3()
+        {
+            CB2.Visibility = Visibility.Visible;
+            CB3.Visibility = Visibility.Visible;
+            CB4.Visibility = Visibility.Hidden;
+            CB5.Visibility = Visibility.Hidden;
+            LabProc.Content = "Nazwy procesów:";
+        }
+        void visibility4()
+        {
+            CB2.Visibility = Visibility.Visible;
+            CB3.Visibility = Visibility.Visible;
+            CB4.Visibility = Visibility.Visible;
+            CB5.Visibility = Visibility.Hidden;
+            LabProc.Content = "Nazwy procesów:";
+        }
+        void visibility5()
+        {
+            CB2.Visibility = Visibility.Visible;
+            CB3.Visibility = Visibility.Visible;
+            CB4.Visibility = Visibility.Visible;
+            CB5.Visibility = Visibility.Visible;
+            LabProc.Content = "Nazwy procesów:";
+        }
+
+
 
         private void CB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
