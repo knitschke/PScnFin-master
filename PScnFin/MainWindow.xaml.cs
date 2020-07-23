@@ -202,9 +202,6 @@ namespace PScnFin
                 stopWatch.Stop();
                 ts = stopWatch.Elapsed;
                 Console.WriteLine(nFound.ToString() + " devices found! Elapsed time: " + ts.ToString());
-                //if(sliders==1) procscananddatabase(UM, proc, 1);
-
-
             });
         }
 
@@ -212,7 +209,6 @@ namespace PScnFin
 
         private void get_dates()
         {
-            
             foreach(var x in cal.SelectedDates)
             {
                 dates.Add(x.Day.ToString() + "." + x.Month.ToString()) ;
@@ -284,7 +280,7 @@ namespace PScnFin
 
         }
 
-        private static string GetMachineNameFromIPAddress(string ipAdress)
+        public static string GetMachineNameFromIPAddress(string ipAdress)
         {
             string machineName = string.Empty;
             try

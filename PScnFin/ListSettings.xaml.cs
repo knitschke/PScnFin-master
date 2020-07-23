@@ -271,14 +271,23 @@ namespace PScnFin
 
         }
 
+        void add_proc_to_cbox(string whichwindow)
+        {
+            SqliteDataAccess.AddProcess(whichwindow);
+            proc1.Items.Add(whichwindow);
+            proc2.Items.Add(whichwindow);
+            proc3.Items.Add(whichwindow);
+            proc4.Items.Add(whichwindow);
+            proc5.Items.Add(whichwindow);
+        }
+
         private void savelist_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 if (proc1.Text.ToString() != "")
                 {
-                    SqliteDataAccess.AddProcess(proc1.Text.ToString());
-                    proc1.Items.Add(proc1.Text.ToString());
+                    add_proc_to_cbox(proc1.Text.ToString());
                 }
 
             }
@@ -290,8 +299,7 @@ namespace PScnFin
             {
                 if (proc2.Text.ToString() != "")
                 {
-                    SqliteDataAccess.AddProcess(proc2.Text.ToString());
-                    proc2.Items.Add(proc2.Text.ToString());
+                    add_proc_to_cbox(proc2.Text.ToString());
                 }
 
             }
@@ -303,8 +311,7 @@ namespace PScnFin
             {
                 if (proc3.Text.ToString() != "")
                 {
-                    SqliteDataAccess.AddProcess(proc3.Text.ToString());
-                    proc3.Items.Add(proc3.Text.ToString());
+                    add_proc_to_cbox(proc3.Text.ToString());
                 }
             }
             catch (Exception)
@@ -315,8 +322,7 @@ namespace PScnFin
             {
                 if (proc4.Text.ToString() != "")
                 {
-                    SqliteDataAccess.AddProcess(proc4.Text.ToString());
-                    proc4.Items.Add(proc4.Text.ToString());
+                    add_proc_to_cbox(proc4.Text.ToString());
                 }
 
             }
@@ -328,8 +334,7 @@ namespace PScnFin
             {
                 if (proc5.Text.ToString() != "")
                 {
-                    SqliteDataAccess.AddProcess(proc5.Text.ToString());
-                    proc5.Items.Add(proc5.Text.ToString());
+                    add_proc_to_cbox(proc5.Text.ToString());
                 }
             }
             catch (Exception)
@@ -388,7 +393,6 @@ namespace PScnFin
         {
             MessageBox.Show("Rozpoczęto skanowanie");
             RunPingSweep_Async();
-
         }
 
         string ip;
@@ -397,9 +401,6 @@ namespace PScnFin
         {
             nFound = 0;
             var tasks = new List<Task>();
-
-            //lmod = SqliteDataAccess.LoadList(listname.Text);
-
             stopWatch.Start();
 
             for (int i = 2; i < 255; i++)
@@ -428,11 +429,10 @@ namespace PScnFin
 
             if (reply.Status == System.Net.NetworkInformation.IPStatus.Success)
             {
-                //Console.WriteLine(reply.Address+" "+ GetMachineNameFromIPAddress(reply.Address.ToString()));
-                if (GetMachineNameFromIPAddress(reply.Address.ToString()).Length > 1)
+                if (MainWindow.GetMachineNameFromIPAddress(reply.Address.ToString()).Length > 1)
                 {
                     UsersModel x = new UsersModel();
-                    x.pc_name = GetMachineNameFromIPAddress(reply.Address.ToString());
+                    x.pc_name = MainWindow.GetMachineNameFromIPAddress(reply.Address.ToString());
                     x.ip = reply.Address.ToString();
 
                     UM.Add(x);
@@ -462,21 +462,6 @@ namespace PScnFin
 
         }
 
-        private static string GetMachineNameFromIPAddress(string ipAdress)
-        {
-            string machineName = string.Empty;
-            try
-            {
-                IPHostEntry hostEntry = Dns.GetHostEntry(ipAdress);
-
-                machineName = hostEntry.HostName;
-            }
-            catch (Exception)
-            {
-                // Machine not found...
-            }
-            return machineName;
-        }
         bool ipadress = true;
         private void ipandname_Click(object sender, RoutedEventArgs e)
         {
