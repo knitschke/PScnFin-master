@@ -28,11 +28,18 @@ namespace PScnFin.Models
             }
         }
 
-        public static void UpdateUser(string nm, string ip)
+        public static void UpdateUserIp(string nm, string ip)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
                 cnn.Execute($"update users set ip='{ip}' where pc_name='{nm}';");
+            }
+        }
+        public static void UpdateUserName(string nm, string ip)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                cnn.Execute($"update users set pc_name='{nm}' where ip='{ip}';");
             }
         }
 
@@ -81,7 +88,7 @@ namespace PScnFin.Models
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                cnn.Execute($"insert into data (positive_scan,negative_scan,pc_name, scan_id, process_name) values('{p}','{n}','{pc}','{scn}','{proc}');");
+                cnn.Execute($"insert into data (positive_scan,negative_scan, ip, scan_id, process_name) values('{p}','{n}','{pc}','{scn}','{proc}');");
             }
         }
         public static void AddScan(string time, string date)
@@ -137,39 +144,31 @@ namespace PScnFin.Models
             }
         }
 
-        public static List<ListsModel> LoadListPCname(string listname)
+        public static List<ListsModel> LoadListPCname(string ip)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                var output = cnn.Query<ListsModel>($"select distinct pc_name from Lists where list_name='{listname}';", new DynamicParameters());
+                var output = cnn.Query<ListsModel>($"select distinct ip from Lists where list_name='{ip}';", new DynamicParameters());
                 return output.ToList();
             }
         }
 
-        public static void AddList(string pcname, string listname, string proc1="", string proc2 = "", string proc3 = "", string proc4 = "", string proc5 = "")
+        public static void AddList(string ip, string listname, string proc1="", string proc2 = "", string proc3 = "", string proc4 = "", string proc5 = "")
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                cnn.Execute($"insert into lists (pc_name, list_name, proc1, proc2, proc3, proc4, proc5) values('{pcname}', '{listname}', '{proc1}', '{proc2}', '{proc3}', '{proc4}', '{proc5}');");
+                cnn.Execute($"insert into lists (ip, list_name, proc1, proc2, proc3, proc4, proc5) values('{ip}', '{listname}', '{proc1}', '{proc2}', '{proc3}', '{proc4}', '{proc5}');");
             }
         }
 
-        public static void DeletefromList(string pcname="", string ip="")
+        public static void DeletefromList(string listname, string ip="")
         {
-            if (pcname == "")
+            
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
-                {
-                    cnn.Execute($"delete from Lists where ip='{ip}';");
-                }
+                cnn.Execute($"delete from Lists where ip='{ip}' and list_name={listname};");
             }
-            else
-            {
-                using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
-                {
-                    cnn.Execute($"delete from Lists where pc_name='{pcname}';");
-                }
-            }
+            
 
         }
 

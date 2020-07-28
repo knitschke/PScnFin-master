@@ -12,6 +12,7 @@ using System.Threading;
 using System.Net;
 using System.ComponentModel;
 using System.Net.NetworkInformation;
+using System.Globalization;
 
 namespace PScnFin
 {
@@ -113,7 +114,7 @@ namespace PScnFin
                 {
                     Ping p = new Ping();
 
-                    var task = PingAndUpdateAsync(p, x.pc_name,1);
+                    var task = PingAndUpdateAsync(p, x.ip,1);
                     tasks.Add(task);
                     wait.SpinOnce();
                     p.Dispose();
@@ -129,7 +130,7 @@ namespace PScnFin
                 {
                     Ping p = new Ping();
 
-                    var task = PingAndUpdateAsync(p, x.pc_name,2);
+                    var task = PingAndUpdateAsync(p, x.ip,2);
                     tasks.Add(task);
                     wait.SpinOnce();
                     p.Dispose();
@@ -145,7 +146,7 @@ namespace PScnFin
                 {
                     Ping p = new Ping();
 
-                    var task = PingAndUpdateAsync(p, x.pc_name,3);
+                    var task = PingAndUpdateAsync(p, x.ip,3);
                     tasks.Add(task);
                     wait.SpinOnce();
                     p.Dispose();
@@ -160,7 +161,7 @@ namespace PScnFin
                 {
                     Ping p = new Ping();
 
-                    var task = PingAndUpdateAsync(p, x.pc_name,4);
+                    var task = PingAndUpdateAsync(p, x.ip,4);
                     tasks.Add(task);
                     wait.SpinOnce();
                     p.Dispose();
@@ -175,7 +176,7 @@ namespace PScnFin
                 {
                     Ping p = new Ping();
 
-                    var task = PingAndUpdateAsync(p, x.pc_name,5);
+                    var task = PingAndUpdateAsync(p, x.ip,5);
                     tasks.Add(task);
                     wait.SpinOnce();
                     p.Dispose();
@@ -190,7 +191,7 @@ namespace PScnFin
                 {
                     Ping p = new Ping();
 
-                    var task = PingAndUpdateAsync(p, x.pc_name,6);
+                    var task = PingAndUpdateAsync(p, x.ip,6);
                     tasks.Add(task);
                     wait.SpinOnce();
                     p.Dispose();
@@ -202,6 +203,7 @@ namespace PScnFin
                 stopWatch.Stop();
                 ts = stopWatch.Elapsed;
                 Console.WriteLine(nFound.ToString() + " devices found! Elapsed time: " + ts.ToString());
+                //check_dns_names_kd();
             });
         }
 
@@ -227,6 +229,7 @@ namespace PScnFin
                     UsersModel x = new UsersModel();
                     x.pc_name = GetMachineNameFromIPAddress(reply.Address.ToString());
                     x.ip = reply.Address.ToString();
+                    //if()
                     if (ver == 1)
                         UM.Add(x);
                     else if (ver == 2)
@@ -242,11 +245,11 @@ namespace PScnFin
                     Console.WriteLine(x.ip + " " + x.pc_name);
                     try
                     {
-                        SqliteDataAccess.AddUser(x.pc_name, x.ip);
+                        SqliteDataAccess.AddUser((x.pc_name).Split('.')[0], x.ip);
                     }
                     catch (System.Data.SQLite.SQLiteException)
                     {
-                        SqliteDataAccess.UpdateUser(x.pc_name, x.ip);
+                        SqliteDataAccess.UpdateUserIp((x.pc_name).Split('.')[0], x.ip);
                     }
                 }
                     
@@ -279,6 +282,60 @@ namespace PScnFin
 
 
         }
+        string nm;
+        public void check_dns_names_kd()
+        {
+            for(int i = 1; i < 1200; i++)
+            {
+                
+                try
+                {
+                    nm = "KD" + i.ToString();
+                    if (GetMachineNameFromIPAddress(nm).Length > 1)
+                        SqliteDataAccess.AddUser(nm, GetMachineNameFromIPAddress(nm));
+                    
+                    /*if (slider.Value >= 1)
+                    {
+                        var index = UM.FindIndex(c => c.ip == GetMachineNameFromIPAddress(nm));
+                        UM[index].pc_name = nm;
+                    }
+                    if (slider.Value >1)
+                    {
+                        var index = UM2.FindIndex(c => c.ip == GetMachineNameFromIPAddress(nm));
+                        UM2[index].pc_name = nm;
+                    }
+                     if (slider.Value >2)
+                    {
+                        var index = UM3.FindIndex(c => c.ip == GetMachineNameFromIPAddress(nm));
+                        UM3[index].pc_name = nm;
+                    }
+                     if (slider.Value >3)
+                    {
+                        var index = UM4.FindIndex(c => c.ip == GetMachineNameFromIPAddress(nm));
+                        UM4[index].pc_name = nm;
+                    }
+                     if (slider.Value > 5)
+                    {
+                        var index = UM5.FindIndex(c => c.ip == GetMachineNameFromIPAddress(nm));
+                        UM5[index].pc_name = nm;
+                    }
+                     if (slider.Value > 6)
+                    {
+                        var index = UM6.FindIndex(c => c.ip == GetMachineNameFromIPAddress(nm));
+                        UM6[index].pc_name = nm;
+                    }
+                    //Console.WriteLine("przeszlo:"+nm);*/
+                }
+                catch (Exception e)
+                {
+                    if(GetMachineNameFromIPAddress(nm).Length>1)
+                    SqliteDataAccess.UpdateUserName(nm, GetMachineNameFromIPAddress(nm));
+                    Console.WriteLine(e.ToString());
+                }
+
+            }
+
+        }
 
         public static string GetMachineNameFromIPAddress(string ipAdress)
         {
@@ -286,8 +343,11 @@ namespace PScnFin
             try
             {
                 IPHostEntry hostEntry = Dns.GetHostEntry(ipAdress);
-
-                machineName = hostEntry.HostName;
+                //IPHostEntry hostEntry2 = Dns.BeginGetHostAddresses("kd444.spp.local");
+                if (ipAdress.Contains("10.3"))
+                    machineName = hostEntry.HostName;
+                else
+                    machineName = hostEntry.AddressList[0].ToString();
             }
             catch (Exception)
             {
@@ -316,8 +376,8 @@ namespace PScnFin
             if ((int)slid == 1)
             {
                 UM = new List<UsersModel>();
-            }  
-            else if((int)slid ==2)
+            }
+            else if ((int)slid == 2)
                 UM2 = new List<UsersModel>();
             else if ((int)slid == 3)
                 UM3 = new List<UsersModel>();
@@ -330,17 +390,30 @@ namespace PScnFin
 
             //if(slider.Value==2)
             if ((int)slid == 1)
-                RunPingSweep_Async(namebox, (int)slid);//)
+            {
+                RunPingSweep_Async(namebox, (int)slid);
+            }
+
             if ((int)slid == 2)
+            {
                 RunPingSweep_Async(namebox2, (int)slid);
+            }
             if ((int)slid == 3)
+            {
                 RunPingSweep_Async(namebox3, (int)slid);
+            }
             if ((int)slid == 4)
+            {
                 RunPingSweep_Async(namebox4, (int)slid);
+            }
             if ((int)slid == 5)
+            {
                 RunPingSweep_Async(namebox5, (int)slid);
+            }
             if ((int)slid == 6)
+            {
                 RunPingSweep_Async(namebox6, (int)slid);
+            }
             //Thread.Sleep(10000);
             //MessageBox.Show("Zakończono szykanie adresów");
 
@@ -365,7 +438,7 @@ namespace PScnFin
 
         private void procscananddatabase(List<UsersModel> um, string[] prc, int sv)
         {
-            Thread.Sleep(5000);
+            Thread.Sleep(50000);
             if (sv > 1)
                 Thread.Sleep(5000);
             if (sv > 2)
@@ -389,6 +462,9 @@ namespace PScnFin
             string[,] vec4 = new string[countusrs, 3];
             string[,] vec5 = new string[countusrs, 3];
             int v = 0;
+
+
+
             foreach (UsersModel u in um)
             {
                 vec[v, 0] = u.pc_name;
@@ -430,13 +506,13 @@ namespace PScnFin
 
 
                     //timeelapsed = sw.ElapsedMilliseconds / 60000;
-                    //Console.WriteLine(u.full);
+                    Console.WriteLine(u.full);
                     if (PingHost(u.ip) == true)
                         try
                         {
 
 
-                            Process[] procByName = Process.GetProcessesByName(prc[0], u.pc_name);
+                            Process[] procByName = Process.GetProcessesByName(prc[0], u.pc_name);//
                             if (procByName.Length > 0)
                             {
                                 for (int i = 0; i < v; i++)
@@ -457,7 +533,7 @@ namespace PScnFin
                             }
                             if (checkprocnmbrs > 1)
                             {
-                                procByName = Process.GetProcessesByName(prc[1], u.pc_name);
+                                procByName = Process.GetProcessesByName(prc[1], u.ip);
                                 if (procByName.Length > 0)
                                 {
                                     for (int i = 0; i < v; i++)
@@ -480,7 +556,7 @@ namespace PScnFin
                             }
                             if (checkprocnmbrs > 2)
                             {
-                                procByName = Process.GetProcessesByName(prc[2], u.pc_name);
+                                procByName = Process.GetProcessesByName(prc[2], u.ip);
                                 if (procByName.Length > 0)
                                 {
                                     for (int i = 0; i < v; i++)
@@ -496,7 +572,7 @@ namespace PScnFin
                             }
                             if (checkprocnmbrs > 3)
                             {
-                                procByName = Process.GetProcessesByName(prc[3], u.pc_name);
+                                procByName = Process.GetProcessesByName(prc[3], u.ip);
                                 if (procByName.Length > 0)
                                 {
                                     for (int i = 0; i < v; i++)
@@ -512,7 +588,7 @@ namespace PScnFin
                             }
                             if (checkprocnmbrs > 4)
                             {
-                                procByName = Process.GetProcessesByName(prc[4], u.pc_name);
+                                procByName = Process.GetProcessesByName(prc[4], u.ip);
                                 if (procByName.Length > 0)
                                 {
                                     for (int i = 0; i < v; i++)
@@ -589,15 +665,15 @@ namespace PScnFin
                             u.pc_name = GetMachineNameFromIPAddress(u.ip);
                         
                     //zeskanowac i podac nazwe
-                    SqliteDataAccess.AddData(p, n, u.pc_name, prc[0], counter_scn);
+                    SqliteDataAccess.AddData(p, n, u.ip, prc[0], counter_scn);
                     if (checkprocnmbrs > 1)
-                        SqliteDataAccess.AddData(p2, n2, u.pc_name, prc[1], counter_scn);
+                        SqliteDataAccess.AddData(p2, n2, u.ip, prc[1], counter_scn);
                     if (checkprocnmbrs > 2)
-                        SqliteDataAccess.AddData(p3, n3, u.pc_name, prc[2], counter_scn);
+                        SqliteDataAccess.AddData(p3, n3, u.ip, prc[2], counter_scn);
                     if (checkprocnmbrs > 3)
-                        SqliteDataAccess.AddData(p4, n4, u.pc_name, prc[3], counter_scn);
+                        SqliteDataAccess.AddData(p4, n4, u.ip, prc[3], counter_scn);
                     if (checkprocnmbrs > 4)
-                        SqliteDataAccess.AddData(p5, n5, u.pc_name, prc[4], counter_scn);
+                        SqliteDataAccess.AddData(p5, n5, u.ip, prc[4], counter_scn);
                 }
             }
             //sleep
@@ -907,8 +983,11 @@ namespace PScnFin
         {
             while (dates.Count > 0)
             {
+                Thread.Sleep(1000);
                 scan_starter(e.Argument);
-                Thread.Sleep(150000);
+                Thread.Sleep(50000);
+                check_dns_names_kd();
+                Thread.Sleep(100000);
             }
         }
         private void worker2_DoWork(object sender, DoWorkEventArgs e)

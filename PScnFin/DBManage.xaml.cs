@@ -40,6 +40,7 @@ namespace PScnFin
             sortcb.Items.Add("data_id");
             sortcb.Items.Add("positive_scan");
             sortcb.Items.Add("negative_scan");
+            sortcb.Items.Add("ip");
             sortcb.Items.Add("pc_name");
             sortcb.Items.Add("scan_id");
             sortcb.Items.Add("process_name");
@@ -49,6 +50,7 @@ namespace PScnFin
             sortcb2.Items.Add("data_id");
             sortcb2.Items.Add("positive_scan");
             sortcb2.Items.Add("negative_scan");
+            sortcb.Items.Add("ip");
             sortcb2.Items.Add("pc_name");
             sortcb2.Items.Add("scan_id");
             sortcb2.Items.Add("process_name");
@@ -260,6 +262,15 @@ namespace PScnFin
                     }
                     dg.ItemsSource = dmtemp;
                 }
+                else if (sortcb.Text == "ip")
+                {
+                    foreach (var x in dm)
+                    {
+                        if (x.ip.Contains(filter))
+                            dmtemp.Add(x);
+                    }
+                    dg.ItemsSource = dmtemp;
+                }
                 else if (sortcb.Text == "pc_name")
                 {
                     foreach (var x in dm)
@@ -298,12 +309,17 @@ namespace PScnFin
                 }
                 else if (sortcb.Text == "usage")
                 {
-                    foreach (var x in dm)
+                    int test;
+                    if (int.TryParse(filter,out test)==true)
                     {
-                        if (x.usage_percentage >= double.Parse(filter))
-                            dmtemp.Add(x);
+                        foreach (var x in dm)
+                        {
+                            if (x.usage_percentage >= double.Parse(filter))
+                                dmtemp.Add(x);
+                        }
+                        dg.ItemsSource = dmtemp; 
                     }
-                    dg.ItemsSource = dmtemp;
+                    
                 }
                 //second filter
                 if (sortcb2.Text == "data_id")
@@ -332,6 +348,15 @@ namespace PScnFin
                             dmtemp2.Add(x);
                     }
                     dg.ItemsSource = dmtemp2;
+                }
+                else if (sortcb.Text == "ip")
+                {
+                    foreach (var x in dm)
+                    {
+                        if (x.ip.Contains(filter))
+                            dmtemp.Add(x);
+                    }
+                    dg.ItemsSource = dmtemp;
                 }
                 else if (sortcb2.Text == "pc_name")
                 {
@@ -371,12 +396,16 @@ namespace PScnFin
                 }
                 else if (sortcb2.Text == "usage")
                 {
-                    foreach (var x in dmtemp)
+                    int test;
+                    if (int.TryParse(filter, out test) == true)
                     {
-                        if (x.usage_percentage >= double.Parse(filter2))
-                            dmtemp2.Add(x);
+                        foreach (var x in dmtemp)
+                        {
+                            if (x.usage_percentage >= double.Parse(filter2))
+                                dmtemp2.Add(x);
+                        }
+                        dg.ItemsSource = dmtemp2;
                     }
-                    dg.ItemsSource = dmtemp2;
                 }
 
 

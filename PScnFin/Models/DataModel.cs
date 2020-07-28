@@ -11,16 +11,29 @@ namespace PScnFin
         public int data_id { get; set; }
         public int positive_scan { get; set; }
         public int negative_scan { get; set; }
-        public string pc_name { get; set; }
+        public string ip { get; set; }
+        public string pc_name
+        {
+            get
+            {
+                List<UsersModel> um;
+                um = SqliteDataAccess.LoadUserName(ip);
+                if (um.Count > 0)
+                    return um.Last().pc_name;
+                else return "";
+            }
+        }
         public string process_name { get; set; }
         public int scan_id { get; set; }
         public float scan_time
         {
             get
             {
-                List<ScansModel> sm = new List<ScansModel>();
+                List<ScansModel> sm;//= new List<ScansModel>();
                 sm = SqliteDataAccess.LoadScan(scan_id);
-                return sm[0].time;
+                if (sm.Count > 0)
+                    return sm[0].time;
+                else return -1;
 
             }
         

@@ -214,7 +214,7 @@ namespace PScnFin
             wholelist.Items.Clear();
             foreach (ListsModel x in listwhole)
             {
-                wholelist.Items.Add(x.pc_name);
+                wholelist.Items.Add(x.ip);
             }
             lmod = SqliteDataAccess.LoadList(listname.Text.ToString());
             try
@@ -250,7 +250,7 @@ namespace PScnFin
             wholelist.Items.Clear();
             foreach (ListsModel x in listwhole)
             {
-                wholelist.Items.Add(x.pc_name);
+                wholelist.Items.Add(x.ip);
             }
         }
 
@@ -443,7 +443,7 @@ namespace PScnFin
                     }
                     catch (System.Data.SQLite.SQLiteException)
                     {
-                        SqliteDataAccess.UpdateUser(x.pc_name, x.ip);
+                        SqliteDataAccess.UpdateUserIp(x.pc_name, x.ip);
                     }
                 }
 
@@ -556,20 +556,30 @@ namespace PScnFin
 
         private void delete_Click(object sender, RoutedEventArgs e)
         {
-
             foreach (var x in wholelist.SelectedItems)
             {
-                if (x.ToString().Contains("kd") == true || x.ToString().Contains("KD") == true || x.ToString().Contains("Kd") == true)
+                if (x.ToString().Contains("kd") == false || x.ToString().Contains("KD") == false || x.ToString().Contains("Kd") == false)
                 {
                     UM = SqliteDataAccess.LoadUserIp(x.ToString());
-                    SqliteDataAccess.DeletefromList(UM[0].ip);
-                    UM = new List<UsersModel>();
+                    if(SqliteDataAccess.LoadListPCname(x.ToString()).Count>0)
+                        SqliteDataAccess.DeletefromList(listname.Text.ToString(), UM[0].ip);
+                    //UM = new List<UsersModel>();
                 }
-                else SqliteDataAccess.DeletefromList(x.ToString());
+                else
+                {
+                    UsersModel u = SqliteDataAccess.LoadUserIp(x.ToString()).First();
+                    if (SqliteDataAccess.LoadListPCname(x.ToString()).Count > 0)
+                        SqliteDataAccess.DeletefromList(listname.Text.ToString(), u.ip);
+                }
             }
-
             wholelist.Items.Remove(wholelist.SelectedItem);
+        }
 
+        private void testbutton_Click(object sender, RoutedEventArgs e)
+        {
+            //testlab.Content= MainWindow.GetMachineNameFromIPAddress(singleadd.Text);
+            //Console.WriteLine(MainWindow.GetMachineNameFromIPAddress(singleadd.Text));
+            //PScnFin.MainWindow.check_dns_names_kd();
         }
     }
 }
