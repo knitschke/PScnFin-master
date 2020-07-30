@@ -1,18 +1,7 @@
 ﻿using PScnFin.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Data;
 
 namespace PScnFin
 {
@@ -27,13 +16,11 @@ namespace PScnFin
         List<DataModel> DM = new List<DataModel>();
         List<DataModel> DMtime = new List<DataModel>();
         float time = 0;
-        //float timeforall = 0;
         string slcted = "";
         string slctedproc = "";
         public Statystyki()
         {
             InitializeComponent();
-            
             LoadUsersList();
             LoadProcsList();
             LoadScanList();
@@ -48,7 +35,6 @@ namespace PScnFin
             foreach (ProcessesModel o in PM)
             {
                 CB.Items.Add(o.process_name);
-                
             }
             CB.SelectedIndex = 0;
             /*
@@ -101,12 +87,11 @@ namespace PScnFin
                             time += oo.time;
                     }
                 }
-                
             }
             float x = 0;
             if (countp + countn > 0)
                 x= (countp * 100) / (countp + countn);
-            T1.Text=x.ToString() + "%";
+            T1.Text = x.ToString() + "%";
             T2.Text = time.ToString();//narazie
 
             DMtime = SqliteDataAccess.LoadDataTime(slctedproc);
@@ -119,15 +104,12 @@ namespace PScnFin
                 T3.Text = "0";
             else
             T3.Text = ((countpall * 100) / (countpall+countnall)).ToString() + "%";
-
-
         }
 
         private void LB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //MessageBox.Show(LB.SelectedValue.ToString());
             slcted = LB.SelectedItem.ToString();
-            
         }
     }
 }

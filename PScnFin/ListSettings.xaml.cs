@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -37,15 +36,12 @@ namespace PScnFin
 
         }
 
-
-
         private void add_Click(object sender, RoutedEventArgs e)
         {
             string ipbeg = beg.Text;
             string ipend = end.Text;
             string[] resultbeg;
             string[] resultend;
-            //int dotcount = 0;
             int p3diff;
             int p4diff;
             string tempresult;
@@ -109,8 +105,6 @@ namespace PScnFin
                         templist.Items.Add(tempresult);
                         x++;
                     }
-
-
                 }
             }
             if (singleadd.Text.Contains("kd") || singleadd.Text.Contains("KD") || singleadd.Text.Contains("Kd") || singleadd.Text.Contains("kD")||singleadd.Text.Length<4)
@@ -131,7 +125,6 @@ namespace PScnFin
                 templist.Items.Add(singleadd.Text);
             beg.Text = "";
             end.Text = "";
-            //singleadd.Text = "";
         }
 
         private void LoadProcsList()
@@ -149,7 +142,6 @@ namespace PScnFin
 
         private void addtolist_Click(object sender, RoutedEventArgs e)
         {
-            //templist.SelectedItems
             if (listname.Text == "")
                 MessageBox.Show("Wybierz nazwe listy adresów");
             else if (templist.SelectedItems.Count == 0)
@@ -163,32 +155,19 @@ namespace PScnFin
                 foreach (var l in templist.SelectedItems)
                 {
                     counterwholelist = 0;
-                    /*
-                    foreach (var xx in listwhole)
-                    {
-                        if (xx.pc_name == l.ToString())
-                        {
-                            counterwholelist++;
-                        }
-                        
-                    }*/
                     foreach (var xx in wholelist.Items)
                     {
                         if (xx.ToString() == l.ToString())
                         {
                             counterwholelist++;
                         }
-
                     }
-
                     if (counterwholelist == 0)
                     {
                         wholelist.Items.Add(l);
-                        //SqliteDataAccess.AddList(l.ToString(), listname.Text);////////////////////////
                         onetime++;
                     }
                 }
-
             }
 
             if (lm.Exists(x => x.list_name == listname.Text) == false)
@@ -196,16 +175,6 @@ namespace PScnFin
                 listname.Items.Add(listname.Text);
             }
             listwhole = SqliteDataAccess.LoadList(listname.Text);
-            //wholelist.Items.Clear();
-            /*
-            foreach (ListsModel x in listwhole)
-            {
-                if (wholelist.Items.Contains
-                {
-                    listname.Items.Add(listname.Text);
-                }
-                wholelist.Items.Add(x.pc_name);
-            }*/
         }
 
         private void listname_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -261,7 +230,6 @@ namespace PScnFin
         private void back_Click(object sender, RoutedEventArgs e)
         {
             MainWindow ls = new MainWindow();
-            //ls.Owner = this;
             ls.Show();
             this.Close();
         }
@@ -360,20 +328,16 @@ namespace PScnFin
         private SpinWait wait = new SpinWait();
         static object lockObj = new object();
         Stopwatch stopWatch = new Stopwatch();
-        private TimeSpan ts;
         List<ListsModel> lmod = new List<ListsModel>();
         List<UsersModel> UM = new List<UsersModel>();
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             BackgroundWorker worker = new BackgroundWorker();
             worker.WorkerReportsProgress = true;
             worker.DoWork += worker_DoWork;
-            //worker.ProgressChanged += worker_ProgressChanged;
             worker.RunWorkerCompleted += worker_RunWorkerCompleted;
             worker.RunWorkerAsync();
-            //MessageBox.Show("Rozpoczęto skanowanie");
-            //RunPingSweep_Async();
-            //MessageBox.Show("Zakończono skanowanie");
         }
 
 
@@ -406,7 +370,6 @@ namespace PScnFin
             for (int i = 2; i < 255; i++)
                 for (int j = 2; j < 255; j++)
                 {
-
                     ip = BaseIP + i.ToString() + "." + j.ToString();
                     System.Net.NetworkInformation.Ping p = new System.Net.NetworkInformation.Ping();
 
@@ -414,12 +377,11 @@ namespace PScnFin
                     tasks.Add(task);
                     if (j == 255) wait.SpinOnce();
                     p.Dispose();
-
                 }
             await Task.WhenAll(tasks).ContinueWith(t =>
             {
+                MainWindow.check_dns_names_kd();
                 stopWatch.Stop();
-                ts = stopWatch.Elapsed;
             });
         }
         private async Task PingAndUpdateAsync(System.Net.NetworkInformation.Ping ping, string ip)
@@ -467,7 +429,7 @@ namespace PScnFin
         {
             List<UsersModel> temp = new List<UsersModel>();
             List<UsersModel> temp2;/////----------------------------------------------------------
-            UsersModel umtemp;
+            UsersModel umtemp = new UsersModel();
 
             if (ipadress == true)
             {
@@ -498,7 +460,6 @@ namespace PScnFin
                         temp.Add(temp2.First());
                     else
                     {
-                        umtemp = new UsersModel();
                         umtemp.pc_name = x.ToString();
                         temp.Add(umtemp);
                     }
@@ -519,7 +480,6 @@ namespace PScnFin
                         temp.Add(temp2.First());
                     else
                     {
-                        umtemp = new UsersModel();
                         umtemp.ip = x.ToString();
                         temp.Add(umtemp);
                     }
@@ -549,9 +509,6 @@ namespace PScnFin
                 }
                 ipadress = true;
             }
-
-
-
         }
 
         private void delete_Click(object sender, RoutedEventArgs e)
@@ -563,7 +520,6 @@ namespace PScnFin
                     UM = SqliteDataAccess.LoadUserIp(x.ToString());
                     if(SqliteDataAccess.LoadListPCname(x.ToString()).Count>0)
                         SqliteDataAccess.DeletefromList(listname.Text.ToString(), UM[0].ip);
-                    //UM = new List<UsersModel>();
                 }
                 else
                 {
@@ -575,11 +531,5 @@ namespace PScnFin
             wholelist.Items.Remove(wholelist.SelectedItem);
         }
 
-        private void testbutton_Click(object sender, RoutedEventArgs e)
-        {
-            //testlab.Content= MainWindow.GetMachineNameFromIPAddress(singleadd.Text);
-            //Console.WriteLine(MainWindow.GetMachineNameFromIPAddress(singleadd.Text));
-            //PScnFin.MainWindow.check_dns_names_kd();
-        }
     }
 }

@@ -5,8 +5,6 @@ using System.Configuration;
 using System.Data;
 using System.Data.SQLite;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PScnFin.Models
 {
@@ -24,7 +22,7 @@ namespace PScnFin.Models
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                cnn.Execute("insert into users (pc_name, ip) values('" + nm + "', '" + ip + "');");
+                cnn.Execute($"insert into users (pc_name, ip) values('{nm}', '{ ip}');");
             }
         }
 
@@ -72,7 +70,7 @@ namespace PScnFin.Models
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                cnn.Execute("insert into processes (process_name) values('" + p + "');");
+                cnn.Execute($"insert into processes (process_name) values('{p}');");
             }
         }
 
@@ -102,7 +100,7 @@ namespace PScnFin.Models
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                var output = cnn.Query<DataModel>("select * from Data where process_name='" + proc + "';", new DynamicParameters());
+                var output = cnn.Query<DataModel>($"select * from Data where process_name='{proc}';", new DynamicParameters());
                 return output.ToList();
             }
         }
@@ -123,8 +121,6 @@ namespace PScnFin.Models
                 return output.ToList();
             }
         }
-
-
 
         public static List<ListsModel> LoadList(string name)
         {
@@ -168,10 +164,7 @@ namespace PScnFin.Models
             {
                 cnn.Execute($"delete from Lists where ip='{ip}' and list_name={listname};");
             }
-            
-
         }
-
 
         private static string LoadConnectionString(string id = "Default") {
             return ConfigurationManager.ConnectionStrings[id].ConnectionString;

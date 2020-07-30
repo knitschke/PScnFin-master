@@ -105,7 +105,6 @@ namespace PScnFin
 
         private void datab_Click(object sender, RoutedEventArgs e)
         {
-            //List<DataModel> dmtemp = new List<DataModel>();
             current_table = "data";
             dm = SqliteDataAccess.LoadData();
             dg.ItemsSource = dm;
@@ -117,10 +116,6 @@ namespace PScnFin
             lm = new List<SingleListModel>();
             current_table = "list";
             List<ListsModel> temp = SqliteDataAccess.LoadListname();
-            
-            // = SqliteDataAccess.LoadListname();
-
-
             foreach (var x in temp)
             {
                 SingleListModel xx = new SingleListModel();
@@ -130,9 +125,7 @@ namespace PScnFin
                 xx.proc3 = SqliteDataAccess.LoadList(x.list_name).Last().proc3;
                 xx.proc4 = SqliteDataAccess.LoadList(x.list_name).Last().proc4;
                 xx.proc5 = SqliteDataAccess.LoadList(x.list_name).Last().proc5;
-
                 lm.Add(xx);
-                
             }
             dg.ItemsSource = lm;
             fill_cb_lists();
@@ -143,7 +136,6 @@ namespace PScnFin
             current_table = "user";
             um = SqliteDataAccess.LoadUsers();
             dg.ItemsSource = um;
-
             fill_cb_users();
         }
 
@@ -167,13 +159,11 @@ namespace PScnFin
         private void sortcb_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
-
         }
 
         private void sorttb_TextChanged(object sender, TextChangedEventArgs e)
         {
             filter(sorttb.Text,sorttb2.Text);
-            
         }
 
 

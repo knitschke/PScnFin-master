@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using PScnFin.Models;
 namespace PScnFin
 {
@@ -29,14 +26,12 @@ namespace PScnFin
         {
             get
             {
-                List<ScansModel> sm;//= new List<ScansModel>();
+                List<ScansModel> sm;
                 sm = SqliteDataAccess.LoadScan(scan_id);
                 if (sm.Count > 0)
                     return sm[0].time;
                 else return -1;
-
             }
-        
         }
         public double usage_percentage
         {
@@ -47,6 +42,5 @@ namespace PScnFin
                 else return (positive_scan * 100 / (negative_scan + positive_scan));
             }
         }
-
     }
 }

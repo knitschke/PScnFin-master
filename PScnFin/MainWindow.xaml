@@ -12,13 +12,13 @@
             <ColumnDefinition/>
             <ColumnDefinition Width="0*"/>
         </Grid.ColumnDefinitions>
-        <ComboBox Name="CB" IsEditable="true" HorizontalAlignment="Left" Margin="25,155,0,0" VerticalAlignment="Top" Width="161" Height="22" SelectionChanged="CB_SelectionChanged"/>
+        <ComboBox  Name="CB" IsEditable="true" HorizontalAlignment="Left" Margin="25,155,0,0" VerticalAlignment="Top" Width="161" Height="22" SelectionChanged="CB_SelectionChanged"/>
         <Label Name="LabProc" Content="Nazwa procesu:&#xD;&#xA;" HorizontalAlignment="Left" Margin="56,122,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.081,0.258" Width="116" Height="25"/>
-        <Button Content="Statystyki" HorizontalAlignment="Left" Margin="127,404,0,0" VerticalAlignment="Top" Width="145" Height="19" Click="Button_Click"/>
-        <Button Name="scanbt" Background="LightGreen" Content="Skanowanie" HorizontalAlignment="Left" Margin="127,374,0,0" VerticalAlignment="Top" Width="145" Click="Button_Click_2" Height="19" RenderTransformOrigin="0.553,1.526"/>
-        <Button Name="dbwindow" Content="Baza Danych" HorizontalAlignment="Left" Margin="127,433,0,0" VerticalAlignment="Top" Width="145" Height="19" Click="dbwindow_Click"/>
-        <Label Content="Czas skanowania(min):" HorizontalAlignment="Left" Margin="228,313,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.016,-0.305" Height="26" Width="142"/>
-        <TextBox Name="TTB" HorizontalAlignment="Left" Height="23" Margin="270,336,0,0" TextWrapping="Wrap" Text="420" VerticalAlignment="Top" Width="80"/>
+        <Button Content="Statystyki" HorizontalAlignment="Left" Margin="131,405,0,0" VerticalAlignment="Top" Width="145" Height="19" Click="Button_Click"/>
+        <Button Name="scanbt" Background="LightGreen" Content="Skanowanie" HorizontalAlignment="Left" Margin="131,375,0,0" VerticalAlignment="Top" Width="145" Click="Button_Click_2" Height="19" RenderTransformOrigin="0.553,1.526"/>
+        <Button Name="dbwindow" Content="Baza Danych" HorizontalAlignment="Left" Margin="131,434,0,0" VerticalAlignment="Top" Width="145" Height="19" Click="dbwindow_Click"/>
+        <Label Content="Czas skanowania(h):" HorizontalAlignment="Left" Margin="7,379,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.016,-0.305" Height="26" Width="143"/>
+        <TextBox TextAlignment="Center" Name="TTB" HorizontalAlignment="Left" Height="23" Margin="23,402,0,0" TextWrapping="Wrap" Text="420" VerticalAlignment="Top" Width="81"/>
         <RadioButton Name="RB1" Content="1" HorizontalAlignment="Left" Margin="256,159,0,0" VerticalAlignment="Top"  Checked="RadioButton_Checked_1"/>
         <RadioButton Name="RB2" Content="2" HorizontalAlignment="Left" Margin="256,189,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked" RenderTransformOrigin="0.578,0.667"/>
         <RadioButton Name="RB3" Content="3" HorizontalAlignment="Left" Margin="256,221,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked_2" RenderTransformOrigin="0.5,0.5">
@@ -45,11 +45,13 @@
         <ComboBox Name="listname5" HorizontalAlignment="Left" Margin="135,100,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="listname5_SelectionChanged" Visibility="Hidden" MouseEnter="mover5"/>
         <ComboBox Name="listname6" HorizontalAlignment="Left" Margin="255,100,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="listname6_SelectionChanged" Visibility="Hidden" MouseEnter="mover6"/>
         <Button Name="listbutton" Content="Edycja listy" HorizontalAlignment="Left" Margin="135,21,0,0" VerticalAlignment="Top" Width="120" Click="Button_Click_1" Height="24"/>
-        <ProgressBar Name="progressbar" HorizontalAlignment="Left" Height="10" Margin="165,365,0,0" VerticalAlignment="Top" Width="75" Minimum="0" Maximum="100"/>
+        <ProgressBar Name="progressbar" HorizontalAlignment="Left" Height="10" Margin="167,366,0,0" VerticalAlignment="Top" Width="75" Minimum="0" Maximum="100"/>
         <Slider Name="slider" HorizontalAlignment="Left" Margin="130,50,0,0" VerticalAlignment="Top" Width="130" Minimum="1" Maximum="6" IsSnapToTickEnabled="True" ValueChanged="Slider_ValueChanged"/>
-        <ComboBox Name="cbcalendar" Text="" HorizontalAlignment="Left" Margin="35,335,0,0" VerticalAlignment="Top" Width="141" Height="21" SelectionChanged="cbcalendar_SelectionChanged" DropDownClosed="cbcalendar_DropDownClosed" RenderTransformOrigin="0.853,-1.238">
+        <ComboBox Name="cbcalendar" Text="" HorizontalAlignment="Left" Margin="131,339,0,0" VerticalAlignment="Top" Width="145" Height="21" SelectionChanged="cbcalendar_SelectionChanged" DropDownClosed="cbcalendar_DropDownClosed" RenderTransformOrigin="0.853,-1.238">
             <Calendar Name="cal" SelectionMode="MultipleRange" SelectedDatesChanged="cal_SelectedDatesChanged" Background="{x:Null}" MinWidth="50" MinHeight="50" Width="179"/>
         </ComboBox>
+        <Label Name="daysleft" Content="Pozostało dni:" HorizontalAlignment="Left" Margin="9,336,0,0" VerticalAlignment="Top" Width="106"/>
+        <Button Name="cancelbt" Content="Anuluj skan" HorizontalAlignment="Left" Margin="296,376,0,0" VerticalAlignment="Top" Width="71" Height="31" Click="cancelbt_Click"/>
 
     </Grid>
 </Window>

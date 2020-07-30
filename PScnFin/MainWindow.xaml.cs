@@ -27,12 +27,10 @@ namespace PScnFin
         List<UsersModel> UM4 = new List<UsersModel>();
         List<UsersModel> UM5 = new List<UsersModel>();
         List<UsersModel> UM6 = new List<UsersModel>();
-        //List<UsersModel> UM = new List<UsersModel>();
         List<ProcessesModel> PM = new List<ProcessesModel>();
         List<ScansModel> SM = new List<ScansModel>();
         int counter_scn = 0;
         string timebox,namebox,namebox2;
-        //long timeelapsed=0;
         public MainWindow()
         {
             InitializeComponent();
@@ -65,20 +63,12 @@ namespace PScnFin
             CB3.Text = CB3.Items.GetItemAt(2).ToString();
             CB4.Text = CB4.Items.GetItemAt(3).ToString();
             CB5.Text = CB5.Items.GetItemAt(4).ToString();
-            /*
-            CB.ItemsSource = null;
-            CB.ItemsSource = PM;
-            
-            CB.DisplayMemberPath = "process_name";
-            */
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-           
             Statystyki st = new Statystyki();
             st.Owner = this;
             st.Show();
-            //this.Close();
         }
         Stopwatch sw = new Stopwatch();
 
@@ -102,9 +92,6 @@ namespace PScnFin
             nFound = 0;
             var tasks = new List<Task>();
 
-            //
-            //this.BeginInvoke((Action)(() => { lmod = SqliteDataAccess.LoadListPCname(listname.Text)}));
-
             if (sliders == 1)
             {
                 lmod = SqliteDataAccess.LoadListPCname(nameboxx);//listname.Text
@@ -113,7 +100,6 @@ namespace PScnFin
                 foreach (ListsModel x in lmod)
                 {
                     Ping p = new Ping();
-
                     var task = PingAndUpdateAsync(p, x.ip,1);
                     tasks.Add(task);
                     wait.SpinOnce();
@@ -129,7 +115,6 @@ namespace PScnFin
                 foreach (ListsModel x in lmod2)
                 {
                     Ping p = new Ping();
-
                     var task = PingAndUpdateAsync(p, x.ip,2);
                     tasks.Add(task);
                     wait.SpinOnce();
@@ -145,7 +130,6 @@ namespace PScnFin
                 foreach (ListsModel x in lmod3)
                 {
                     Ping p = new Ping();
-
                     var task = PingAndUpdateAsync(p, x.ip,3);
                     tasks.Add(task);
                     wait.SpinOnce();
@@ -160,7 +144,6 @@ namespace PScnFin
                 foreach (ListsModel x in lmod4)
                 {
                     Ping p = new Ping();
-
                     var task = PingAndUpdateAsync(p, x.ip,4);
                     tasks.Add(task);
                     wait.SpinOnce();
@@ -175,7 +158,6 @@ namespace PScnFin
                 foreach (ListsModel x in lmod5)
                 {
                     Ping p = new Ping();
-
                     var task = PingAndUpdateAsync(p, x.ip,5);
                     tasks.Add(task);
                     wait.SpinOnce();
@@ -190,7 +172,6 @@ namespace PScnFin
                 foreach (ListsModel x in lmod6)
                 {
                     Ping p = new Ping();
-
                     var task = PingAndUpdateAsync(p, x.ip,6);
                     tasks.Add(task);
                     wait.SpinOnce();
@@ -202,8 +183,7 @@ namespace PScnFin
             {
                 stopWatch.Stop();
                 ts = stopWatch.Elapsed;
-                Console.WriteLine(nFound.ToString() + " devices found! Elapsed time: " + ts.ToString());
-                //check_dns_names_kd();
+                Console.WriteLine(nFound.ToString() + " devices found in: " + ts.ToString());
             });
         }
 
@@ -223,13 +203,11 @@ namespace PScnFin
 
             if (reply.Status == IPStatus.Success)
             {
-                //Console.WriteLine(reply.Address+" "+ GetMachineNameFromIPAddress(reply.Address.ToString()));
                 if (GetMachineNameFromIPAddress(reply.Address.ToString()).Length > 1)
                 {
                     UsersModel x = new UsersModel();
                     x.pc_name = GetMachineNameFromIPAddress(reply.Address.ToString());
                     x.ip = reply.Address.ToString();
-                    //if()
                     if (ver == 1)
                         UM.Add(x);
                     else if (ver == 2)
@@ -279,52 +257,16 @@ namespace PScnFin
                     UM6.Add(x);
                 ping.Dispose();
             }
-
-
         }
-        string nm;
-        public void check_dns_names_kd()
+        public static void check_dns_names_kd(string nm="")
         {
             for(int i = 1; i < 1200; i++)
             {
-                
                 try
                 {
                     nm = "KD" + i.ToString();
                     if (GetMachineNameFromIPAddress(nm).Length > 1)
-                        SqliteDataAccess.AddUser(nm, GetMachineNameFromIPAddress(nm));
-                    
-                    /*if (slider.Value >= 1)
-                    {
-                        var index = UM.FindIndex(c => c.ip == GetMachineNameFromIPAddress(nm));
-                        UM[index].pc_name = nm;
-                    }
-                    if (slider.Value >1)
-                    {
-                        var index = UM2.FindIndex(c => c.ip == GetMachineNameFromIPAddress(nm));
-                        UM2[index].pc_name = nm;
-                    }
-                     if (slider.Value >2)
-                    {
-                        var index = UM3.FindIndex(c => c.ip == GetMachineNameFromIPAddress(nm));
-                        UM3[index].pc_name = nm;
-                    }
-                     if (slider.Value >3)
-                    {
-                        var index = UM4.FindIndex(c => c.ip == GetMachineNameFromIPAddress(nm));
-                        UM4[index].pc_name = nm;
-                    }
-                     if (slider.Value > 5)
-                    {
-                        var index = UM5.FindIndex(c => c.ip == GetMachineNameFromIPAddress(nm));
-                        UM5[index].pc_name = nm;
-                    }
-                     if (slider.Value > 6)
-                    {
-                        var index = UM6.FindIndex(c => c.ip == GetMachineNameFromIPAddress(nm));
-                        UM6[index].pc_name = nm;
-                    }
-                    //Console.WriteLine("przeszlo:"+nm);*/
+                        SqliteDataAccess.AddUser(nm, GetMachineNameFromIPAddress(nm)); 
                 }
                 catch (Exception e)
                 {
@@ -332,9 +274,7 @@ namespace PScnFin
                     SqliteDataAccess.UpdateUserName(nm, GetMachineNameFromIPAddress(nm));
                     Console.WriteLine(e.ToString());
                 }
-
             }
-
         }
 
         public static string GetMachineNameFromIPAddress(string ipAdress)
@@ -343,7 +283,6 @@ namespace PScnFin
             try
             {
                 IPHostEntry hostEntry = Dns.GetHostEntry(ipAdress);
-                //IPHostEntry hostEntry2 = Dns.BeginGetHostAddresses("kd444.spp.local");
                 if (ipAdress.Contains("10.3"))
                     machineName = hostEntry.HostName;
                 else
@@ -369,76 +308,94 @@ namespace PScnFin
             }
         }
 
-        private void scan(object slid)//object slid
+        private void scan(object slid)
         {
-            //Thread.Sleep(TimeSpan.FromSeconds(1));
-            //this.Dispatcher.BeginInvoke(new Action(() =>
+
             if ((int)slid == 1)
             {
                 UM = new List<UsersModel>();
+                RunPingSweep_Async(namebox, (int)slid);
+                procscananddatabase(UM, proc, 1);
             }
             else if ((int)slid == 2)
+            {
                 UM2 = new List<UsersModel>();
-            else if ((int)slid == 3)
-                UM3 = new List<UsersModel>();
-            else if ((int)slid == 4)
-                UM4 = new List<UsersModel>();
-            else if ((int)slid == 5)
-                UM5 = new List<UsersModel>();
-            else if ((int)slid == 6)
-                UM6 = new List<UsersModel>();
-
-            //if(slider.Value==2)
-            if ((int)slid == 1)
-            {
-                RunPingSweep_Async(namebox, (int)slid);
-            }
-
-            if ((int)slid == 2)
-            {
                 RunPingSweep_Async(namebox2, (int)slid);
-            }
-            if ((int)slid == 3)
-            {
-                RunPingSweep_Async(namebox3, (int)slid);
-            }
-            if ((int)slid == 4)
-            {
-                RunPingSweep_Async(namebox4, (int)slid);
-            }
-            if ((int)slid == 5)
-            {
-                RunPingSweep_Async(namebox5, (int)slid);
-            }
-            if ((int)slid == 6)
-            {
-                RunPingSweep_Async(namebox6, (int)slid);
-            }
-            //Thread.Sleep(10000);
-            //MessageBox.Show("Zakończono szykanie adresów");
-
-            //->
-
-            //MessageBox.Show(slid.ToString());
-            if ((int)slid == 1)
-                procscananddatabase(UM, proc, 1);
-            if ((int)slid == 2)
                 procscananddatabase(UM2, proc2, 2);
-            if ((int)slid == 3)
+            }
+            else if ((int)slid == 3)
+            {
+                UM3 = new List<UsersModel>();
+                RunPingSweep_Async(namebox3, (int)slid);
                 procscananddatabase(UM3, proc3, 3);
-            if ((int)slid == 4)
+            }
+            else if ((int)slid == 4)
+            {
+                UM4 = new List<UsersModel>();
+                RunPingSweep_Async(namebox4, (int)slid);
                 procscananddatabase(UM4, proc4, 4);
-            if ((int)slid == 5)
+            }
+            else if ((int)slid == 5)
+            {
+                UM5 = new List<UsersModel>();
+                RunPingSweep_Async(namebox5, (int)slid);
                 procscananddatabase(UM5, proc5, 5);
-            if ((int)slid == 6)
+            }
+            else if ((int)slid == 6)
+            {
+                UM6 = new List<UsersModel>();
+                RunPingSweep_Async(namebox6, (int)slid);
                 procscananddatabase(UM6, proc6, 6);
-            //Thread.Sleep(30000);
+            }
+        }
 
+        private int workerccl(int ver)
+        {
+            if (ver == 0 && timeelsapsedworker.CancellationPending == true)
+            {
+                Console.WriteLine("zatrzymo1");
+                return -1;
+            }
+            else if (ver == 1 && worker.CancellationPending == true)
+            {
+                Console.WriteLine("zatrzymo1");
+                return -1;
+            }
+            else if (ver == 2 && worker2.CancellationPending == true)
+            {
+                Console.WriteLine("zatrzymo2");
+                return -1;
+            }
+            else if (ver == 3 && worker3.CancellationPending == true)
+            {
+                Console.WriteLine("zatrzymo3");
+                return -1;
+            }
+            else if (ver == 4 && worker4.CancellationPending == true)
+            {
+                Console.WriteLine("zatrzymo4");
+                return -1;
+            }
+            else if (ver == 5 && worker5.CancellationPending == true)
+            {
+                Console.WriteLine("zatrzymo5");
+                return -1;
+            }
+            else if (ver == 6 && worker6.CancellationPending == true)
+            {
+                Console.WriteLine("zatrzymo6");
+                return -1;
+            }
+            else return 0;
         }
 
         private void procscananddatabase(List<UsersModel> um, string[] prc, int sv)
         {
-            Thread.Sleep(50000);
+            Thread.Sleep(100000);
+            if (workerccl(sv)==-1)
+            {
+                return;
+            }
             if (sv > 1)
                 Thread.Sleep(5000);
             if (sv > 2)
@@ -462,57 +419,61 @@ namespace PScnFin
             string[,] vec4 = new string[countusrs, 3];
             string[,] vec5 = new string[countusrs, 3];
             int v = 0;
-
-
-
-            foreach (UsersModel u in um)
+            try
             {
-                vec[v, 0] = u.pc_name;
-                vec[v, 1] = "0";
-                vec[v, 2] = "0";
-                vec2[v, 0] = u.pc_name;
-                vec2[v, 1] = "0";
-                vec2[v, 2] = "0";
-                vec3[v, 0] = u.pc_name;
-                vec3[v, 1] = "0";
-                vec3[v, 2] = "0";
-                vec4[v, 0] = u.pc_name;
-                vec4[v, 1] = "0";
-                vec4[v, 2] = "0";
-                vec5[v, 0] = u.pc_name;
-                vec5[v, 1] = "0";
-                vec5[v, 2] = "0";
-
-                v++;
+                foreach (UsersModel u in um)
+                {
+                    if (u.pc_name == null)
+                    {
+                        u.pc_name = u.ip;
+                    }
+                    vec[v, 0] = u.pc_name;
+                    vec[v, 1] = "0";
+                    vec[v, 2] = "0";
+                    vec2[v, 0] = u.pc_name;
+                    vec2[v, 1] = "0";
+                    vec2[v, 2] = "0";
+                    vec3[v, 0] = u.pc_name;
+                    vec3[v, 1] = "0";
+                    vec3[v, 2] = "0";
+                    vec4[v, 0] = u.pc_name;
+                    vec4[v, 1] = "0";
+                    vec4[v, 2] = "0";
+                    vec5[v, 0] = u.pc_name;
+                    vec5[v, 1] = "0";
+                    vec5[v, 2] = "0";
+                    v++;
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("blad1");
             }
 
-            
             int checkprocnmbrs = 0;
             foreach (string x in prc)
             {
                 if (x.Length >2)
                     checkprocnmbrs++;
+            }
 
-             }
-            //now = DateTime.Now;
             Stopwatch pause = new Stopwatch();
             sw.Restart();
             while (sw.ElapsedMilliseconds <= (Convert.ToInt64(timebox) * 60000))
             {
+                
                 pause.Restart();
-                //timeelapsed = sw.ElapsedMilliseconds / 60000;
                 foreach (UsersModel u in um)
                 {
-
-
-                    //timeelapsed = sw.ElapsedMilliseconds / 60000;
                     Console.WriteLine(u.full);
+                    if (workerccl(sv) == -1)
+                    {
+                        return;
+                    }
                     if (PingHost(u.ip) == true)
                         try
                         {
-
-
-                            Process[] procByName = Process.GetProcessesByName(prc[0], u.pc_name);//
+                            Process[] procByName = Process.GetProcessesByName(prc[0], u.ip);//
                             if (procByName.Length > 0)
                             {
                                 for (int i = 0; i < v; i++)
@@ -542,7 +503,6 @@ namespace PScnFin
                                             vec2[i, 1] = (int.Parse(vec2[i, 1]) + 1).ToString();
                                             Console.WriteLine(u.pc_name + "+ " + vec2[i, 1] + prc[1]);
                                         }
-
                                 }
                                 else
                                 {
@@ -603,15 +563,11 @@ namespace PScnFin
                                 }
                             }
                             if (sw.ElapsedMilliseconds >= (Convert.ToInt64(timebox) * 60000)) break;
-
-
                         }
                         catch (Exception exc)
                         {
                             Console.WriteLine(exc.ToString() + ":  " + prc[0] + u.pc_name);
                         }
-
-
                 }
                 if (pause.Elapsed.TotalMilliseconds < 300000)
                     Thread.Sleep((int)(300000 - pause.Elapsed.TotalMilliseconds));
@@ -619,6 +575,10 @@ namespace PScnFin
             
             foreach (UsersModel u in um)
             {
+                if (workerccl(sv) == -1)
+                {
+                    return;
+                }
                 int p = 0, p2 = 0, p3 = 0, p4 = 0, p5 = 0;
                 int n = 0, n2 = 0, n3 = 0, n4 = 0, n5 = 0;
                 for (int i = 0; i < v; i++)
@@ -649,17 +609,10 @@ namespace PScnFin
                         n5 = int.Parse(vec5[i, 2]);
                     }
                 }
-                //if (sv == 1)
-                //UM = um;
-                //if (sv == 2)
-                    //UM2 = um;
+
                 if (p+n>0)
                 {
-                    if (u.pc_name == null)
-                    {
-                        u.pc_name = u.ip;
-                    }
-
+                    
                     if (u.pc_name == u.ip)
                         if(GetMachineNameFromIPAddress(u.ip)!=string.Empty)
                             u.pc_name = GetMachineNameFromIPAddress(u.ip);
@@ -676,11 +629,6 @@ namespace PScnFin
                         SqliteDataAccess.AddData(p5, n5, u.ip, prc[4], counter_scn);
                 }
             }
-            //sleep
-
-            //MessageBox.Show(now.ToString());
-
-            //dates.Remove(now.Day.ToString() + "." + now.Month.ToString());
             is_finished++;
         }
 
@@ -732,51 +680,48 @@ namespace PScnFin
             return pingable;
         }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        BackgroundWorker worker;
+        BackgroundWorker worker2;
+        BackgroundWorker worker3;
+        BackgroundWorker worker4;
+        BackgroundWorker worker5;
+        BackgroundWorker worker6;
+        BackgroundWorker timeelsapsedworker;
+        private void Button_Click_2(object sender, RoutedEventArgs e)//
         {
             counter_scn = 0;
-            var caldates = cal.SelectedDates;
-            foreach (var x in caldates)
-            {
-                MessageBox.Show(x.Day.ToString()+" "+x.Month);
-            }
 
+            daysleft.Content = $"Pozostało dni: {cal.SelectedDates.Count}";
 
             progressbar.Value = 0;
             is_finished = 0;
-            BackgroundWorker worker = new BackgroundWorker();
-            BackgroundWorker worker2 = new BackgroundWorker();
-            BackgroundWorker worker3 = new BackgroundWorker();
-            BackgroundWorker worker4 = new BackgroundWorker();
-            BackgroundWorker worker5 = new BackgroundWorker();
-            BackgroundWorker worker6 = new BackgroundWorker();
-
-            BackgroundWorker timeelsapsedworker = new BackgroundWorker();
-            //worker.WorkerReportsProgress = true;
+            worker = new BackgroundWorker();
+            worker2 = new BackgroundWorker();
+            worker3 = new BackgroundWorker();
+            worker4 = new BackgroundWorker();
+            worker5 = new BackgroundWorker();
+            worker6 = new BackgroundWorker();
+            timeelsapsedworker = new BackgroundWorker();
             timeelsapsedworker.WorkerReportsProgress = true;
             worker.DoWork += worker_DoWork;
             timeelsapsedworker.DoWork += timeelsapsedworker_DoWork;
-            //worker.ProgressChanged += worker_ProgressChanged;
             timeelsapsedworker.ProgressChanged += timeelsapsedworker_ProgressChanged;
-            //worker.RunWorkerCompleted += worker_RunWorkerCompleted;
             timeelsapsedworker.RunWorkerCompleted += timeelsapsedworker_RunWorkerCompleted;
-            addingprocesses();//copy
+            addingprocesses();
             namebox = listname.Text.ToString();
-            //worker2.WorkerReportsProgress = true;
             worker2.DoWork += worker2_DoWork;
-            //worker2.RunWorkerCompleted += worker2_RunWorkerCompleted;
-            worker3.WorkerReportsProgress = true;
             worker3.DoWork += worker3_DoWork;
-            //worker3.RunWorkerCompleted += worker3_RunWorkerCompleted;
-            //worker4.WorkerReportsProgress = true;
             worker4.DoWork += worker4_DoWork;
-            //worker4.RunWorkerCompleted += worker4_RunWorkerCompleted;
-            //worker5.WorkerReportsProgress = true;
             worker5.DoWork += worker5_DoWork;
-            //worker5.RunWorkerCompleted += worker5_RunWorkerCompleted;
-            //worker6.WorkerReportsProgress = true;
             worker6.DoWork += worker6_DoWork;
-            //worker6.RunWorkerCompleted += worker6_RunWorkerCompleted;
+            worker.WorkerSupportsCancellation = true;
+            worker2.WorkerSupportsCancellation = true;
+            worker3.WorkerSupportsCancellation = true;
+            worker4.WorkerSupportsCancellation = true;
+            worker5.WorkerSupportsCancellation = true;
+            worker6.WorkerSupportsCancellation = true;
+            timeelsapsedworker.WorkerSupportsCancellation = true;
+
             slidervalue = slider.Value;
             sw.Reset();
             dates = new List<string>();
@@ -819,8 +764,6 @@ namespace PScnFin
                 get_dates();
             }
 
-            //lmod = SqliteDataAccess.LoadList(namebox);
-            //lmod2 = SqliteDataAccess.LoadList(namebox2);
             if (cal.SelectedDates.Count > 0)
                 try
                 {
@@ -864,7 +807,6 @@ namespace PScnFin
                     MessageBox.Show("Wybierz conajmniej jedną datę i jedną listę do skanowania.");
                 }
             else MessageBox.Show("Wybierz daty.");
-            //scan();
         }
 
         private void timeelsapsedworker_ProgressChanged(object sender, ProgressChangedEventArgs e)
@@ -877,7 +819,14 @@ namespace PScnFin
             }
             else if(e.ProgressPercentage==0)
             {
-                cal_button_display();
+                enabledisable(false);
+                daysleft.Content = $"Pozostało dni: {dates.Count/slidervalue}";
+            }
+            else if (e.ProgressPercentage == -1)
+            {
+                scanbt.Background = Brushes.LightGreen;
+                enabledisable(true);
+                progressbar.Value = 0;
             }
             else
             {
@@ -888,7 +837,7 @@ namespace PScnFin
 
         void cal_button_display()
         {
-            cbcalendar.Text = "abc";//(dates.Count / (int)slidervalue).ToString()+" dni";
+            cbcalendar.Text = "";//(dates.Count / (int)slidervalue).ToString()+" dni";
         }
 
         private void enabledisable(bool isenabled)
@@ -907,32 +856,35 @@ namespace PScnFin
             sw2.Start();
                 while (true)
                 {
-                
-                if (progressPercentage == 100)
+                    if (timeelsapsedworker.CancellationPending == true)
                     {
-                    (sender as BackgroundWorker).ReportProgress(progressPercentage);
-                    while (is_finished != slidervalue)//----------------------------------------------------------------------------------------------------------
-                    {
-                        Thread.Sleep(15000);
+                        (sender as BackgroundWorker).ReportProgress(-1);
+                        Console.WriteLine("cancelbt wsedl");
+                    sw2.Reset();
+                    return;
                     }
-                    
-                    (sender as BackgroundWorker).ReportProgress(0);
-                    Thread.Sleep(1000);
-                    is_finished = 0;
-                    //MessageBox.Show("Zakończono skanowanie");
+                    else if (progressPercentage == 100)
+                    {
+                        (sender as BackgroundWorker).ReportProgress(progressPercentage);
+                        while (is_finished != slidervalue)//----------------------------------------------------------------------------------------------------------
+                        {
+                            Thread.Sleep(15000);
+                        }
+
+                        (sender as BackgroundWorker).ReportProgress(0);
+                        Thread.Sleep(1000);
+                        is_finished = 0;
                     sw2.Reset();
                     break;
                     }
-                else
+                    else
                     {
-                    progressPercentage = (int)((double)(((sw2.ElapsedMilliseconds / 60000) * 100) / (int.Parse(timebox)) ));
-                    (sender as BackgroundWorker).ReportProgress(progressPercentage);
-                    Thread.Sleep(5000);
-                    Console.WriteLine((sw2.ElapsedMilliseconds / 60000).ToString());
+                        progressPercentage = (int)((double)(((sw2.ElapsedMilliseconds / 60000) * 100) / (int.Parse(timebox))));
+                        (sender as BackgroundWorker).ReportProgress(progressPercentage);
+                        Thread.Sleep(5000);
+                        Console.WriteLine((sw2.ElapsedMilliseconds / 60000).ToString());
                     }
                 }
-            
-            
         }
 
         private void timeelsapsedworker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -945,7 +897,7 @@ namespace PScnFin
             
             while (dates.Count > 0)
             {
-                DateTime starthr = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 7, 30, 0);//-------------------------------------------
+                DateTime starthr = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 7, 30, 0);
                 DateTime now = DateTime.Now;
 
                 if (dates.Contains(now.Day.ToString() + "." + now.Month.ToString()) && now > starthr)
@@ -953,11 +905,15 @@ namespace PScnFin
                     try
                     {
                         SqliteDataAccess.AddScan(timebox, now.ToString());
-                        counter_scn++;//ttb.text.tostring
+                        counter_scn++;
                         SM = SqliteDataAccess.LoadScans();
                       }
                     catch (Exception xxx) { MessageBox.Show(xxx.ToString()); }
                     progbarchange(sender);
+                }
+                if (workerccl(0) == -1)
+                {
+                    return;
                 }
                 Thread.Sleep(150000);
             }          
@@ -971,22 +927,35 @@ namespace PScnFin
 
         void scan_starter(object x)
         {
-            DateTime starthr = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 7, 30, 0);//od 11;30
+            DateTime starthr = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 7, 30, 0);
             DateTime now = DateTime.Now;
             if (dates.Contains(now.Day.ToString() + "." + now.Month.ToString()) && now > starthr)
             {
                 scan(x);
             }
         }
-
+        bool dnscan;
         private void worker_DoWork(object sender, DoWorkEventArgs e)
         {
+            dnscan = false;
             while (dates.Count > 0)
             {
+                if (workerccl(1) == -1)
+                {
+                    return;
+                }
                 Thread.Sleep(1000);
                 scan_starter(e.Argument);
+                if (workerccl(1) == -1)
+                {
+                    return;
+                }
                 Thread.Sleep(50000);
-                check_dns_names_kd();
+                if (dnscan == false)
+                {
+                    check_dns_names_kd();
+                    dnscan = true;
+                }
                 Thread.Sleep(100000);
             }
         }
@@ -995,36 +964,46 @@ namespace PScnFin
             while (dates.Count > 0)
             {
                 scan_starter(e.Argument);
+                if (workerccl(2) == -1)
+                {
+                    return;
+                }
                 Thread.Sleep(150000);
             }
         }
         private void worker3_DoWork(object sender, DoWorkEventArgs e)
         {
-            
-
             while (dates.Count > 0)
             {
                 scan_starter(e.Argument);
+                if (workerccl(3) == -1)
+                {
+                    return;
+                }
                 Thread.Sleep(150000);
             }
         }
         private void worker4_DoWork(object sender, DoWorkEventArgs e)
         {
-            
-
             while (dates.Count > 0)
             {
                 scan_starter(e.Argument);
+                if (workerccl(4) == -1)
+                {
+                    return;
+                }
                 Thread.Sleep(150000);
             }
         }
         private void worker5_DoWork(object sender, DoWorkEventArgs e)
         {
-            
-
             while (dates.Count > 0)
             {
                 scan_starter(e.Argument);
+                if (workerccl(5) == -1)
+                {
+                    return;
+                }
                 Thread.Sleep(150000);
             }
         }
@@ -1033,6 +1012,10 @@ namespace PScnFin
             while (dates.Count > 0)
             {
                 scan_starter(e.Argument);
+                if (workerccl(6) == -1)
+                {
+                    return;
+                }
                 Thread.Sleep(150000);
             }
         }
@@ -1124,10 +1107,8 @@ namespace PScnFin
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             ListSettings ls = new ListSettings();
-            //ls.Owner = this;
             ls.Show();
             this.Close();
-            
         }
 
         private void listname_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -1173,11 +1154,7 @@ namespace PScnFin
                 CB.Text = lmod[lmod.Count - 1].proc1;
                 RB1.IsChecked = true;
             }
-
-
-
         }
-
 
         private void listname2_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -1222,9 +1199,6 @@ namespace PScnFin
                 CB.Text = lmod2[lmod2.Count - 1].proc1;
                 RB1.IsChecked = true;
             }
-
-
-
         }
 
         private void listname3_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -1270,9 +1244,6 @@ namespace PScnFin
                 CB.Text = lmod3[lmod3.Count - 1].proc1;
                 RB1.IsChecked = true;
             }
-
-
-
         }
 
         private void listname4_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -1318,9 +1289,6 @@ namespace PScnFin
                 CB.Text = lmod4[lmod4.Count - 1].proc1;
                 RB1.IsChecked = true;
             }
-
-
-
         }
 
         private void listname5_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -1366,9 +1334,32 @@ namespace PScnFin
                 CB.Text = lmod5[lmod5.Count - 1].proc1;
                 RB1.IsChecked = true;
             }
+        }
 
-
-
+        private void cancelbt_Click(object sender, RoutedEventArgs e)
+        {
+            worker.CancelAsync();
+            timeelsapsedworker.CancelAsync();
+            if (slider.Value > 1)
+            {
+                worker2.CancelAsync();
+            }
+            if (slider.Value > 2)
+            {
+                worker3.CancelAsync();
+            }
+            if (slider.Value > 3)
+            {
+                worker4.CancelAsync();
+            }
+            if (slider.Value > 4)
+            {
+                worker5.CancelAsync();
+            }
+            if (slider.Value > 5)
+            {
+                worker6.CancelAsync();
+            }
         }
 
         private void dbwindow_Click(object sender, RoutedEventArgs e)
@@ -1376,7 +1367,6 @@ namespace PScnFin
             DBManage ls = new DBManage();
             ls.Owner = this;
             ls.Show();
-            //this.Close();
         }
 
         /// <summary>
@@ -1478,7 +1468,6 @@ namespace PScnFin
                     RB1.IsChecked = true;
                 }
             }
-
         }
 
         private void mover3(object sender, MouseEventArgs e)
@@ -1675,18 +1664,17 @@ namespace PScnFin
 
         private void cal_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
         {
-            cbcalendar.Text = "qwe";// cal.SelectedDates.Count.ToString() + " dni";
-            
+            cbcalendar.Text = "";// cal.SelectedDates.Count.ToString() + " dni";
         }
 
         private void cbcalendar_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            cbcalendar.Text = "nbv";// cal.SelectedDates.Count.ToString() + " dni";
+            cbcalendar.Text = "";// cal.SelectedDates.Count.ToString() + " dni";
         }
 
         private void cbcalendar_DropDownClosed(object sender, EventArgs e)
         {
-            cbcalendar.Text = "xxx";//cal.SelectedDates.Count.ToString()+" dni";
+            cbcalendar.Text = "";//cal.SelectedDates.Count.ToString()+" dni";
         }
 
         private void listname6_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -1729,13 +1717,9 @@ namespace PScnFin
             else
             {
                 visibility1();
-                
                 CB.Text = lmod6[lmod6.Count - 1].proc1;
                 RB1.IsChecked = true;
             }
-
-
-
         }
 
         void visibility1()
@@ -1771,6 +1755,7 @@ namespace PScnFin
             CB5.Visibility = Visibility.Hidden;
             LabProc.Content = "Nazwy procesów:";
         }
+
         void visibility5()
         {
             CB2.Visibility = Visibility.Visible;
@@ -1779,8 +1764,6 @@ namespace PScnFin
             CB5.Visibility = Visibility.Visible;
             LabProc.Content = "Nazwy procesów:";
         }
-
-
 
         private void CB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
