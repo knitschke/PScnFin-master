@@ -69,3 +69,9 @@ C:\Users\krzysztof.nitschke\source\repos\knitschke\PScnFin\PScnFin-master\PScnFi
 C:\Users\krzysztof.nitschke\source\repos\knitschke\PScnFin\PScnFin-master\PScnFin\obj\Debug\PScnFin.pdb
 C:\Users\krzysztof.nitschke\source\repos\knitschke\PScnFin\PScnFin-master\PScnFin\obj\Debug\DBManage.g.cs
 C:\Users\krzysztof.nitschke\source\repos\knitschke\PScnFin\PScnFin-master\PScnFin\obj\Debug\DBManage.baml
+C:\Users\krzysztof.nitschke\source\repos\knitschke\PScnFin\PScnFin-master\PScnFin\bin\Debug\MaterialDesignColors.dll
+C:\Users\krzysztof.nitschke\source\repos\knitschke\PScnFin\PScnFin-master\PScnFin\bin\Debug\MaterialDesignThemes.Wpf.dll
+C:\Users\krzysztof.nitschke\source\repos\knitschke\PScnFin\PScnFin-master\PScnFin\bin\Debug\MaterialDesignColors.pdb
+C:\Users\krzysztof.nitschke\source\repos\knitschke\PScnFin\PScnFin-master\PScnFin\bin\Debug\MaterialDesignThemes.Wpf.pdb
+C:\Users\krzysztof.nitschke\source\repos\knitschke\PScnFin\PScnFin-master\PScnFin\bin\Debug\MaterialDesignThemes.Wpf.xml
+C:\Users\krzysztof.nitschke\source\repos\knitschke\PScnFin\PScnFin-master\PScnFin\obj\Debug\App.baml

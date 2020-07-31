@@ -353,7 +353,7 @@ namespace PScnFin
         {
             if (ver == 0 && timeelsapsedworker.CancellationPending == true)
             {
-                Console.WriteLine("zatrzymo1");
+                Console.WriteLine("zatrzymo0");
                 return -1;
             }
             else if (ver == 1 && worker.CancellationPending == true)
@@ -1665,6 +1665,7 @@ namespace PScnFin
         private void cal_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
         {
             cbcalendar.Text = "";// cal.SelectedDates.Count.ToString() + " dni";
+            daysleft.Content = $"Pozostało dni: {cal.SelectedDates.Count}";
         }
 
         private void cbcalendar_SelectionChanged(object sender, SelectionChangedEventArgs e)

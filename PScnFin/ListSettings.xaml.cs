@@ -36,7 +36,7 @@ namespace PScnFin
 
         }
 
-        private void add_Click(object sender, RoutedEventArgs e)
+        public void calc_ip_diff()
         {
             string ipbeg = beg.Text;
             string ipend = end.Text;
@@ -105,8 +105,15 @@ namespace PScnFin
                         templist.Items.Add(tempresult);
                         x++;
                     }
+                    beg.Text = "";
+                    end.Text = "";
                 }
             }
+        }
+
+        private void add_Click(object sender, RoutedEventArgs e)
+        {
+            calc_ip_diff();
             if (singleadd.Text.Contains("kd") || singleadd.Text.Contains("KD") || singleadd.Text.Contains("Kd") || singleadd.Text.Contains("kD")||singleadd.Text.Length<4)
             {
                 List<UsersModel> um;
@@ -123,8 +130,7 @@ namespace PScnFin
             }
             else if (singleadd.Text != "")
                 templist.Items.Add(singleadd.Text);
-            beg.Text = "";
-            end.Text = "";
+            
         }
 
         private void LoadProcsList()
@@ -445,7 +451,6 @@ namespace PScnFin
                         umtemp.pc_name = x.ToString();
                         temp.Add(umtemp);
                     }
-
                 }
                 templist.Items.Clear();
                 foreach (UsersModel x in temp)
@@ -530,6 +535,5 @@ namespace PScnFin
             }
             wholelist.Items.Remove(wholelist.SelectedItem);
         }
-
     }
 }
