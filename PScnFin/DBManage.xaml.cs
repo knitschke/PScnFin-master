@@ -339,7 +339,7 @@ namespace PScnFin
                     }
                     dg.ItemsSource = dmtemp2;
                 }
-                else if (sortcb.Text == "ip")
+                else if (sortcb2.Text == "ip")
                 {
                     foreach (var x in dm)
                     {

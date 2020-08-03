@@ -82,6 +82,16 @@ namespace PScnFin.Models
                 return output.ToList();
             }
         }
+
+        public static List<DataModel> LoadDataExact(string proc_name)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                var output = cnn.Query<DataModel>($"select * from Data where process_name='{proc_name}';", new DynamicParameters());
+                return output.ToList();
+            }
+        }
+
         public static void AddData(int p, int n, string pc, string proc, int scn)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
@@ -163,6 +173,15 @@ namespace PScnFin.Models
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
                 cnn.Execute($"delete from Lists where ip='{ip}' and list_name={listname};");
+            }
+        }
+
+        public static List<UsersModel> StatsLoad(string proc)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                var output = cnn.Query<UsersModel>($"SELECT DISTINCT pc_name, ip from (select * from Users join Data on (Data.ip = Users.ip AND process_name = '{proc}'))", new DynamicParameters());
+                return output.ToList();
             }
         }
 

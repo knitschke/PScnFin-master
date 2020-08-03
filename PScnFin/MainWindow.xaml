@@ -18,7 +18,7 @@
             <ColumnDefinition/>
             <ColumnDefinition Width="0*"/>
         </Grid.ColumnDefinitions>
-        <ComboBox  Name="CB" Style="{x:Null}" IsEditable="true" HorizontalAlignment="Left" Margin="45,193,0,0" VerticalAlignment="Top" Width="177" Height="22" SelectionChanged="CB_SelectionChanged">
+        <ComboBox  Name="CB" Style="{x:Null}" IsEditable="true" HorizontalAlignment="Left" Margin="44,193,0,0" VerticalAlignment="Top" Width="179" Height="22" SelectionChanged="CB_SelectionChanged">
             <ComboBox.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                     <GradientStop Color="#FFF0F0F0" Offset="0"/>
@@ -47,11 +47,11 @@
         <ComboBox x:Name="CB2" Style="{x:Null}" IsEditable="true" HorizontalAlignment="Left" Margin="44,225,0,0" VerticalAlignment="Top" Width="179" Height="22" Visibility="Visible"/>
         <ComboBox x:Name="CB3" Style="{x:Null}" IsEditable="true" HorizontalAlignment="Left" Margin="44,257,0,0" VerticalAlignment="Top" Width="179" Height="22" Visibility="Visible"/>
         <Label Content="Liczba procesów:" HorizontalAlignment="Left" Margin="262,161,0,0" VerticalAlignment="Top" Height="30" Width="118" FontSize="14"/>
-        <ComboBox x:Name="CB4" Style="{x:Null}" IsEditable="true" HorizontalAlignment="Left" Margin="44,289,0,0" VerticalAlignment="Top" Width="178" Height="22" Visibility="Visible"/>
+        <ComboBox x:Name="CB4" Style="{x:Null}" IsEditable="true" HorizontalAlignment="Left" Margin="44,289,0,0" VerticalAlignment="Top" Width="179" Height="22" Visibility="Visible"/>
         <ComboBox x:Name="CB5" Style="{x:Null}" IsEditable="true" HorizontalAlignment="Left" Margin="44,321,0,0" VerticalAlignment="Top" Width="179" Height="22" Visibility="Visible"/>
         <RadioButton Name="RB4" Content="4" HorizontalAlignment="Left" Margin="308,290,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked_3" Height="18" Width="28"/>
         <RadioButton Name="RB5" Content="5" HorizontalAlignment="Left" Margin="308,322,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked_4" Height="18" Width="28"/>
-        <ComboBox Name="listname" Style="{x:Null}" HorizontalAlignment="Left" Margin="9,71,0,0" VerticalAlignment="Top" Width="130" SelectionChanged="listname_SelectionChanged" MouseEnter="mover" MaxDropDownHeight="100" MaxWidth="130" IsSynchronizedWithCurrentItem="True" Height="27" AllowDrop="True">
+        <ComboBox Name="listname" Style="{x:Null}" HorizontalAlignment="Left" Margin="9,71,0,0" VerticalAlignment="Top" Width="130" SelectionChanged="listname_SelectionChanged" MouseEnter="mover" MaxDropDownHeight="100" MaxWidth="130" IsSynchronizedWithCurrentItem="True" Height="28" AllowDrop="True">
             <Popup MaxWidth="50" OpacityMask="#FFCB2828"></Popup>
         </ComboBox>
         <ComboBox Name="listname2" Style="{x:Null}" HorizontalAlignment="Left" Margin="147,71,0,0" VerticalAlignment="Top" Width="130" SelectionChanged="listname2_SelectionChanged" Visibility="Visible" MouseEnter="mover2" AllowDrop="True" Focusable="False" Height="28"/>

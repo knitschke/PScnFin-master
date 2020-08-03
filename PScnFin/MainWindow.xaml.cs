@@ -692,7 +692,8 @@ namespace PScnFin
             counter_scn = 0;
 
             daysleft.Content = $"Pozostało dni: {cal.SelectedDates.Count}";
-
+            enabledisable(false);
+            scanbt.Background = Brushes.Red;
             progressbar.Value = 0;
             is_finished = 0;
             worker = new BackgroundWorker();
@@ -817,16 +818,20 @@ namespace PScnFin
                 scanbt.Background = Brushes.LightGreen;
                 enabledisable(true);
             }
-            else if(e.ProgressPercentage==0)
+            else if (e.ProgressPercentage == 0)
             {
                 enabledisable(false);
-                daysleft.Content = $"Pozostało dni: {dates.Count/slidervalue}";
+                
             }
             else if (e.ProgressPercentage == -1)
             {
                 scanbt.Background = Brushes.LightGreen;
                 enabledisable(true);
                 progressbar.Value = 0;
+            }
+            else if (e.ProgressPercentage == 100)
+            {
+                daysleft.Content = $"Pozostało dni: {dates.Count / slidervalue}";
             }
             else
             {

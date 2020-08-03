@@ -21,9 +21,9 @@ namespace PScnFin
         public Statystyki()
         {
             InitializeComponent();
-            LoadUsersList();
             LoadProcsList();
             LoadScanList();
+            LoadUsersList();
         }
         private void LoadScanList()
         {
@@ -46,18 +46,20 @@ namespace PScnFin
         }
         private void LoadUsersList()
         {
-            UM = SqliteDataAccess.LoadUsers();
+            //UM = SqliteDataAccess.LoadUsers();
             /*LB.ItemsSource = null;
             LB.ItemsSource = UM;
             LB.DisplayMemberPath = "full";*/
-
+            UM = SqliteDataAccess.StatsLoad(CB.SelectedItem.ToString());
             foreach (UsersModel o in UM)
             {
                 LB.Items.Add(o.full);
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        
+
+        private void LB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             slctedproc = CB.SelectedItem.ToString();
             int countp = 0;
@@ -65,23 +67,30 @@ namespace PScnFin
             int countn = 0;
             int countnall = 0;
             time = 0;
-            DM = SqliteDataAccess.LoadData();
+            DM = SqliteDataAccess.LoadDataExact(CB.SelectedItem.ToString()); ;
             SM = SqliteDataAccess.LoadScans();
-            slcted = LB.SelectedItem.ToString();
-            string xx = "";
-            for (int i = 0; i < slcted.Length; i++)
+            if(LB.SelectedItem!=null)
+                slcted = LB.SelectedItem.ToString();
+            string[] xx;
+            /*for (int i = 0; i < slcted.Length; i++)
             {
                 if (slcted[i] != ' ')
-                    xx += slcted[i];
-                else break;
-            }
+                    continue;
+                else
+                {
+
+                }
+            }*/
+            xx = slcted.Split(' ');
+
+
             foreach (DataModel o in DM)
             {
-                if (o.pc_name==xx && o.process_name ==slctedproc)
+                if (o.ip == xx[1])
                 {
                     countp += o.positive_scan;
                     countn += o.negative_scan;
-                    foreach(ScansModel oo in SM)
+                    foreach (ScansModel oo in SM)
                     {
                         if (oo.scan_id == o.scan_id)
                             time += oo.time;
@@ -90,12 +99,12 @@ namespace PScnFin
             }
             float x = 0;
             if (countp + countn > 0)
-                x= (countp * 100) / (countp + countn);
+                x = (countp * 100) / (countp + countn);
             T1.Text = x.ToString() + "%";
             T2.Text = time.ToString();//narazie
 
             DMtime = SqliteDataAccess.LoadDataTime(slctedproc);
-            foreach(DataModel t in DMtime)
+            foreach (DataModel t in DMtime)
             {
                 countpall += t.positive_scan;
                 countnall += t.negative_scan;
@@ -103,13 +112,14 @@ namespace PScnFin
             if ((countnall + countpall) == 0)
                 T3.Text = "0";
             else
-            T3.Text = ((countpall * 100) / (countpall+countnall)).ToString() + "%";
+                T3.Text = ((countpall * 100) / (countpall + countnall)).ToString() + "%";
+
         }
 
-        private void LB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void CB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //MessageBox.Show(LB.SelectedValue.ToString());
-            slcted = LB.SelectedItem.ToString();
+            LB.Items.Clear();
+            LoadUsersList();
         }
     }
 }

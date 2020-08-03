@@ -14,15 +14,15 @@
                 <GradientStop Color="#FFD5F4F7" Offset="0.174"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <ComboBox Name="CB" HorizontalAlignment="Left" Margin="26,21,0,0" VerticalAlignment="Top" Width="167"/>
-        <ListBox Name="LB" HorizontalAlignment="Left" Height="303" Margin="26,76,0,0" VerticalAlignment="Top" Width="167" SelectionChanged="LB_SelectionChanged"/>
-        <TextBox Name="T1" HorizontalAlignment="Left" Height="23" Margin="251,169,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="86"/>
-        <TextBox Name="T2" HorizontalAlignment="Left" Height="23" Margin="251,226,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="86"/>
-        <Button Content="Sprawdź dane" HorizontalAlignment="Left" Margin="250,101,0,0" VerticalAlignment="Top" Width="86" Click="Button_Click"/>
-        <TextBox Name="T3" HorizontalAlignment="Left" Height="23" Margin="251,287,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="86"/>
-        <Label Content="Używanie podczas skanowań (%):" HorizontalAlignment="Left" Margin="198,143,0,0" VerticalAlignment="Top" FontSize="14"/>
-        <Label Content="Czas skanowań(min):" HorizontalAlignment="Left" Margin="228,200,0,0" VerticalAlignment="Top" Width="138" FontSize="14"/>
-        <Label Content="Średnia użycia (%):" HorizontalAlignment="Left" Margin="236,261,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <ComboBox Name="CB" HorizontalAlignment="Left" Margin="22,26,0,0" VerticalAlignment="Top" Width="167" Foreground="Black" SelectionChanged="CB_SelectionChanged"/>
+        <ListBox Name="LB" HorizontalAlignment="Left" Height="303" Margin="25,98,0,0" VerticalAlignment="Top" Width="167" SelectionChanged="LB_SelectionChanged" BorderThickness="1" BorderBrush="#FF4E5085"/>
+        <TextBox Name="T1" HorizontalAlignment="Left" Height="23" Margin="248,151,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="86"/>
+        <TextBox Name="T2" HorizontalAlignment="Left" Height="23" Margin="248,208,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="86"/>
+        <TextBox Name="T3" HorizontalAlignment="Left" Height="23" Margin="248,269,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="86"/>
+        <Label Content="Używanie podczas skanowań (%):" HorizontalAlignment="Left" Margin="195,125,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <Label Content="Czas skanowań(min):" HorizontalAlignment="Left" Margin="225,182,0,0" VerticalAlignment="Top" Width="138" FontSize="14"/>
+        <Label Content="Średnia użycia (%):" HorizontalAlignment="Left" Margin="233,243,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <TextBox x:Name="filter" TextAlignment="Center" Style="{x:Null}" HorizontalAlignment="Left" Height="23" Margin="48,65,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Background="#FFD5F4F7" BorderBrush="#FF3A60D1"/>
 
     </Grid>
 </Window>
