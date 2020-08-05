@@ -30,7 +30,22 @@ namespace PScnFin
         List<ProcessesModel> PM = new List<ProcessesModel>();
         List<ScansModel> SM = new List<ScansModel>();
         int counter_scn = 0;
-        string timebox,namebox,namebox2;
+        string timebox, namebox, namebox2;
+        Stopwatch sw = new Stopwatch();
+        private int timeout = 100;
+        public int nFound = 0;
+        private SpinWait wait = new SpinWait();
+        static object lockObj = new object();
+        Stopwatch stopWatch = new Stopwatch();
+        Stopwatch sw2 = new Stopwatch();
+        private TimeSpan ts;
+        List<ListsModel> lm = new List<ListsModel>();
+        List<ListsModel> lmod = new List<ListsModel>();
+        List<ListsModel> lmod2 = new List<ListsModel>();
+        List<ListsModel> lmod3 = new List<ListsModel>();
+        List<ListsModel> lmod4 = new List<ListsModel>();
+        List<ListsModel> lmod5 = new List<ListsModel>();
+        List<ListsModel> lmod6 = new List<ListsModel>();
         public MainWindow()
         {
             InitializeComponent();
@@ -58,7 +73,7 @@ namespace PScnFin
                 CB4.Items.Add(o.process_name);
                 CB5.Items.Add(o.process_name);
             }
-            CB.Text = CB.Items.GetItemAt(0).ToString() ;
+            CB.Text = CB.Items.GetItemAt(0).ToString();
             CB2.Text = CB2.Items.GetItemAt(1).ToString();
             CB3.Text = CB3.Items.GetItemAt(2).ToString();
             CB4.Text = CB4.Items.GetItemAt(3).ToString();
@@ -70,22 +85,7 @@ namespace PScnFin
             st.Owner = this;
             st.Show();
         }
-        Stopwatch sw = new Stopwatch();
-
-        private int timeout = 100;
-        public int nFound = 0;
-        private SpinWait wait = new SpinWait();
-        static object lockObj = new object();
-        Stopwatch stopWatch = new Stopwatch();
-        Stopwatch sw2 = new Stopwatch();
-        private TimeSpan ts;
-        List<ListsModel> lm = new List<ListsModel>();
-        List<ListsModel> lmod = new List<ListsModel>();
-        List<ListsModel> lmod2 = new List<ListsModel>();
-        List<ListsModel> lmod3 = new List<ListsModel>();
-        List<ListsModel> lmod4 = new List<ListsModel>();
-        List<ListsModel> lmod5 = new List<ListsModel>();
-        List<ListsModel> lmod6 = new List<ListsModel>();
+        
 
         public async void RunPingSweep_Async(string nameboxx, int sliders)
         {
@@ -100,14 +100,14 @@ namespace PScnFin
                 foreach (ListsModel x in lmod)
                 {
                     Ping p = new Ping();
-                    var task = PingAndUpdateAsync(p, x.ip,1);
+                    var task = PingAndUpdateAsync(p, x.ip, 1);
                     tasks.Add(task);
                     wait.SpinOnce();
                     p.Dispose();
                 }
             }
-                
-            else if (sliders==2)
+
+            else if (sliders == 2)
             {
                 lmod2 = SqliteDataAccess.LoadListPCname(nameboxx);//listname.Text
                 stopWatch.Start();
@@ -115,7 +115,7 @@ namespace PScnFin
                 foreach (ListsModel x in lmod2)
                 {
                     Ping p = new Ping();
-                    var task = PingAndUpdateAsync(p, x.ip,2);
+                    var task = PingAndUpdateAsync(p, x.ip, 2);
                     tasks.Add(task);
                     wait.SpinOnce();
                     p.Dispose();
@@ -130,7 +130,7 @@ namespace PScnFin
                 foreach (ListsModel x in lmod3)
                 {
                     Ping p = new Ping();
-                    var task = PingAndUpdateAsync(p, x.ip,3);
+                    var task = PingAndUpdateAsync(p, x.ip, 3);
                     tasks.Add(task);
                     wait.SpinOnce();
                     p.Dispose();
@@ -144,7 +144,7 @@ namespace PScnFin
                 foreach (ListsModel x in lmod4)
                 {
                     Ping p = new Ping();
-                    var task = PingAndUpdateAsync(p, x.ip,4);
+                    var task = PingAndUpdateAsync(p, x.ip, 4);
                     tasks.Add(task);
                     wait.SpinOnce();
                     p.Dispose();
@@ -158,7 +158,7 @@ namespace PScnFin
                 foreach (ListsModel x in lmod5)
                 {
                     Ping p = new Ping();
-                    var task = PingAndUpdateAsync(p, x.ip,5);
+                    var task = PingAndUpdateAsync(p, x.ip, 5);
                     tasks.Add(task);
                     wait.SpinOnce();
                     p.Dispose();
@@ -172,7 +172,7 @@ namespace PScnFin
                 foreach (ListsModel x in lmod6)
                 {
                     Ping p = new Ping();
-                    var task = PingAndUpdateAsync(p, x.ip,6);
+                    var task = PingAndUpdateAsync(p, x.ip, 6);
                     tasks.Add(task);
                     wait.SpinOnce();
                     p.Dispose();
@@ -191,9 +191,9 @@ namespace PScnFin
 
         private void get_dates()
         {
-            foreach(var x in cal.SelectedDates)
+            foreach (var x in cal.SelectedDates)
             {
-                dates.Add(x.Day.ToString() + "." + x.Month.ToString()) ;
+                dates.Add(x.Day.ToString() + "." + x.Month.ToString());
             }
         }
         private async Task PingAndUpdateAsync(Ping ping, string ip, int ver)
@@ -230,7 +230,7 @@ namespace PScnFin
                         SqliteDataAccess.UpdateUserIp((x.pc_name).Split('.')[0], x.ip);
                     }
                 }
-                    
+
                 lock (lockObj)
                 {
                     nFound++;
@@ -258,20 +258,20 @@ namespace PScnFin
                 ping.Dispose();
             }
         }
-        public static void check_dns_names_kd(string nm="")
+        public static void check_dns_names_kd(string nm = "")
         {
-            for(int i = 1; i < 1200; i++)
+            for (int i = 1; i < 1200; i++)
             {
                 try
                 {
                     nm = "KD" + i.ToString();
                     if (GetMachineNameFromIPAddress(nm).Length > 1)
-                        SqliteDataAccess.AddUser(nm, GetMachineNameFromIPAddress(nm)); 
+                        SqliteDataAccess.AddUser(nm, GetMachineNameFromIPAddress(nm));
                 }
                 catch (Exception e)
                 {
-                    if(GetMachineNameFromIPAddress(nm).Length>1)
-                    SqliteDataAccess.UpdateUserName(nm, GetMachineNameFromIPAddress(nm));
+                    if (GetMachineNameFromIPAddress(nm).Length > 1)
+                        SqliteDataAccess.UpdateUserName(nm, GetMachineNameFromIPAddress(nm));
                     Console.WriteLine(e.ToString());
                 }
             }
@@ -392,7 +392,7 @@ namespace PScnFin
         private void procscananddatabase(List<UsersModel> um, string[] prc, int sv)
         {
             Thread.Sleep(100000);
-            if (workerccl(sv)==-1)
+            if (workerccl(sv) == -1)
             {
                 return;
             }
@@ -453,7 +453,7 @@ namespace PScnFin
             int checkprocnmbrs = 0;
             foreach (string x in prc)
             {
-                if (x.Length >2)
+                if (x.Length > 2)
                     checkprocnmbrs++;
             }
 
@@ -461,7 +461,7 @@ namespace PScnFin
             sw.Restart();
             while (sw.ElapsedMilliseconds <= (Convert.ToInt64(timebox) * 60000))
             {
-                
+
                 pause.Restart();
                 foreach (UsersModel u in um)
                 {
@@ -572,7 +572,7 @@ namespace PScnFin
                 if (pause.Elapsed.TotalMilliseconds < 300000)
                     Thread.Sleep((int)(300000 - pause.Elapsed.TotalMilliseconds));
             }
-            
+
             foreach (UsersModel u in um)
             {
                 if (workerccl(sv) == -1)
@@ -610,13 +610,13 @@ namespace PScnFin
                     }
                 }
 
-                if (p+n>0)
+                if (p + n > 0)
                 {
-                    
+
                     if (u.pc_name == u.ip)
-                        if(GetMachineNameFromIPAddress(u.ip)!=string.Empty)
+                        if (GetMachineNameFromIPAddress(u.ip) != string.Empty)
                             u.pc_name = GetMachineNameFromIPAddress(u.ip);
-                        
+
                     //zeskanowac i podac nazwe
                     SqliteDataAccess.AddData(p, n, u.ip, prc[0], counter_scn);
                     if (checkprocnmbrs > 1)
@@ -651,7 +651,6 @@ namespace PScnFin
                 tab[3] = SqliteDataAccess.LoadList(name).Last().proc4;
             if (SqliteDataAccess.LoadList(name).Last().proc5 != null)
                 tab[4] = SqliteDataAccess.LoadList(name).Last().proc5;
-
         }
         double slidervalue;
         public static bool PingHost(string nameOrAddress)
@@ -662,12 +661,12 @@ namespace PScnFin
             try
             {
                 pinger = new Ping();
-                PingReply reply = pinger.Send(nameOrAddress,1000);
+                PingReply reply = pinger.Send(nameOrAddress, 1000);
                 pingable = reply.Status == IPStatus.Success;
             }
             catch (PingException)
             {
-                // Discard PingExceptions and return false;
+                
             }
             finally
             {
@@ -687,6 +686,9 @@ namespace PScnFin
         BackgroundWorker worker5;
         BackgroundWorker worker6;
         BackgroundWorker timeelsapsedworker;
+
+
+
         private void Button_Click_2(object sender, RoutedEventArgs e)//
         {
             counter_scn = 0;
@@ -696,6 +698,7 @@ namespace PScnFin
             scanbt.Background = Brushes.Red;
             progressbar.Value = 0;
             is_finished = 0;
+            namebox = listname.Text.ToString();
             worker = new BackgroundWorker();
             worker2 = new BackgroundWorker();
             worker3 = new BackgroundWorker();
@@ -704,12 +707,12 @@ namespace PScnFin
             worker6 = new BackgroundWorker();
             timeelsapsedworker = new BackgroundWorker();
             timeelsapsedworker.WorkerReportsProgress = true;
-            worker.DoWork += worker_DoWork;
-            timeelsapsedworker.DoWork += timeelsapsedworker_DoWork;
             timeelsapsedworker.ProgressChanged += timeelsapsedworker_ProgressChanged;
             timeelsapsedworker.RunWorkerCompleted += timeelsapsedworker_RunWorkerCompleted;
             addingprocesses();
-            namebox = listname.Text.ToString();
+
+            timeelsapsedworker.DoWork += timeelsapsedworker_DoWork;
+            worker.DoWork += worker_DoWork;
             worker2.DoWork += worker2_DoWork;
             worker3.DoWork += worker3_DoWork;
             worker4.DoWork += worker4_DoWork;
@@ -727,7 +730,6 @@ namespace PScnFin
             sw.Reset();
             dates = new List<string>();
             timebox = TTB.Text.ToString();
-            cal_button_display();
             DateTime now = DateTime.Now;
 
             SM = SqliteDataAccess.LoadScans();
@@ -741,13 +743,13 @@ namespace PScnFin
                 namebox2 = listname2.Text.ToString();
                 get_dates();
             }
-                
+
             if (slider.Value > 2)
             {
                 namebox3 = listname3.Text.ToString();
                 get_dates();
             }
-                
+
             if (slider.Value > 3)
             {
                 namebox4 = listname4.Text.ToString();
@@ -775,31 +777,31 @@ namespace PScnFin
                         proc_listing(namebox2, ref proc2);
                         worker2.RunWorkerAsync(2);
                     }
-                        
+
                     if (slider.Value > 2)
                     {
                         proc_listing(namebox3, ref proc3);
                         worker3.RunWorkerAsync(3);
                     }
-                        
+
                     if (slider.Value > 3)
                     {
                         proc_listing(namebox4, ref proc4);
                         worker4.RunWorkerAsync(4);
                     }
-                        
+
                     if (slider.Value > 4)
                     {
                         proc_listing(namebox5, ref proc5);
                         worker5.RunWorkerAsync(5);
                     }
-                       
+
                     if (slider.Value > 5)
                     {
                         proc_listing(namebox6, ref proc6);
                         worker6.RunWorkerAsync(6);
                     }
-                    
+
                     timeelsapsedworker.RunWorkerAsync();
                     enabledisable(false);
                 }
@@ -821,7 +823,7 @@ namespace PScnFin
             else if (e.ProgressPercentage == 0)
             {
                 enabledisable(false);
-                
+
             }
             else if (e.ProgressPercentage == -1)
             {
@@ -837,59 +839,53 @@ namespace PScnFin
             {
                 scanbt.Background = Brushes.Red;
                 enabledisable(false);
-            }       
-        }
-
-        void cal_button_display()
-        {
-            cbcalendar.Text = "";//(dates.Count / (int)slidervalue).ToString()+" dni";
+            }
         }
 
         private void enabledisable(bool isenabled)
         {
             listbutton.IsEnabled = isenabled;
             cal.IsEnabled = isenabled;
-            //scanbt.IsEnabled = isenabled;
             scanbt.IsHitTestVisible = isenabled;
             scanbt.Focusable = isenabled;
-            slider.IsEnabled = isenabled; 
+            slider.IsEnabled = isenabled;
         }
 
         void progbarchange(object sender)
         {
             int progressPercentage = 0;
             sw2.Start();
-                while (true)
+            while (true)
+            {
+                if (timeelsapsedworker.CancellationPending == true)
                 {
-                    if (timeelsapsedworker.CancellationPending == true)
-                    {
-                        (sender as BackgroundWorker).ReportProgress(-1);
-                        Console.WriteLine("cancelbt wsedl");
+                    (sender as BackgroundWorker).ReportProgress(-1);
+                    Console.WriteLine("cancelbt wsedl");
                     sw2.Reset();
                     return;
-                    }
-                    else if (progressPercentage == 100)
+                }
+                else if (progressPercentage == 100)
+                {
+                    (sender as BackgroundWorker).ReportProgress(progressPercentage);
+                    while (is_finished != slidervalue)//----------------------------------------------------------------------------------------------------------
                     {
-                        (sender as BackgroundWorker).ReportProgress(progressPercentage);
-                        while (is_finished != slidervalue)//----------------------------------------------------------------------------------------------------------
-                        {
-                            Thread.Sleep(15000);
-                        }
+                        Thread.Sleep(15000);
+                    }
 
-                        (sender as BackgroundWorker).ReportProgress(0);
-                        Thread.Sleep(1000);
-                        is_finished = 0;
+                    (sender as BackgroundWorker).ReportProgress(0);
+                    Thread.Sleep(1000);
+                    is_finished = 0;
                     sw2.Reset();
                     break;
-                    }
-                    else
-                    {
-                        progressPercentage = (int)((double)(((sw2.ElapsedMilliseconds / 60000) * 100) / (int.Parse(timebox))));
-                        (sender as BackgroundWorker).ReportProgress(progressPercentage);
-                        Thread.Sleep(5000);
-                        Console.WriteLine((sw2.ElapsedMilliseconds / 60000).ToString());
-                    }
                 }
+                else
+                {
+                    progressPercentage = (int)((double)(((sw2.ElapsedMilliseconds / 60000) * 100) / (int.Parse(timebox))));
+                    (sender as BackgroundWorker).ReportProgress(progressPercentage);
+                    Thread.Sleep(5000);
+                    Console.WriteLine((sw2.ElapsedMilliseconds / 60000).ToString());
+                }
+            }
         }
 
         private void timeelsapsedworker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -899,7 +895,7 @@ namespace PScnFin
 
         private void timeelsapsedworker_DoWork(object sender, DoWorkEventArgs e)
         {
-            
+
             while (dates.Count > 0)
             {
                 DateTime starthr = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 7, 30, 0);
@@ -912,7 +908,7 @@ namespace PScnFin
                         SqliteDataAccess.AddScan(timebox, now.ToString());
                         counter_scn++;
                         SM = SqliteDataAccess.LoadScans();
-                      }
+                    }
                     catch (Exception xxx) { MessageBox.Show(xxx.ToString()); }
                     progbarchange(sender);
                 }
@@ -921,7 +917,7 @@ namespace PScnFin
                     return;
                 }
                 Thread.Sleep(150000);
-            }          
+            }
         }
 
         int is_finished = 0;
@@ -1024,7 +1020,6 @@ namespace PScnFin
                 Thread.Sleep(150000);
             }
         }
-
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             //BaseIP = IPTB.Text.ToString();
@@ -1068,7 +1063,7 @@ namespace PScnFin
                 listname3.Visibility = Visibility.Visible;
                 listname2.Visibility = Visibility.Visible;
             }
-            else if(slider.Value == 3)
+            else if (slider.Value == 3)
             {
                 listname6.Visibility = Visibility.Hidden;
                 listname5.Visibility = Visibility.Hidden;
@@ -1076,7 +1071,7 @@ namespace PScnFin
                 listname3.Visibility = Visibility.Visible;
                 listname2.Visibility = Visibility.Visible;
             }
-            else if(slider.Value==2)
+            else if (slider.Value == 2)
             {
                 listname6.Visibility = Visibility.Hidden;
                 listname5.Visibility = Visibility.Hidden;
@@ -1119,226 +1114,31 @@ namespace PScnFin
         private void listname_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             lmod = SqliteDataAccess.LoadList(listname.SelectedItem.ToString());
-            if (lmod[lmod.Count-1].proc5 != "")
-            {
-                visibility5();
-                CB.Text = lmod[lmod.Count - 1].proc1;
-                CB2.Text = lmod[lmod.Count - 1].proc2;
-                CB3.Text = lmod[lmod.Count - 1].proc3;
-                CB4.Text = lmod[lmod.Count - 1].proc4;
-                CB5.Text = lmod[lmod.Count - 1].proc5;
-                RB5.IsChecked = true;
-            }
-            else if (lmod[lmod.Count - 1].proc4 != "")
-            {
-                visibility4();
-                CB.Text = lmod[lmod.Count - 1].proc1;
-                CB2.Text = lmod[lmod.Count - 1].proc2;
-                CB3.Text = lmod[lmod.Count - 1].proc3;
-                CB4.Text = lmod[lmod.Count - 1].proc4;
-                RB4.IsChecked = true;
-            }
-            else if (lmod[lmod.Count - 1].proc3 != "")
-            {
-                visibility3();
-                CB.Text = lmod[lmod.Count - 1].proc1;
-                CB2.Text = lmod[lmod.Count - 1].proc2;
-                CB3.Text = lmod[lmod.Count - 1].proc3;
-                RB3.IsChecked = true;
-            }
-            else if (lmod[lmod.Count - 1].proc2 != "")
-            {
-                visibility2();
-                CB.Text = lmod[lmod.Count - 1].proc1;
-                CB2.Text = lmod[lmod.Count - 1].proc2;
-                RB2.IsChecked = true;
-            }
-            else
-            {
-                visibility1();
-                CB.Text = lmod[lmod.Count - 1].proc1;
-                RB1.IsChecked = true;
-            }
+            text_changer(lmod);
         }
 
         private void listname2_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             lmod2 = SqliteDataAccess.LoadList(listname2.SelectedItem.ToString());
-            if (lmod2[lmod2.Count - 1].proc5 != "")
-            {
-                visibility5();
-                CB.Text = lmod2[lmod2.Count - 1].proc1;
-                CB2.Text = lmod2[lmod2.Count - 1].proc2;
-                CB3.Text = lmod2[lmod2.Count - 1].proc3;
-                CB4.Text = lmod2[lmod2.Count - 1].proc4;
-                CB5.Text = lmod2[lmod2.Count - 1].proc5;
-                RB5.IsChecked = true;
-            }
-            else if (lmod2[lmod2.Count - 1].proc4 != "")
-            {
-                visibility4();
-                CB.Text = lmod2[lmod2.Count - 1].proc1;
-                CB2.Text = lmod2[lmod2.Count - 1].proc2;
-                CB3.Text = lmod2[lmod2.Count - 1].proc3;
-                CB4.Text = lmod2[lmod2.Count - 1].proc4;
-                RB4.IsChecked = true;
-            }
-            else if (lmod2[lmod2.Count - 1].proc3 != "")
-            {
-                visibility3();
-                CB.Text = lmod2[lmod2.Count - 1].proc1;
-                CB2.Text = lmod2[lmod2.Count - 1].proc2;
-                CB3.Text = lmod2[lmod2.Count - 1].proc3;
-                RB3.IsChecked = true;
-            }
-            else if (lmod2[lmod2.Count - 1].proc2 != "")
-            {
-                visibility2();
-                CB.Text = lmod2[lmod2.Count - 1].proc1;
-                CB2.Text = lmod2[lmod2.Count - 1].proc2;
-                RB2.IsChecked = true;
-            }
-            else
-            {
-                visibility1();
-                CB.Text = lmod2[lmod2.Count - 1].proc1;
-                RB1.IsChecked = true;
-            }
+            text_changer(lmod2);
         }
 
         private void listname3_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             lmod3 = SqliteDataAccess.LoadList(listname3.SelectedItem.ToString());
-            if (lmod3[lmod3.Count - 1].proc5 != "")
-            {
-                visibility5();
-                CB.Text = lmod3[lmod3.Count - 1].proc1;
-                CB2.Text = lmod3[lmod3.Count - 1].proc2;
-                CB3.Text = lmod3[lmod3.Count - 1].proc3;
-                CB4.Text = lmod3[lmod3.Count - 1].proc4;
-                CB5.Text = lmod3[lmod3.Count - 1].proc5;
-                RB5.IsChecked = true;
-            }
-            else if (lmod3[lmod3.Count - 1].proc4 != "")
-            {
-                visibility4();
-                CB.Text = lmod3[lmod3.Count - 1].proc1;
-                CB2.Text = lmod3[lmod3.Count - 1].proc2;
-                CB3.Text = lmod3[lmod3.Count - 1].proc3;
-                CB4.Text = lmod3[lmod3.Count - 1].proc4;
-                RB4.IsChecked = true;
-            }
-            else if (lmod3[lmod3.Count - 1].proc3 != "")
-            {
-                visibility3();
-                CB.Text = lmod3[lmod3.Count - 1].proc1;
-                CB2.Text = lmod3[lmod3.Count - 1].proc2;
-                CB3.Text = lmod3[lmod3.Count - 1].proc3;
-                RB3.IsChecked = true;
-            }
-            else if (lmod3[lmod3.Count - 1].proc2 != "")
-            {
-                visibility2();
-                CB.Text = lmod3[lmod3.Count - 1].proc1;
-                CB2.Text = lmod3[lmod3.Count - 1].proc2;
-                RB2.IsChecked = true;
-            }
-            else
-            {
-                visibility1();
-                CB.Text = lmod3[lmod3.Count - 1].proc1;
-                RB1.IsChecked = true;
-            }
+            text_changer(lmod3);
         }
 
         private void listname4_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             lmod4 = SqliteDataAccess.LoadList(listname4.SelectedItem.ToString());
-            if (lmod4[lmod4.Count - 1].proc5 != "")
-            {
-                visibility5();
-                CB.Text = lmod4[lmod4.Count - 1].proc1;
-                CB2.Text = lmod4[lmod4.Count - 1].proc2;
-                CB3.Text = lmod4[lmod4.Count - 1].proc3;
-                CB4.Text = lmod4[lmod4.Count - 1].proc4;
-                CB5.Text = lmod4[lmod4.Count - 1].proc5;
-                RB5.IsChecked = true;
-            }
-            else if (lmod4[lmod4.Count - 1].proc4 != "")
-            {
-                visibility4();
-                CB.Text = lmod4[lmod4.Count - 1].proc1;
-                CB2.Text = lmod4[lmod4.Count - 1].proc2;
-                CB3.Text = lmod4[lmod4.Count - 1].proc3;
-                CB4.Text = lmod4[lmod4.Count - 1].proc4;
-                RB4.IsChecked = true;
-            }
-            else if (lmod4[lmod4.Count - 1].proc3 != "")
-            {
-                visibility3();
-                CB.Text = lmod4[lmod4.Count - 1].proc1;
-                CB2.Text = lmod4[lmod4.Count - 1].proc2;
-                CB3.Text = lmod4[lmod4.Count - 1].proc3;
-                RB3.IsChecked = true;
-            }
-            else if (lmod4[lmod4.Count - 1].proc2 != "")
-            {
-                visibility2();
-                CB.Text = lmod4[lmod4.Count - 1].proc1;
-                CB2.Text = lmod4[lmod4.Count - 1].proc2;
-                RB2.IsChecked = true;
-            }
-            else
-            {
-                visibility1();
-                CB.Text = lmod4[lmod4.Count - 1].proc1;
-                RB1.IsChecked = true;
-            }
+            text_changer(lmod4);
         }
 
         private void listname5_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             lmod5 = SqliteDataAccess.LoadList(listname5.SelectedItem.ToString());
-            if (lmod5[lmod5.Count - 1].proc5 != "")
-            {
-                visibility5();
-                CB.Text = lmod5[lmod5.Count - 1].proc1;
-                CB2.Text = lmod5[lmod5.Count - 1].proc2;
-                CB3.Text = lmod5[lmod5.Count - 1].proc3;
-                CB4.Text = lmod5[lmod5.Count - 1].proc4;
-                CB5.Text = lmod5[lmod5.Count - 1].proc5;
-                RB5.IsChecked = true;
-            }
-            else if (lmod5[lmod5.Count - 1].proc4 != "")
-            {
-                visibility4();
-                CB.Text = lmod5[lmod5.Count - 1].proc1;
-                CB2.Text = lmod5[lmod5.Count - 1].proc2;
-                CB3.Text = lmod5[lmod5.Count - 1].proc3;
-                CB4.Text = lmod5[lmod5.Count - 1].proc4;
-                RB4.IsChecked = true;
-            }
-            else if (lmod5[lmod5.Count - 1].proc3 != "")
-            {
-                visibility3();
-                CB.Text = lmod5[lmod5.Count - 1].proc1;
-                CB2.Text = lmod5[lmod5.Count - 1].proc2;
-                CB3.Text = lmod5[lmod5.Count - 1].proc3;
-                RB3.IsChecked = true;
-            }
-            else if (lmod5[lmod5.Count - 1].proc2 != "")
-            {
-                visibility2();
-                CB.Text = lmod5[lmod5.Count - 1].proc1;
-                CB2.Text = lmod5[lmod5.Count - 1].proc2;
-                RB2.IsChecked = true;
-            }
-            else
-            {
-                visibility1();
-                CB.Text = lmod5[lmod5.Count - 1].proc1;
-                RB1.IsChecked = true;
-            }
+            text_changer(lmod5);
         }
 
         private void cancelbt_Click(object sender, RoutedEventArgs e)
@@ -1381,49 +1181,10 @@ namespace PScnFin
         /// <param name="e"></param>
         private void mover(object sender, MouseEventArgs e)
         {
-            if (listname.SelectedItem!=null)
+            if (listname.SelectedItem != null)
             {
                 lmod = SqliteDataAccess.LoadList(listname.SelectedItem.ToString());
-                if (lmod[lmod.Count - 1].proc5 != "")
-                {
-                    visibility5();
-                    CB.Text = lmod[lmod.Count - 1].proc1;
-                    CB2.Text = lmod[lmod.Count - 1].proc2;
-                    CB3.Text = lmod[lmod.Count - 1].proc3;
-                    CB4.Text = lmod[lmod.Count - 1].proc4;
-                    CB5.Text = lmod[lmod.Count - 1].proc5;
-                    RB5.IsChecked = true;
-                }
-                else if (lmod[lmod.Count - 1].proc4 != "")
-                {
-                    visibility4();
-                    CB.Text = lmod[lmod.Count - 1].proc1;
-                    CB2.Text = lmod[lmod.Count - 1].proc2;
-                    CB3.Text = lmod[lmod.Count - 1].proc3;
-                    CB4.Text = lmod[lmod.Count - 1].proc4;
-                    RB4.IsChecked = true;
-                }
-                else if (lmod[lmod.Count - 1].proc3 != "")
-                {
-                    visibility3();
-                    CB.Text = lmod[lmod.Count - 1].proc1;
-                    CB2.Text = lmod[lmod.Count - 1].proc2;
-                    CB3.Text = lmod[lmod.Count - 1].proc3;
-                    RB3.IsChecked = true;
-                }
-                else if (lmod[lmod.Count - 1].proc2 != "")
-                {
-                    visibility2();
-                    CB.Text = lmod[lmod.Count - 1].proc1;
-                    CB2.Text = lmod[lmod.Count - 1].proc2;
-                    RB2.IsChecked = true;
-                }
-                else
-                {
-                    visibility1();
-                    CB.Text = lmod[lmod.Count - 1].proc1;
-                    RB1.IsChecked = true;
-                }
+                text_changer(lmod);
             }
         }
 
@@ -1432,46 +1193,7 @@ namespace PScnFin
             if (listname2.SelectedItem != null)
             {
                 lmod2 = SqliteDataAccess.LoadList(listname2.SelectedItem.ToString());
-                if (lmod2[lmod2.Count - 1].proc5 != "")
-                {
-                    visibility5();
-                    CB.Text = lmod2[lmod2.Count - 1].proc1;
-                    CB2.Text = lmod2[lmod2.Count - 1].proc2;
-                    CB3.Text = lmod2[lmod2.Count - 1].proc3;
-                    CB4.Text = lmod2[lmod2.Count - 1].proc4;
-                    CB5.Text = lmod2[lmod2.Count - 1].proc5;
-                    RB5.IsChecked = true;
-                }
-                else if (lmod2[lmod2.Count - 1].proc4 != "")
-                {
-                    visibility4();
-                    CB.Text = lmod2[lmod2.Count - 1].proc1;
-                    CB2.Text = lmod2[lmod2.Count - 1].proc2;
-                    CB3.Text = lmod2[lmod2.Count - 1].proc3;
-                    CB4.Text = lmod2[lmod2.Count - 1].proc4;
-                    RB4.IsChecked = true;
-                }
-                else if (lmod2[lmod2.Count - 1].proc3 != "")
-                {
-                    visibility3();
-                    CB.Text = lmod2[lmod2.Count - 1].proc1;
-                    CB2.Text = lmod2[lmod2.Count - 1].proc2;
-                    CB3.Text = lmod2[lmod2.Count - 1].proc3;
-                    RB3.IsChecked = true;
-                }
-                else if (lmod2[lmod2.Count - 1].proc2 != "")
-                {
-                    visibility2();
-                    CB.Text = lmod2[lmod2.Count - 1].proc1;
-                    CB2.Text = lmod2[lmod2.Count - 1].proc2;
-                    RB2.IsChecked = true;
-                }
-                else
-                {
-                    visibility1();
-                    CB.Text = lmod2[lmod2.Count - 1].proc1;
-                    RB1.IsChecked = true;
-                }
+                text_changer(lmod2);
             }
         }
 
@@ -1480,46 +1202,7 @@ namespace PScnFin
             if (listname3.SelectedItem != null)
             {
                 lmod3 = SqliteDataAccess.LoadList(listname3.SelectedItem.ToString());
-                if (lmod3[lmod3.Count - 1].proc5 != "")
-                {
-                    visibility5();
-                    CB.Text = lmod3[lmod3.Count - 1].proc1;
-                    CB2.Text = lmod3[lmod3.Count - 1].proc2;
-                    CB3.Text = lmod3[lmod3.Count - 1].proc3;
-                    CB4.Text = lmod3[lmod3.Count - 1].proc4;
-                    CB5.Text = lmod3[lmod3.Count - 1].proc5;
-                    RB5.IsChecked = true;
-                }
-                else if (lmod3[lmod3.Count - 1].proc4 != "")
-                {
-                    visibility4();
-                    CB.Text = lmod3[lmod3.Count - 1].proc1;
-                    CB2.Text = lmod3[lmod3.Count - 1].proc2;
-                    CB3.Text = lmod3[lmod3.Count - 1].proc3;
-                    CB4.Text = lmod3[lmod3.Count - 1].proc4;
-                    RB4.IsChecked = true;
-                }
-                else if (lmod3[lmod3.Count - 1].proc3 != "")
-                {
-                    visibility3();
-                    CB.Text = lmod3[lmod3.Count - 1].proc1;
-                    CB2.Text = lmod3[lmod3.Count - 1].proc2;
-                    CB3.Text = lmod3[lmod3.Count - 1].proc3;
-                    RB3.IsChecked = true;
-                }
-                else if (lmod3[lmod3.Count - 1].proc2 != "")
-                {
-                    visibility2();
-                    CB.Text = lmod3[lmod3.Count - 1].proc1;
-                    CB2.Text = lmod3[lmod3.Count - 1].proc2;
-                    RB2.IsChecked = true;
-                }
-                else
-                {
-                    visibility1();
-                    CB.Text = lmod3[lmod3.Count - 1].proc1;
-                    RB1.IsChecked = true;
-                }
+                text_changer(lmod3);
             }
         }
 
@@ -1528,46 +1211,7 @@ namespace PScnFin
             if (listname4.SelectedItem != null)
             {
                 lmod4 = SqliteDataAccess.LoadList(listname4.SelectedItem.ToString());
-                if (lmod4[lmod4.Count - 1].proc5 != "")
-                {
-                    visibility5();
-                    CB.Text = lmod4[lmod4.Count - 1].proc1;
-                    CB2.Text = lmod4[lmod4.Count - 1].proc2;
-                    CB3.Text = lmod4[lmod4.Count - 1].proc3;
-                    CB4.Text = lmod4[lmod4.Count - 1].proc4;
-                    CB5.Text = lmod4[lmod4.Count - 1].proc5;
-                    RB5.IsChecked = true;
-                }
-                else if (lmod4[lmod4.Count - 1].proc4 != "")
-                {
-                    visibility4();
-                    CB.Text = lmod4[lmod4.Count - 1].proc1;
-                    CB2.Text = lmod4[lmod4.Count - 1].proc2;
-                    CB3.Text = lmod4[lmod4.Count - 1].proc3;
-                    CB4.Text = lmod4[lmod4.Count - 1].proc4;
-                    RB4.IsChecked = true;
-                }
-                else if (lmod4[lmod4.Count - 1].proc3 != "")
-                {
-                    visibility3();
-                    CB.Text = lmod4[lmod4.Count - 1].proc1;
-                    CB2.Text = lmod4[lmod4.Count - 1].proc2;
-                    CB3.Text = lmod4[lmod4.Count - 1].proc3;
-                    RB3.IsChecked = true;
-                }
-                else if (lmod4[lmod4.Count - 1].proc2 != "")
-                {
-                    visibility2();
-                    CB.Text = lmod4[lmod4.Count - 1].proc1;
-                    CB2.Text = lmod4[lmod4.Count - 1].proc2;
-                    RB2.IsChecked = true;
-                }
-                else
-                {
-                    visibility1();
-                    CB.Text = lmod4[lmod4.Count - 1].proc1;
-                    RB1.IsChecked = true;
-                }
+                text_changer(lmod4);
             }
         }
 
@@ -1576,46 +1220,7 @@ namespace PScnFin
             if (listname5.SelectedItem != null)
             {
                 lmod5 = SqliteDataAccess.LoadList(listname5.SelectedItem.ToString());
-                if (lmod5[lmod5.Count - 1].proc5 != "")
-                {
-                    visibility5();
-                    CB.Text = lmod5[lmod5.Count - 1].proc1;
-                    CB2.Text = lmod5[lmod5.Count - 1].proc2;
-                    CB3.Text = lmod5[lmod5.Count - 1].proc3;
-                    CB4.Text = lmod5[lmod5.Count - 1].proc4;
-                    CB5.Text = lmod5[lmod5.Count - 1].proc5;
-                    RB5.IsChecked = true;
-                }
-                else if (lmod5[lmod5.Count - 1].proc4 != "")
-                {
-                    visibility4();
-                    CB.Text = lmod5[lmod5.Count - 1].proc1;
-                    CB2.Text = lmod5[lmod5.Count - 1].proc2;
-                    CB3.Text = lmod5[lmod5.Count - 1].proc3;
-                    CB4.Text = lmod5[lmod5.Count - 1].proc4;
-                    RB4.IsChecked = true;
-                }
-                else if (lmod5[lmod5.Count - 1].proc3 != "")
-                {
-                    visibility3();
-                    CB.Text = lmod5[lmod5.Count - 1].proc1;
-                    CB2.Text = lmod5[lmod5.Count - 1].proc2;
-                    CB3.Text = lmod5[lmod5.Count - 1].proc3;
-                    RB3.IsChecked = true;
-                }
-                else if (lmod5[lmod5.Count - 1].proc2 != "")
-                {
-                    visibility2();
-                    CB.Text = lmod5[lmod5.Count - 1].proc1;
-                    CB2.Text = lmod5[lmod5.Count - 1].proc2;
-                    RB2.IsChecked = true;
-                }
-                else
-                {
-                    visibility1();
-                    CB.Text = lmod5[lmod5.Count - 1].proc1;
-                    RB1.IsChecked = true;
-                }
+                text_changer(lmod5);
             }
         }
 
@@ -1624,46 +1229,8 @@ namespace PScnFin
             if (listname6.SelectedItem != null)
             {
                 lmod6 = SqliteDataAccess.LoadList(listname6.SelectedItem.ToString());
-                if (lmod6[lmod6.Count - 1].proc5 != "")
-                {
-                    visibility5();
-                    CB.Text = lmod6[lmod6.Count - 1].proc1;
-                    CB2.Text = lmod6[lmod6.Count - 1].proc2;
-                    CB3.Text = lmod6[lmod6.Count - 1].proc3;
-                    CB4.Text = lmod6[lmod6.Count - 1].proc4;
-                    CB5.Text = lmod6[lmod6.Count - 1].proc5;
-                    RB5.IsChecked = true;
-                }
-                else if (lmod6[lmod6.Count - 1].proc4 != "")
-                {
-                    visibility4();
-                    CB.Text = lmod6[lmod6.Count - 1].proc1;
-                    CB2.Text = lmod6[lmod6.Count - 1].proc2;
-                    CB3.Text = lmod6[lmod6.Count - 1].proc3;
-                    CB4.Text = lmod6[lmod6.Count - 1].proc4;
-                    RB4.IsChecked = true;
-                }
-                else if (lmod6[lmod6.Count - 1].proc3 != "")
-                {
-                    visibility3();
-                    CB.Text = lmod6[lmod6.Count - 1].proc1;
-                    CB2.Text = lmod6[lmod6.Count - 1].proc2;
-                    CB3.Text = lmod6[lmod6.Count - 1].proc3;
-                    RB3.IsChecked = true;
-                }
-                else if (lmod6[lmod6.Count - 1].proc2 != "")
-                {
-                    visibility2();
-                    CB.Text = lmod6[lmod6.Count - 1].proc1;
-                    CB2.Text = lmod6[lmod6.Count - 1].proc2;
-                    RB2.IsChecked = true;
-                }
-                else
-                {
-                    visibility1();
-                    CB.Text = lmod6[lmod6.Count - 1].proc1;
-                    RB1.IsChecked = true;
-                }
+                text_changer(lmod6);
+                
             }
         }
 
@@ -1686,46 +1253,54 @@ namespace PScnFin
         private void listname6_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             lmod6 = SqliteDataAccess.LoadList(listname6.SelectedItem.ToString());
-            if (lmod6[lmod6.Count - 1].proc5 != "")
+
+            text_changer(lmod6);
+            
+        }
+
+        void text_changer(List<ListsModel> lm)
+        {
+            if (lm[lm.Count - 1].proc5 != "")
             {
                 visibility5();
-                CB.Text = lmod6[lmod6.Count - 1].proc1;
-                CB2.Text = lmod6[lmod6.Count - 1].proc2;
-                CB3.Text = lmod6[lmod6.Count - 1].proc3;
-                CB4.Text = lmod6[lmod6.Count - 1].proc4;
-                CB5.Text = lmod6[lmod6.Count - 1].proc5;
+                CB.Text = lm[lm.Count - 1].proc1;
+                CB2.Text = lm[lm.Count - 1].proc2;
+                CB3.Text = lm[lm.Count - 1].proc3;
+                CB4.Text = lm[lm.Count - 1].proc4;
+                CB5.Text = lm[lm.Count - 1].proc5;
                 RB5.IsChecked = true;
             }
-            else if (lmod6[lmod6.Count - 1].proc4 != "")
+            else if (lm[lm.Count - 1].proc4 != "")
             {
                 visibility4();
-                CB.Text = lmod6[lmod6.Count - 1].proc1;
-                CB2.Text = lmod6[lmod6.Count - 1].proc2;
-                CB3.Text = lmod6[lmod6.Count - 1].proc3;
-                CB4.Text = lmod6[lmod6.Count - 1].proc4;
+                CB.Text = lm[lm.Count - 1].proc1;
+                CB2.Text = lm[lm.Count - 1].proc2;
+                CB3.Text = lm[lm.Count - 1].proc3;
+                CB4.Text = lm[lm.Count - 1].proc4;
                 RB4.IsChecked = true;
             }
-            else if (lmod6[lmod6.Count - 1].proc3 != "")
+            else if (lm[lm.Count - 1].proc3 != "")
             {
                 visibility3();
-                CB.Text = lmod6[lmod6.Count - 1].proc1;
-                CB2.Text = lmod6[lmod6.Count - 1].proc2;
-                CB3.Text = lmod6[lmod6.Count - 1].proc3;
+                CB.Text = lm[lm.Count - 1].proc1;
+                CB2.Text = lm[lm.Count - 1].proc2;
+                CB3.Text = lm[lm.Count - 1].proc3;
                 RB3.IsChecked = true;
             }
-            else if (lmod6[lmod6.Count - 1].proc2 != "")
+            else if (lm[lm.Count - 1].proc2 != "")
             {
                 visibility2();
-                CB.Text = lmod6[lmod6.Count - 1].proc1;
-                CB2.Text = lmod6[lmod6.Count - 1].proc2;
+                CB.Text = lm[lm.Count - 1].proc1;
+                CB2.Text = lm[lm.Count - 1].proc2;
                 RB2.IsChecked = true;
             }
             else
             {
                 visibility1();
-                CB.Text = lmod6[lmod6.Count - 1].proc1;
+                CB.Text = lm[lm.Count - 1].proc1;
                 RB1.IsChecked = true;
             }
+
         }
 
         void visibility1()

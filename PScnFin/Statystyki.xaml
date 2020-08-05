@@ -22,7 +22,7 @@
         <Label Content="Używanie podczas skanowań (%):" HorizontalAlignment="Left" Margin="195,125,0,0" VerticalAlignment="Top" FontSize="14"/>
         <Label Content="Czas skanowań(min):" HorizontalAlignment="Left" Margin="225,182,0,0" VerticalAlignment="Top" Width="138" FontSize="14"/>
         <Label Content="Średnia użycia (%):" HorizontalAlignment="Left" Margin="233,243,0,0" VerticalAlignment="Top" FontSize="14"/>
-        <TextBox x:Name="filter" TextAlignment="Center" Style="{x:Null}" HorizontalAlignment="Left" Height="23" Margin="48,65,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Background="#FFD5F4F7" BorderBrush="#FF3A60D1"/>
+        <TextBox x:Name="filter" TextAlignment="Center" Style="{x:Null}" HorizontalAlignment="Left" Height="23" Margin="48,65,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Background="#FFD5F4F7" BorderBrush="#FF3A60D1" TextChanged="filter_TextChanged"/>
 
     </Grid>
 </Window>

@@ -24,7 +24,6 @@ namespace PScnFin
         public DBManage()
         {
             InitializeComponent();
-            //fill_cb();
         }
 
         List<UsersModel> um = new List<UsersModel>();
@@ -163,7 +162,7 @@ namespace PScnFin
 
         private void sorttb_TextChanged(object sender, TextChangedEventArgs e)
         {
-            filter(sorttb.Text,sorttb2.Text);
+            filter(sorttb.Text, sorttb2.Text);
         }
 
 
@@ -184,7 +183,7 @@ namespace PScnFin
             {
                 if (sortcb.Text == "pc_name")
                 {
-                    
+
                     foreach (var x in um)
                     {
                         if (x.pc_name.Contains(filter))
@@ -300,16 +299,16 @@ namespace PScnFin
                 else if (sortcb.Text == "usage")
                 {
                     int test;
-                    if (int.TryParse(filter,out test)==true)
+                    if (int.TryParse(filter, out test) == true)
                     {
                         foreach (var x in dm)
                         {
                             if (x.usage_percentage >= double.Parse(filter))
                                 dmtemp.Add(x);
                         }
-                        dg.ItemsSource = dmtemp; 
+                        dg.ItemsSource = dmtemp;
                     }
-                    
+
                 }
                 //second filter
                 if (sortcb2.Text == "data_id")

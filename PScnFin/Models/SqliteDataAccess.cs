@@ -159,7 +159,7 @@ namespace PScnFin.Models
             }
         }
 
-        public static void AddList(string ip, string listname, string proc1="", string proc2 = "", string proc3 = "", string proc4 = "", string proc5 = "")
+        public static void AddList(string ip, string listname, string proc1 = "", string proc2 = "", string proc3 = "", string proc4 = "", string proc5 = "")
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
@@ -167,9 +167,9 @@ namespace PScnFin.Models
             }
         }
 
-        public static void DeletefromList(string listname, string ip="")
+        public static void DeletefromList(string listname, string ip = "")
         {
-            
+
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
                 cnn.Execute($"delete from Lists where ip='{ip}' and list_name={listname};");
@@ -185,7 +185,8 @@ namespace PScnFin.Models
             }
         }
 
-        private static string LoadConnectionString(string id = "Default") {
+        private static string LoadConnectionString(string id = "Default")
+        {
             return ConfigurationManager.ConnectionStrings[id].ConnectionString;
         }
     }

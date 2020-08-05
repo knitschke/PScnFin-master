@@ -37,27 +37,15 @@ namespace PScnFin
                 CB.Items.Add(o.process_name);
             }
             CB.SelectedIndex = 0;
-            /*
-            CB.ItemsSource = null;
-            CB.ItemsSource = PM;
-            
-            CB.DisplayMemberPath = "process_name";
-            */
         }
         private void LoadUsersList()
         {
-            //UM = SqliteDataAccess.LoadUsers();
-            /*LB.ItemsSource = null;
-            LB.ItemsSource = UM;
-            LB.DisplayMemberPath = "full";*/
             UM = SqliteDataAccess.StatsLoad(CB.SelectedItem.ToString());
             foreach (UsersModel o in UM)
             {
                 LB.Items.Add(o.full);
             }
         }
-
-        
 
         private void LB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -69,20 +57,10 @@ namespace PScnFin
             time = 0;
             DM = SqliteDataAccess.LoadDataExact(CB.SelectedItem.ToString()); ;
             SM = SqliteDataAccess.LoadScans();
-            if(LB.SelectedItem!=null)
+            if (LB.SelectedItem != null)
                 slcted = LB.SelectedItem.ToString();
             string[] xx;
-            /*for (int i = 0; i < slcted.Length; i++)
-            {
-                if (slcted[i] != ' ')
-                    continue;
-                else
-                {
-
-                }
-            }*/
             xx = slcted.Split(' ');
-
 
             foreach (DataModel o in DM)
             {
@@ -101,7 +79,7 @@ namespace PScnFin
             if (countp + countn > 0)
                 x = (countp * 100) / (countp + countn);
             T1.Text = x.ToString() + "%";
-            T2.Text = time.ToString();//narazie
+            T2.Text = time.ToString();
 
             DMtime = SqliteDataAccess.LoadDataTime(slctedproc);
             foreach (DataModel t in DMtime)
@@ -120,6 +98,18 @@ namespace PScnFin
         {
             LB.Items.Clear();
             LoadUsersList();
+        }
+
+        private void filter_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            UM = SqliteDataAccess.StatsLoad(CB.SelectedItem.ToString());
+            LB.Items.Clear();
+
+            foreach (var x in UM)
+            {
+                if (x.full.Contains(filter.Text))
+                    LB.Items.Add(x.full);
+            }
         }
     }
 }
