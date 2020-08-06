@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PScnFin" xmlns:eo="http://schemas.microsoft.com/netfx/2009/xaml/presentation"
         mc:Ignorable="d"
-        Title="" Height="552.2" Width="435.177"
+        Title="Pscn" Height="552.2" Width="435.177"
         WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize" BorderBrush="#FF594D4D" Background="#FF765656">
     <Grid Margin="-2,0,-2,-8" HorizontalAlignment="Left" Width="433">
         <Grid.Background>

@@ -391,7 +391,7 @@ namespace PScnFin
 
         private void procscananddatabase(List<UsersModel> um, string[] prc, int sv)
         {
-            Thread.Sleep(100000);
+            Thread.Sleep(100000);//100000
             if (workerccl(sv) == -1)
             {
                 return;
@@ -569,8 +569,8 @@ namespace PScnFin
                             Console.WriteLine(exc.ToString() + ":  " + prc[0] + u.pc_name);
                         }
                 }
-                if (pause.Elapsed.TotalMilliseconds < 300000)
-                    Thread.Sleep((int)(300000 - pause.Elapsed.TotalMilliseconds));
+                if (pause.Elapsed.TotalMilliseconds < 300000)//300000
+                    Thread.Sleep((int)(300000 - pause.Elapsed.TotalMilliseconds));//
             }
 
             foreach (UsersModel u in um)
@@ -890,7 +890,7 @@ namespace PScnFin
 
         private void timeelsapsedworker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            sw2.Stop();
+            sw2.Reset();
         }
 
         private void timeelsapsedworker_DoWork(object sender, DoWorkEventArgs e)
@@ -916,7 +916,7 @@ namespace PScnFin
                 {
                     return;
                 }
-                Thread.Sleep(150000);
+                Thread.Sleep(150000);//150000
             }
         }
 
@@ -951,13 +951,13 @@ namespace PScnFin
                 {
                     return;
                 }
-                Thread.Sleep(50000);
+                Thread.Sleep(50000);//50000
                 if (dnscan == false)
                 {
                     check_dns_names_kd();
                     dnscan = true;
                 }
-                Thread.Sleep(100000);
+                Thread.Sleep(100000);//100000
             }
         }
         private void worker2_DoWork(object sender, DoWorkEventArgs e)

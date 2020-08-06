@@ -96,7 +96,7 @@ namespace PScnFin.Models
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                cnn.Execute($"insert into data (positive_scan,negative_scan, ip, scan_id, process_name) values('{p}','{n}','{pc}','{scn}','{proc}');");
+                cnn.Execute($"insert into data (positive_scan, negative_scan, ip, scan_id, process_name) values('{p}','{n}','{pc}','{scn}','{proc}');");
             }
         }
         public static void AddScan(string time, string date)
