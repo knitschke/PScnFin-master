@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using PScnFin.Models;
+using System.Collections.Generic;
 using System.Linq;
-using PScnFin.Models;
 namespace PScnFin
 {
     public class DataModel
@@ -35,7 +35,7 @@ namespace PScnFin
         }
         public double usage_percentage
         {
-            get 
+            get
             {
                 if (negative_scan + positive_scan == 0)
                     return -1;

@@ -76,7 +76,7 @@
                 </Calendar.BorderBrush>
             </Calendar>
         </ComboBox>
-        <Label Name="daysleft" Content="Pozostało dni:" HorizontalAlignment="Left" Margin="10,395,0,0" VerticalAlignment="Top" Width="118" Height="38" FontSize="15"/>
+        <Label Name="daysleft" Content="Pozostało dni:" HorizontalAlignment="Left" Margin="7,395,0,0" VerticalAlignment="Top" Width="118" Height="38" FontSize="15"/>
         <Button Name="cancelbt" Content="Anuluj skan" HorizontalAlignment="Left" Margin="296,406,0,0" VerticalAlignment="Top" Width="110" Height="32" Click="cancelbt_Click" Background="#FF4D565D"/>
         <Label Content="Kalendarz" HorizontalAlignment="Left" Margin="180,368,0,0" VerticalAlignment="Top" Width="59"/>
 

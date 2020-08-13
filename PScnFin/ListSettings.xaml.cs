@@ -114,7 +114,7 @@ namespace PScnFin
         private void add_Click(object sender, RoutedEventArgs e)
         {
             calc_ip_diff();
-            if (singleadd.Text.Contains("kd") || singleadd.Text.Contains("KD") || singleadd.Text.Contains("Kd") || singleadd.Text.Contains("kD")||singleadd.Text.Length<4)
+            if (singleadd.Text.Contains("kd") || singleadd.Text.Contains("KD") || singleadd.Text.Contains("Kd") || singleadd.Text.Contains("kD") || singleadd.Text.Length < 4)
             {
                 List<UsersModel> um;
                 um = SqliteDataAccess.LoadUsers();
@@ -130,7 +130,7 @@ namespace PScnFin
             }
             else if (singleadd.Text != "")
                 templist.Items.Add(singleadd.Text);
-            
+
         }
 
         private void LoadProcsList()
@@ -523,7 +523,7 @@ namespace PScnFin
                 if (x.ToString().Contains("kd") == false || x.ToString().Contains("KD") == false || x.ToString().Contains("Kd") == false)
                 {
                     UM = SqliteDataAccess.LoadUserIp(x.ToString());
-                    if(SqliteDataAccess.LoadListPCname(x.ToString()).Count>0)
+                    if (SqliteDataAccess.LoadListPCname(x.ToString()).Count > 0)
                         SqliteDataAccess.DeletefromList(listname.Text.ToString(), UM[0].ip);
                 }
                 else

@@ -1,18 +1,8 @@
-﻿using System;
+﻿using PScnFin.Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using PScnFin.Models;
-using PScnFin;
 
 namespace PScnFin
 {
@@ -55,7 +45,6 @@ namespace PScnFin
             sortcb2.Items.Add("process_name");
             sortcb2.Items.Add("scan_time");
             sortcb2.Items.Add("usage");
-
         }
         void fill_cb_lists()
         {
@@ -152,7 +141,6 @@ namespace PScnFin
             sm = SqliteDataAccess.LoadScans();
             dg.ItemsSource = sm;
             fill_cb_scans();
-
         }
 
         private void sortcb_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -164,8 +152,6 @@ namespace PScnFin
         {
             filter(sorttb.Text, sorttb2.Text);
         }
-
-
 
         void filter(string filter, string filter2)
         {
@@ -220,7 +206,6 @@ namespace PScnFin
                     }
                     dg.ItemsSource = umtemp2;
                 }
-
             }
             else if (current_table == "data")
             {
@@ -308,7 +293,6 @@ namespace PScnFin
                         }
                         dg.ItemsSource = dmtemp;
                     }
-
                 }
                 //second filter
                 if (sortcb2.Text == "data_id")
@@ -396,8 +380,6 @@ namespace PScnFin
                         dg.ItemsSource = dmtemp2;
                     }
                 }
-
-
             }
             else if (current_table == "process")
             {

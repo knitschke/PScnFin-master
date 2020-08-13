@@ -5,7 +5,7 @@ namespace PScnFin
     {
         public string pc_name { get; set; }
         public string ip { get; set; }
-        
+
         public string full
         {
             get
