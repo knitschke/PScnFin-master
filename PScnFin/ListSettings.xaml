@@ -5,42 +5,76 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PScnFin"
         mc:Ignorable="d"
-        Title="ListSettings" Height="512.4" Width="498.2"
-        WindowStartupLocation="CenterScreen">
-    <Grid Margin="0,-3,-2,-6" HorizontalAlignment="Left" Width="492">
+        Title="ListSettings" Height="500" Width="500"
+        FontSize="15" FontFamily="Times New Roman" HorizontalContentAlignment="Center"
+        MouseDown="Window_MouseDown"
+        WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="CanMinimize">
+    <Grid >
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <GradientStop Color="Black" Offset="0"/>
                 <GradientStop Color="#FFD5F4F7" Offset="0.128"/>
             </LinearGradientBrush>
         </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="8"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="12"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="8"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition Height="0*"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="8"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="8"/>
         </Grid.RowDefinitions>
-        <ListBox Name="templist" HorizontalAlignment="Left" Height="274" Margin="17,201,0,0" VerticalAlignment="Top" Width="134" SelectionChanged="templist_SelectionChanged" SelectionMode="Extended" BorderBrush="#FF060606" BorderThickness="1"/>
-        <ListBox Name="wholelist" HorizontalAlignment="Left" Height="273" Margin="168,201,0,0" VerticalAlignment="Top" Width="138" BorderThickness="1" BorderBrush="#FF060606"/>
-        <TextBox TabIndex="1" TextAlignment="Center" Name="beg" HorizontalAlignment="Left" Height="29" Margin="27,76,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="119" FontSize="14"/>
-        <Button TabIndex="4" Name="add" Content="Wczytaj wpisane adresy" HorizontalAlignment="Left" Margin="59,132,0,0" VerticalAlignment="Top" Width="203" Click="add_Click" Height="32"/>
-        <TextBox  TabIndex="2" TextAlignment="Center" Name="end" HorizontalAlignment="Left" Height="30" Margin="167,76,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="118" FontSize="14"/>
-        <TextBox TabIndex="3" TextAlignment="Center" Name="singleadd" HorizontalAlignment="Left" Height="24" Margin="166,107,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="119" TextChanged="singleadd_TextChanged" FontSize="14"/>
-        <Button TabIndex="5" Name="addtolist" Content="Dodaj wybrane adresy ->" HorizontalAlignment="Left" Margin="65,167,0,0" VerticalAlignment="Top" Width="190" Click="addtolist_Click" Height="34"/>
-        <ComboBox TabIndex="0" IsEditable="True" Name="listname" HorizontalAlignment="Left" Margin="99,25,0,0" VerticalAlignment="Top" Width="120" TextBoxBase.TextChanged="listname_TextChanged" SelectionChanged="listname_SelectionChanged" Height="28" FontSize="14"/>
-        <Button TabIndex="15" Name="back" Content="Powrót" HorizontalAlignment="Left" Margin="346,414,0,0" VerticalAlignment="Top" Width="81" Height="36" Click="back_Click" RenderTransformOrigin="0.493,2.086" Background="{DynamicResource {x:Static SystemColors.GradientActiveCaptionBrushKey}}"/>
-        <ComboBox TabIndex="6" IsEditable="True" Name="proc1" HorizontalAlignment="Left" Margin="324,87,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="proc1_SelectionChanged"/>
-        <ComboBox TabIndex="7" IsEditable="True" Name="proc2" HorizontalAlignment="Left" Margin="324,124,0,0" VerticalAlignment="Top" Width="120"/>
-        <ComboBox TabIndex="8" IsEditable="True" Name="proc3" HorizontalAlignment="Left" Margin="324,159,0,0" VerticalAlignment="Top" Width="120"/>
-        <ComboBox TabIndex="9" IsEditable="True" Name="proc4" HorizontalAlignment="Left" Margin="324,194,0,0" VerticalAlignment="Top" Width="120"/>
-        <ComboBox TabIndex="10" IsEditable="True" Name="proc5" HorizontalAlignment="Left" Margin="324,232,0,0" VerticalAlignment="Top" Width="120"/>
-        <Button TabIndex="14" Name="savelist" Content="Zapisz zmiany" HorizontalAlignment="Left" Margin="325,365,0,0" VerticalAlignment="Top" Width="120" Click="savelist_Click" Height="34" Padding="1,4" Background="#FF66C127"/>
-        <Button TabIndex="11" Content="Skanuj adresy" HorizontalAlignment="Left" Margin="323,19,0,0" VerticalAlignment="Top" Width="124" Height="28" Click="Button_Click"/>
-        <Button TabIndex="12" Name="ipandname" Content="ip/pcname" HorizontalAlignment="Left" Margin="324,291,0,0" VerticalAlignment="Top" Width="123" Click="ipandname_Click" Height="32" RenderTransformOrigin="0.391,0.37"/>
-        <Button TabIndex="13" Name="delete" Content="Usuń zaznaczone" HorizontalAlignment="Left" Margin="325,328,0,0" VerticalAlignment="Top" Width="120" Click="delete_Click" Height="31" Padding="1,4"/>
-        <Label Content="Nazwa listy:" HorizontalAlignment="Left" Margin="119,0,0,0" VerticalAlignment="Top" Width="82" Foreground="#DDFFFFFF" FontSize="14"/>
-        <Label Content="Zakres adresów IP" HorizontalAlignment="Left" Margin="101,55,0,0" VerticalAlignment="Top" Width="125" FontSize="14"/>
-        <Label Content="Adres lub nazwa PC:" HorizontalAlignment="Left" Margin="28,106,0,0" VerticalAlignment="Top" FontSize="14"/>
-        <Label Content="-" HorizontalAlignment="Left" Margin="148,75,0,0" VerticalAlignment="Top" RenderTransformOrigin="-5.6,1.885" FontSize="14"/>
-        <Label Content="Procesy" HorizontalAlignment="Left" Margin="355,56,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <ListBox FontSize="12" Margin="3,3,3,3" Name="templist" Grid.Column="1" Grid.Row="9" Grid.RowSpan="6" SelectionChanged="templist_SelectionChanged" SelectionMode="Extended" BorderBrush="#FF060606" BorderThickness="1"/>
+        <ListBox FontSize="12" Margin="3,3,3,3" Name="wholelist" Grid.Column="3" Grid.Row="9" Grid.RowSpan="6" BorderThickness="1" BorderBrush="#FF060606"/>
+        <TextBox TabIndex="1" TextAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom" Grid.Column="1" Grid.Row="5" Name="beg" TextWrapping="Wrap" Text="" FontSize="14"/>
+        <Button Margin="3,3,3,3" TabIndex="4" Name="add" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="7" Width="220" Content="Wczytaj wpisane adresy" Click="add_Click" />
+        <TextBox  TabIndex="2" Grid.Column="3" Grid.Row="5" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom" Name="end" TextWrapping="Wrap" Text="" FontSize="14"/>
+        <TextBox TabIndex="3" Grid.Column="3" Grid.Row="6" TextAlignment="Center" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Center"  Name="singleadd" TextWrapping="Wrap" Text="" TextChanged="singleadd_TextChanged" FontSize="14"/>
+        <Button Margin="3,3,3,3" TabIndex="5" Name="addtolist" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="8" Width="250" Content="Dodaj wybrane adresy ->" Click="addtolist_Click" Height="34"/>
+        <ComboBox TabIndex="0" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Center" Grid.Row="3" IsEditable="True" Name="listname" TextBoxBase.TextChanged="listname_TextChanged" SelectionChanged="listname_SelectionChanged" MinWidth="100" FontSize="14"/>
+        <ComboBox Margin="3,3,3,3" TabIndex="6" IsEditable="True" Name="proc1" Grid.Column="5" Grid.Row="5"/>
+        <ComboBox Margin="3,3,3,3" TabIndex="7" IsEditable="True" Name="proc2" Grid.Column="5" Grid.Row="6"/>
+        <ComboBox Margin="3,3,3,3" TabIndex="8" IsEditable="True" Name="proc3" Grid.Column="5" Grid.Row="7"/>
+        <ComboBox Margin="3,3,3,3" TabIndex="9" IsEditable="True" Name="proc4" Grid.Column="5" Grid.Row="8"/>
+        <ComboBox Margin="3,3,3,3" TabIndex="10" IsEditable="True" Name="proc5" Grid.Column="5" Grid.Row="9"/>
+        <Button Margin="3,3,3,3" TabIndex="14" Name="savelist" Content="Zapisz zmiany" Grid.Column="5" Grid.Row="12" Grid.RowSpan="2" Click="savelist_Click" Background="#FF66C127"/>
+        <Button Margin="3,3,3,3" TabIndex="11" Grid.RowSpan="2" Content="Skanuj adresy" Grid.Column="5" Grid.Row="2" Click="Button_Click"/>
+        <Button Margin="3,3,3,3" TabIndex="12" Name="ipandname" Grid.Column="5" Grid.Row="10" Grid.RowSpan="2" Content="ip/pcname" Click="ipandname_Click"/>
+        <Button Margin="3,3,3,3" TabIndex="13" Name="delete" Content="Usuń zaznaczone" Grid.Column="5" Grid.Row="11" Grid.RowSpan="2" Click="delete_Click"/>
+        <Label Margin="3,3,3,3" Content="Nazwa listy:" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="#DD0C0C0C" FontSize="14"/>
+        <Label Content="Zakres adresów IP" VerticalAlignment="Center" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Center" Grid.Row="4" FontSize="14"/>
+        <Label Content="Adres lub nazwa PC:" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.ColumnSpan="2" Grid.Row="6" FontSize="14"/>
+        <Label Content="-" Grid.Column="2" HorizontalAlignment="Center" Grid.Row="5" FontSize="19" Padding="0,3"/>
+        <Label Content="Procesy" VerticalAlignment="Center" Grid.Column="5" Grid.Row="4" HorizontalAlignment="Center" FontSize="14"/>
+        <Rectangle Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="7" Fill="#FF051B49"/>
+        <Rectangle Grid.Row="1" Grid.RowSpan="20" Fill="#FF051B49"/>
+        <Rectangle Grid.Row="19" Grid.Column="0" Grid.ColumnSpan="7" Fill="#FF051B49"/>
+        <Rectangle Grid.Column="6" Grid.Row="1" Grid.RowSpan="20" Fill="#FF051B49"/>
+        <Rectangle Grid.Row="0"  Grid.ColumnSpan="35" Fill="#FF132D44">
+        </Rectangle>
+        <Button x:Name="minBT" Content="-" VerticalContentAlignment="Center" Grid.Column="5" Grid.Row="0" Height="20" Width="30"  Margin="71,0,34,0" Background="#FF387272" FontWeight="Bold" FontSize="24" Padding="0,-5,0,0" Click="minBT_Click" />
+        <Button Name="exitBT" Content="X" VerticalContentAlignment="Center" Grid.Column="5" HorizontalAlignment="Right" Width="30" Height="20" Background="#FF5B0206" FontSize="14" Padding="0,1,0,0" UseLayoutRounding="False" FontFamily="Microsoft YaHei UI" Click="exitBT_Click"/>
+        <Label Content="List settings" Grid.Column="1" HorizontalAlignment="Center" FontSize="20" Foreground="#DDF3ABAB" Padding="0"/>
+        <Button x:Name="backBT" Content="&lt;" VerticalContentAlignment="Center" Grid.Column="5" Grid.Row="0" Height="20" Width="30" Margin="30,0,84,0" Background="#FF58CBCB" FontWeight="Bold" FontSize="24" Padding="0,-5,0,0" VerticalAlignment="Top" Click="backBT_Click" />
 
     </Grid>
 </Window>

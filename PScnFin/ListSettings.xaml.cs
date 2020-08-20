@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace PScnFin
 {
@@ -114,7 +115,7 @@ namespace PScnFin
         private void add_Click(object sender, RoutedEventArgs e)
         {
             calc_ip_diff();
-            if (singleadd.Text.Contains("kd") || singleadd.Text.Contains("KD") || singleadd.Text.Contains("Kd") || singleadd.Text.Contains("kD") || singleadd.Text.Length < 4)
+            if (singleadd.Text.Contains("kd") || singleadd.Text.Contains("KD") || singleadd.Text.Contains("Kd") || singleadd.Text.Contains("kD") || (singleadd.Text.Length < 4 && singleadd.Text != ""))
             {
                 List<UsersModel> um;
                 um = SqliteDataAccess.LoadUsers();
@@ -185,7 +186,7 @@ namespace PScnFin
 
         private void listname_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            listwhole = SqliteDataAccess.LoadListPCname(listname.Text);//<--
+            listwhole = SqliteDataAccess.LoadList(listname.Text);//<--
             wholelist.Items.Clear();
             foreach (ListsModel x in listwhole)
             {
@@ -207,7 +208,7 @@ namespace PScnFin
         }
         private void listname_TextChanged(object sender, TextChangedEventArgs e)
         {
-            listwhole = SqliteDataAccess.LoadListPCname(listname.Text);//<---
+            listwhole = SqliteDataAccess.LoadList(listname.Text);//<---
             lmod = SqliteDataAccess.LoadList(listname.Text.ToString());
             try
             {
@@ -233,16 +234,35 @@ namespace PScnFin
         {
         }
 
-        private void back_Click(object sender, RoutedEventArgs e)
+        private void exitBT_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow ls = new MainWindow();
-            ls.Show();
-            this.Close();
+            try
+            {
+                this.Close();
+            }
+            catch (Exception)
+            {
+
+            }
+
         }
 
-        private void proc1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            if (e.ChangedButton == MouseButton.Left)
+                this.DragMove();
+        }
 
+        private void minBT_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                this.WindowState = WindowState.Minimized;
+            }
+            catch (Exception)
+            {
+
+            }
         }
 
         void add_proc_to_cbox(string whichwindow)
@@ -361,7 +381,7 @@ namespace PScnFin
 
         private void worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            MessageBox.Show("Rozpoczęto skanowanie");
+            //MessageBox.Show("Rozpoczęto skanowanie");
             RunPingSweep_Async();
         }
 
@@ -373,8 +393,8 @@ namespace PScnFin
             var tasks = new List<Task>();
             stopWatch.Start();
 
-            for (int i = 2; i < 255; i++)
-                for (int j = 2; j < 255; j++)
+            for (int i = 0; i < 256; i++)
+                for (int j = 0; j < 256; j++)
                 {
                     ip = BaseIP + i.ToString() + "." + j.ToString();
                     System.Net.NetworkInformation.Ping p = new System.Net.NetworkInformation.Ping();
@@ -520,20 +540,27 @@ namespace PScnFin
         {
             foreach (var x in wholelist.SelectedItems)
             {
-                if (x.ToString().Contains("kd") == false || x.ToString().Contains("KD") == false || x.ToString().Contains("Kd") == false)
+                if (x.ToString().Contains("kd") == false && x.ToString().Contains("KD") == false && x.ToString().Contains("Kd") == false)
                 {
-                    UM = SqliteDataAccess.LoadUserIp(x.ToString());
+                    UM = SqliteDataAccess.LoadUserName(x.ToString());
                     if (SqliteDataAccess.LoadListPCname(x.ToString()).Count > 0)
-                        SqliteDataAccess.DeletefromList(listname.Text.ToString(), UM[0].ip);
+                        SqliteDataAccess.DeletefromList(listname.Text.ToString(), x.ToString());
                 }
                 else
                 {
-                    UsersModel u = SqliteDataAccess.LoadUserIp(x.ToString()).First();
-                    if (SqliteDataAccess.LoadListPCname(x.ToString()).Count > 0)
+                    UsersModel u = SqliteDataAccess.LoadUserIp(x.ToString())[0];
+                    if (SqliteDataAccess.LoadListPCname(u.ip).Count > 0)
                         SqliteDataAccess.DeletefromList(listname.Text.ToString(), u.ip);
                 }
             }
             wholelist.Items.Remove(wholelist.SelectedItem);
+        }
+
+        private void backBT_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow ls = new MainWindow();
+            ls.Show();
+            this.Close();
         }
     }
 }

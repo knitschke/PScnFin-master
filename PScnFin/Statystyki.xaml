@@ -5,24 +5,60 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PScnFin"
         mc:Ignorable="d"
-        Title="Statystyki" Height="437.944" Width="420.298"
-        WindowStartupLocation="CenterScreen">
-    <Grid Margin="0,0,-4,-4">
+        MouseDown="Window_MouseDown"
+        Title="Statistics" Height="410" Width="370"
+        WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="CanMinimize">
+    <Grid>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <GradientStop Color="Black" Offset="0"/>
                 <GradientStop Color="#FFD5F4F7" Offset="0.174"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <ComboBox Name="CB" HorizontalAlignment="Left" Margin="22,26,0,0" VerticalAlignment="Top" Width="167" Foreground="Black" SelectionChanged="CB_SelectionChanged"/>
-        <ListBox Name="LB" HorizontalAlignment="Left" Height="303" Margin="25,98,0,0" VerticalAlignment="Top" Width="167" SelectionChanged="LB_SelectionChanged" BorderThickness="1" BorderBrush="#FF4E5085"/>
-        <TextBox Name="T1" HorizontalAlignment="Left" Height="23" Margin="248,151,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="86"/>
-        <TextBox Name="T2" HorizontalAlignment="Left" Height="23" Margin="248,208,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="86"/>
-        <TextBox Name="T3" HorizontalAlignment="Left" Height="23" Margin="248,269,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="86"/>
-        <Label Content="Używanie podczas skanowań (%):" HorizontalAlignment="Left" Margin="195,125,0,0" VerticalAlignment="Top" FontSize="14"/>
-        <Label Content="Czas skanowań(min):" HorizontalAlignment="Left" Margin="225,182,0,0" VerticalAlignment="Top" Width="138" FontSize="14"/>
-        <Label Content="Średnia użycia (%):" HorizontalAlignment="Left" Margin="233,243,0,0" VerticalAlignment="Top" FontSize="14"/>
-        <TextBox x:Name="filter" TextAlignment="Center" Style="{x:Null}" HorizontalAlignment="Left" Height="23" Margin="48,65,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Background="#FFD5F4F7" BorderBrush="#FF3A60D1" TextChanged="filter_TextChanged"/>
-
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="8"/>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="8"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="22"/>
+            <RowDefinition Height="8"/>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="8"/>
+        </Grid.RowDefinitions>
+        <ComboBox Name="CB" Grid.Column="2" Grid.Row="3" Foreground="Black" SelectionChanged="CB_SelectionChanged"/>
+        <ListBox Name="LB" Grid.Column="2" Grid.Row="5" Grid.RowSpan="7" SelectionChanged="LB_SelectionChanged" BorderThickness="1" BorderBrush="#FF4E5085"/>
+        <TextBox Name="T1" Grid.Column="4" Grid.Row="5" IsReadOnly="True" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" TextWrapping="Wrap"/>
+        <TextBox Name="T2" Grid.Column="4" Grid.Row="7" IsReadOnly="True" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" TextWrapping="Wrap"/>
+        <TextBox Name="T3" Grid.Column="4" Grid.Row="9" IsReadOnly="True" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" TextWrapping="Wrap"/>
+        <Label Content="Używanie podczas &#10;skanowań (%):" HorizontalAlignment="Center" Grid.Column="4" Grid.RowSpan="2" Grid.Row="4" FontSize="14"/>
+        <Label Content="Czas skanowań(min):" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="4" Grid.Row="6" FontSize="14"/>
+        <Label Content="Średnia użycia (%):" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="4" Grid.Row="8" FontSize="14"/>
+        <TextBox x:Name="filter" Grid.Column="2" Grid.Row="4" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" TextAlignment="Center" Style="{x:Null}" TextWrapping="Wrap" Text="" Background="#FFD5F4F7" BorderBrush="#FF3A60D1" TextChanged="filter_TextChanged"/>
+        <Rectangle Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="7" Fill="#FF051B49"/>
+        <Rectangle Grid.Row="1" Grid.RowSpan="13" Fill="#FF051B49"/>
+        <Rectangle Grid.Row="13" Grid.Column="0" Grid.ColumnSpan="7" Fill="#FF051B49"/>
+        <Rectangle Grid.Column="6" Grid.Row="1" Grid.RowSpan="13" Fill="#FF051B49"/>
+        <Rectangle Grid.Row="0" Grid.ColumnSpan="7" Fill="#FF132D44">
+        </Rectangle>
+        <Rectangle Grid.Column="3" Grid.Row="2" Grid.RowSpan="11" Fill="#FF2C7E7E"/>
+        <Button x:Name="minBT" Content="-" VerticalContentAlignment="Center" Grid.Column="4" Grid.Row="0" Height="20" Width="30"  Margin="71,0,34,0" Background="#FF387272" FontWeight="Bold" FontSize="24" Padding="0,-5,0,0" Click="minBT_Click" />
+        <Button Name="exitBT" Content="X" VerticalContentAlignment="Center" Grid.Column="4" HorizontalAlignment="Right" Width="30" Height="20" Background="#FF5B0206" FontSize="14" Padding="0,1,0,0" UseLayoutRounding="False" FontFamily="Microsoft YaHei UI" Click="exitBT_Click"/>
+        <Label Content="Używanie podczas &#10;skanowań (%):" HorizontalAlignment="Center" Grid.Column="4" Grid.RowSpan="2" Grid.Row="4" FontSize="14" Foreground="#DD686060"/>
+        <Label Padding="0,0,0,0" Content="Statistics" Grid.Column="2" HorizontalAlignment="Center" FontSize="20" Foreground="#DDF3ABAB"/>
     </Grid>
 </Window>

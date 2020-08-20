@@ -5,15 +5,38 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PScnFin"
         mc:Ignorable="d"
-        Title="Database" Height="450" Width="708.992" BorderBrush="{DynamicResource {x:Static SystemColors.AppWorkspaceBrushKey}}" Foreground="White" WindowStartupLocation="CenterScreen">
-    <Grid Margin="0,-2,2,0">
+        HorizontalContentAlignment="Center"
+        MouseDown="Window_MouseDown" FontSize="18"
+        Title="Database" Height="450" MinWidth="250" Width="auto" BorderBrush="{DynamicResource {x:Static SystemColors.AppWorkspaceBrushKey}}" Foreground="White" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="CanMinimize" SizeToContent="Width">
+    <Grid>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <GradientStop Color="Black" Offset="0"/>
                 <GradientStop Color="#FFD5F4F7" Offset="0.244"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <DataGrid Name="dg" HorizontalAlignment="Left" Height="266" Margin="43,127,0,0" VerticalAlignment="Top" Width="613">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="8" />
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="*" MinWidth="120"/>
+            <ColumnDefinition Width="*" MinWidth="120"/>
+            <ColumnDefinition Width="*" MinWidth="120"/>
+            <ColumnDefinition Width="*" MinWidth="120"/>
+            <ColumnDefinition Width="*" MinWidth="120"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="8"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="24"/>
+            <RowDefinition Height="8"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="250"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="8"/>
+        </Grid.RowDefinitions>
+        <DataGrid Name="dg" Grid.Column="2" Grid.Row="5" Grid.ColumnSpan="5" >
             <DataGrid.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="Black" Offset="0"/>
@@ -21,15 +44,25 @@
                 </LinearGradientBrush>
             </DataGrid.Background>
         </DataGrid>
-        <Button Name="datab" Content="Dane" HorizontalAlignment="Left" Margin="40,50,0,0" VerticalAlignment="Top" Width="120" Click="datab_Click"/>
-        <Button Name="listb" Content="Listy" HorizontalAlignment="Left" Margin="165,50,0,0" VerticalAlignment="Top" Width="120" Click="listb_Click" RenderTransformOrigin="0.855,0.588"/>
-        <Button Name="usersb" Content="Użytkownicy" HorizontalAlignment="Left" Margin="290,50,0,0" VerticalAlignment="Top" Width="120" Click="usersb_Click"/>
-        <Button Name="processesb" Content="Procesy" HorizontalAlignment="Left" Margin="415,50,0,0" VerticalAlignment="Top" Width="120" Click="processesb_Click"/>
-        <Button Name="scanb" Content="Skany" HorizontalAlignment="Left" Margin="540,50,0,0" VerticalAlignment="Top" Width="120" Click="scanb_Click"/>
-        <ComboBox Name="sortcb" HorizontalAlignment="Left" Margin="72,92,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="sortcb_SelectionChanged" Foreground="Black"/>
-        <TextBox Name="sorttb" HorizontalAlignment="Left" Height="23" Margin="217,98,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" TextChanged="sorttb_TextChanged" Foreground="#FF0A0A0A"/>
-        <ComboBox x:Name="sortcb2" HorizontalAlignment="Left" Margin="370,93,0,0" VerticalAlignment="Top" Width="120" Foreground="Black"/>
-        <TextBox x:Name="sorttb2" HorizontalAlignment="Left" Height="23" Margin="512,97,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" TextChanged="sorttb_TextChanged" Foreground="#FF020202"/>
+        <Button Name="datab" Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" Content="Dane" Click="datab_Click"/>
+        <Button Name="listb" Grid.Column="3" Grid.Row="3" VerticalAlignment="Center" Content="Listy" Click="listb_Click"/>
+        <Button Name="usersb" Grid.Column="4" Grid.Row="3" VerticalAlignment="Center" Content="Użytkownicy" Click="usersb_Click"/>
+        <Button Name="processesb" Grid.Column="5" Grid.Row="3" VerticalAlignment="Center" Content="Procesy" Click="processesb_Click"/>
+        <Button Name="scanb" Grid.Column="6" Grid.Row="3" VerticalAlignment="Center" Content="Skany" Click="scanb_Click"/>
+        <ComboBox Name="sortcb" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="4" MinWidth="100" VerticalAlignment="Center" HorizontalAlignment="Center" SelectionChanged="sortcb_SelectionChanged" Foreground="Black"/>
+        <TextBox Name="sorttb" Grid.Column="3" Grid.ColumnSpan="2"  MinWidth="100" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap" Text="" TextChanged="sorttb_TextChanged" Foreground="#FF0A0A0A" Margin="0,0,0,-4"/>
+        <ComboBox x:Name="sortcb2" Grid.Column="4"  MinWidth="100" Grid.Row="4" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Black"/>
+        <TextBox x:Name="sorttb2" Grid.Column="5" Grid.Row="4" MinWidth="100" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap" Text="" TextChanged="sorttb_TextChanged" Foreground="#FF020202" Margin="0,0,0,-4"/>
+        <Rectangle Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="9" Fill="#FF051B49"/>
+        <Rectangle Grid.Row="1" Grid.RowSpan="20" Fill="#FF051B49"/>
+        <Rectangle Grid.Row="19" Grid.Column="0" Grid.ColumnSpan="9" Fill="#FF051B49"/>
+        <Rectangle Grid.Column="8" Grid.Row="1" Grid.RowSpan="20" Fill="#FF051B49"/>
+        <Rectangle Grid.Row="0"  Grid.ColumnSpan="11" Fill="#FF132D44">
+        </Rectangle>
+        <Button x:Name="minBT" Content="-" VerticalContentAlignment="Center" Grid.Column="6" Grid.Row="0" Height="20" Width="30"  Margin="71,0,34,0" Background="#FF387272" FontWeight="Bold" FontSize="24" Padding="0,-5,0,0" Click="minBT_Click" />
+        <Button Name="exitBT" Content="X" VerticalContentAlignment="Center" Grid.Column="6" HorizontalAlignment="Right" Width="30" Height="20" Background="#FF5B0206" FontSize="14" Padding="0,1,0,0" UseLayoutRounding="False" FontFamily="Microsoft YaHei UI" Click="exitBT_Click"/>
+        <Label Content="Database" Grid.Column="2" HorizontalAlignment="Center" FontSize="20" Foreground="#DDF3ABAB" Padding="0"/>
+
     </Grid>
 
 

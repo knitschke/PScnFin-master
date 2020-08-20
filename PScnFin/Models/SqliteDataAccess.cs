@@ -154,7 +154,7 @@ namespace PScnFin.Models
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                var output = cnn.Query<ListsModel>($"select distinct ip from Lists where list_name='{ip}';", new DynamicParameters());
+                var output = cnn.Query<ListsModel>($"select distinct ip from Lists where ip='{ip}';", new DynamicParameters());
                 return output.ToList();
             }
         }
@@ -172,7 +172,7 @@ namespace PScnFin.Models
 
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                cnn.Execute($"delete from Lists where ip='{ip}' and list_name={listname};");
+                cnn.Execute($"delete from Lists where ip='{ip}' and list_name='{listname}';");
             }
         }
 

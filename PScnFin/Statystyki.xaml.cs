@@ -1,7 +1,9 @@
 ﻿using PScnFin.Models;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace PScnFin
 {
@@ -44,6 +46,37 @@ namespace PScnFin
             foreach (UsersModel o in UM)
             {
                 LB.Items.Add(o.full);
+            }
+        }
+
+        private void exitBT_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                this.Close();
+            }
+            catch (Exception)
+            {
+
+            }
+
+        }
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                this.DragMove();
+        }
+
+        private void minBT_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                this.WindowState = WindowState.Minimized;
+            }
+            catch (Exception)
+            {
+
             }
         }
 

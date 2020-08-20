@@ -83,6 +83,7 @@ namespace PScnFin
             Statystyki st = new Statystyki();
             st.Owner = this;
             st.Show();
+
         }
 
 
@@ -93,7 +94,7 @@ namespace PScnFin
 
             if (sliders == 1)
             {
-                lmod = SqliteDataAccess.LoadListPCname(nameboxx);//listname.Text
+                lmod = SqliteDataAccess.LoadList(nameboxx);//listname.Text
                 stopWatch.Start();
 
                 foreach (ListsModel x in lmod)
@@ -107,7 +108,7 @@ namespace PScnFin
             }
             else if (sliders == 2)
             {
-                lmod2 = SqliteDataAccess.LoadListPCname(nameboxx);//listname.Text
+                lmod2 = SqliteDataAccess.LoadList(nameboxx);//listname.Text
                 stopWatch.Start();
 
                 foreach (ListsModel x in lmod2)
@@ -121,7 +122,7 @@ namespace PScnFin
             }
             else if (sliders == 3)
             {
-                lmod3 = SqliteDataAccess.LoadListPCname(nameboxx);//listname.Text
+                lmod3 = SqliteDataAccess.LoadList(nameboxx);//listname.Text
                 stopWatch.Start();
 
                 foreach (ListsModel x in lmod3)
@@ -135,7 +136,7 @@ namespace PScnFin
             }
             else if (sliders == 4)
             {
-                lmod4 = SqliteDataAccess.LoadListPCname(nameboxx);//listname.Text
+                lmod4 = SqliteDataAccess.LoadList(nameboxx);//listname.Text
                 stopWatch.Start();
 
                 foreach (ListsModel x in lmod4)
@@ -149,7 +150,7 @@ namespace PScnFin
             }
             else if (sliders == 5)
             {
-                lmod5 = SqliteDataAccess.LoadListPCname(nameboxx);//listname.Text
+                lmod5 = SqliteDataAccess.LoadList(nameboxx);//listname.Text
                 stopWatch.Start();
 
                 foreach (ListsModel x in lmod5)
@@ -163,7 +164,7 @@ namespace PScnFin
             }
             else if (sliders == 6)
             {
-                lmod6 = SqliteDataAccess.LoadListPCname(nameboxx);//listname.Text
+                lmod6 = SqliteDataAccess.LoadList(nameboxx);//listname.Text
                 stopWatch.Start();
 
                 foreach (ListsModel x in lmod6)
@@ -346,37 +347,30 @@ namespace PScnFin
         {
             if (ver == 0 && timeelsapsedworker.CancellationPending == true)
             {
-                Console.WriteLine("zatrzymo0");
                 return -1;
             }
             else if (ver == 1 && worker.CancellationPending == true)
             {
-                Console.WriteLine("zatrzymo1");
                 return -1;
             }
             else if (ver == 2 && worker2.CancellationPending == true)
             {
-                Console.WriteLine("zatrzymo2");
                 return -1;
             }
             else if (ver == 3 && worker3.CancellationPending == true)
             {
-                Console.WriteLine("zatrzymo3");
                 return -1;
             }
             else if (ver == 4 && worker4.CancellationPending == true)
             {
-                Console.WriteLine("zatrzymo4");
                 return -1;
             }
             else if (ver == 5 && worker5.CancellationPending == true)
             {
-                Console.WriteLine("zatrzymo5");
                 return -1;
             }
             else if (ver == 6 && worker6.CancellationPending == true)
             {
-                Console.WriteLine("zatrzymo6");
                 return -1;
             }
             else return 0;
@@ -384,7 +378,7 @@ namespace PScnFin
 
         private void procscananddatabase(List<UsersModel> um, string[] prc, int sv)
         {
-            Thread.Sleep(100000);//100000
+            Thread.Sleep(10000);//100000
             if (workerccl(sv) == -1)
             {
                 return;
@@ -560,8 +554,8 @@ namespace PScnFin
                             Console.WriteLine(exc.ToString() + ":  " + prc[0] + u.pc_name);
                         }
                 }
-                if (pause.Elapsed.TotalMilliseconds < 300000)//300000
-                    Thread.Sleep((int)(300000 - pause.Elapsed.TotalMilliseconds));//
+                if (pause.Elapsed.TotalMilliseconds < 100000)//300000
+                    Thread.Sleep((int)(100000 - pause.Elapsed.TotalMilliseconds));//
             }
 
             foreach (UsersModel u in um)
@@ -603,7 +597,6 @@ namespace PScnFin
 
                 if (p + n > 0)
                 {
-
                     if (u.pc_name == u.ip)
                         if (GetMachineNameFromIPAddress(u.ip) != string.Empty)
                             u.pc_name = GetMachineNameFromIPAddress(u.ip);
@@ -810,7 +803,7 @@ namespace PScnFin
                 if (timeelsapsedworker.CancellationPending == true)
                 {
                     (sender as BackgroundWorker).ReportProgress(-1);
-                    Console.WriteLine("cancelbt wsedl");
+                    //Console.WriteLine("cancelbt wsedl");
                     sw2.Reset();
                     return;
                 }
@@ -921,7 +914,7 @@ namespace PScnFin
                 {
                     return;
                 }
-                Thread.Sleep(150000);//150000
+                Thread.Sleep(15000);//150000
             }
         }
         double slidervaluetemp = 0;
@@ -968,7 +961,7 @@ namespace PScnFin
                     check_dns_names_kd();
                     dnscan = true;
                 }
-                Thread.Sleep(100000);//100000
+                Thread.Sleep(10000);//100000----
             }
         }
         private void worker2_DoWork(object sender, DoWorkEventArgs e)
@@ -980,7 +973,7 @@ namespace PScnFin
                 {
                     return;
                 }
-                Thread.Sleep(150000);
+                Thread.Sleep(15000);//----------------0
             }
         }
         private void worker3_DoWork(object sender, DoWorkEventArgs e)
@@ -992,7 +985,7 @@ namespace PScnFin
                 {
                     return;
                 }
-                Thread.Sleep(150000);
+                Thread.Sleep(15000);//--------------------0
             }
         }
         private void worker4_DoWork(object sender, DoWorkEventArgs e)
@@ -1004,7 +997,7 @@ namespace PScnFin
                 {
                     return;
                 }
-                Thread.Sleep(150000);
+                Thread.Sleep(15000);//---------------------0
             }
         }
         private void worker5_DoWork(object sender, DoWorkEventArgs e)
@@ -1016,7 +1009,7 @@ namespace PScnFin
                 {
                     return;
                 }
-                Thread.Sleep(150000);
+                Thread.Sleep(15000);
             }
         }
         private void worker6_DoWork(object sender, DoWorkEventArgs e)
@@ -1028,7 +1021,7 @@ namespace PScnFin
                 {
                     return;
                 }
-                Thread.Sleep(150000);
+                Thread.Sleep(15000);
             }
         }
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -1348,6 +1341,37 @@ namespace PScnFin
             CB4.Visibility = Visibility.Visible;
             CB5.Visibility = Visibility.Hidden;
             LabProc.Content = "Nazwy procesów:";
+        }
+
+        private void exitBT_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                this.Close();
+            }
+            catch (Exception)
+            {
+
+            }
+
+        }
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                this.DragMove();
+        }
+
+        private void minBT_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                this.WindowState = WindowState.Minimized;
+            }
+            catch (Exception)
+            {
+
+            }
         }
 
         void visibility5()

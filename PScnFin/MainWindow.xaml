@@ -5,9 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PScnFin" xmlns:eo="http://schemas.microsoft.com/netfx/2009/xaml/presentation"
         mc:Ignorable="d"
-        Title="Pscn" Height="552.2" Width="435.177"
-        WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize" BorderBrush="#FF594D4D" Background="#FF765656">
-    <Grid Margin="-2,0,-2,-8" HorizontalAlignment="Left" Width="433">
+        Title="Pscn" Height="550" Width="430"
+        FontSize="17" FontFamily="Times New Roman" HorizontalContentAlignment="Center"
+        MouseDown="Window_MouseDown"
+        WindowStartupLocation="CenterScreen" BorderBrush="Black" Background="Black" WindowStyle="None" ResizeMode="CanMinimize">
+    <Grid Margin="0,0,0,0">
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
                 <GradientStop Color="Black"/>
@@ -15,56 +17,70 @@
             </LinearGradientBrush>
         </Grid.Background>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition Width="8"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="8"/>
         </Grid.ColumnDefinitions>
-        <ComboBox  Name="CB" Style="{x:Null}" IsEditable="true" HorizontalAlignment="Left" Margin="44,193,0,0" VerticalAlignment="Top" Width="179" Height="22" SelectionChanged="CB_SelectionChanged">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="8"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="11"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="8"/>
+        </Grid.RowDefinitions>
+        <Rectangle Grid.Column="1" Grid.Row="13" Grid.RowSpan="3" Fill="Aquamarine" Opacity="0.15"/>
+        <ComboBox Name="CB" Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="2" Style="{x:Null}" MinWidth="200" IsEditable="True" HorizontalAlignment="Center" SelectionChanged="CB_SelectionChanged" />
+        <Label Name="LabProc" Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="2" HorizontalAlignment="Center" Content="Nazwa procesu:" VerticalAlignment="Bottom" RenderTransformOrigin="0.081,0.258" FontSize="14"/>
+        <Button Content="Statystyki" Grid.Column="2" Grid.Row="16" Margin="1,1,1,1" Click="Button_Click" Background="#FF3E87B9" BorderBrush="#FF041E32"/>
+        <Button Name="scanbt" Grid.Column="2" Grid.Row="15" Margin="1,1,1,1" Background="#FF55D155" Content="Skanowanie" Click="Button_Click_2" BorderBrush="#FF032A49"/>
+        <Button Name="dbwindow" Grid.Column="2" Grid.Row="17" Margin="1,1,1,1" Content="Baza Danych" Click="dbwindow_Click" Background="#FF3E87B9" BorderBrush="#FF042642"/>
+        <Label Content="Czas skanowania(h):" Grid.Column="1" Grid.Row="14" FontSize="15"/>
+        <TextBox TextAlignment="Center" Grid.Column="1" Grid.Row="15" Name="TTB" TextWrapping="Wrap" Text="480" FontSize="15"/>
+        <RadioButton Name="RB1" Grid.Column="3" Grid.Row="7" Content="1" HorizontalAlignment="Center" VerticalAlignment="Center"  Checked="RadioButton_Checked_1"/>
+        <RadioButton Name="RB2" Grid.Column="3" Grid.Row="8" Content="2" HorizontalAlignment="Center" VerticalAlignment="Center" Checked="RadioButton_Checked"/>
+        <RadioButton Name="RB3" Grid.Column="3" Content="3" Grid.Row="9" HorizontalAlignment="Center" VerticalAlignment="Center" Checked="RadioButton_Checked_2"/>
+        <ComboBox x:Name="CB2" Grid.Column="1" Grid.Row="8" Grid.ColumnSpan="2" Style="{x:Null}" IsEditable="true" MinWidth="200" HorizontalAlignment="Center" Visibility="Visible"/>
+        <ComboBox x:Name="CB3" Grid.Column="1" Grid.Row="9" Grid.ColumnSpan="2" MinWidth="200" Style="{x:Null}" IsEditable="true" HorizontalAlignment="Center" Visibility="Visible"/>
+        <Label Content="Liczba procesów:" Grid.Column="3" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="14"/>
+        <ComboBox x:Name="CB4" Grid.Column="1" Grid.Row="10" Grid.ColumnSpan="2" Style="{x:Null}" MinWidth="200" IsEditable="true" HorizontalAlignment="Center" Visibility="Visible"/>
+        <ComboBox x:Name="CB5" Grid.Column="1" Grid.Row="11" Grid.ColumnSpan="2" MinWidth="200" Style="{x:Null}" IsEditable="true" HorizontalAlignment="Center" Visibility="Visible"/>
+        <RadioButton Name="RB4" Grid.Column="3" Grid.Row="10" Content="4" HorizontalAlignment="Center" VerticalAlignment="Center" Checked="RadioButton_Checked_3"/>
+        <RadioButton Name="RB5" Grid.Column="3" Grid.Row="11" Content="5" HorizontalAlignment="Center" VerticalAlignment="Center" Checked="RadioButton_Checked_4"/>
+        <ComboBox Name="listname" Grid.Column="1" Grid.Row="4" Style="{x:Null}" SelectionChanged="listname_SelectionChanged" MouseEnter="mover" MaxDropDownHeight="100" IsSynchronizedWithCurrentItem="True" AllowDrop="True">
+        </ComboBox>
+        <ComboBox Grid.Column="2" Name="listname2" Grid.Row="4" Style="{x:Null}" SelectionChanged="listname2_SelectionChanged" Visibility="Visible" MouseEnter="mover2" AllowDrop="True" Focusable="False"/>
+        <ComboBox Name="listname3" Grid.Column="3" Grid.Row="4" Style="{x:Null}" SelectionChanged="listname3_SelectionChanged" Visibility="Visible" MouseEnter="mover3"/>
+        <ComboBox Name="listname4" Grid.Column="1" Grid.Row="5" Style="{x:Null}" SelectionChanged="listname4_SelectionChanged" Visibility="Visible" MouseEnter="mover4"/>
+        <ComboBox Name="listname5" Grid.Column="2" Grid.Row="5" Style="{x:Null}" SelectionChanged="listname5_SelectionChanged" Visibility="Visible" MouseEnter="mover5"/>
+        <ComboBox Name="listname6" Grid.Column="3" Grid.Row="5" Style="{x:Null}" SelectionChanged="listname6_SelectionChanged" Visibility="Visible" MouseEnter="mover6"/>
+        <Button Name="listbutton" Grid.Column="2" Grid.Row="2" Content="Edycja listy" Width="auto" Click="Button_Click_1" Height="auto" Background="#FF3E87B9"/>
+        <ProgressBar Name="progressbar" Grid.Column="2" Grid.Row="14" Height="13" VerticalAlignment="Bottom"  Margin="2,2,2,0" Minimum="0" Maximum="100" BorderBrush="#FF031B2E"/>
+        <Slider Name="slider" Grid.Column="2" Margin="0,3,0,0" Grid.Row="3" VerticalAlignment="Top" Width="130" Minimum="1" Maximum="6" IsSnapToTickEnabled="True" ValueChanged="Slider_ValueChanged" Height="18"/>
+        <Label Content="Kalendarz" Grid.Column="2" Grid.Row="13" Grid.RowSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="12"/>
+
+        <ComboBox Name="cbcalendar" Grid.Column="2" Grid.Row="13" Grid.RowSpan="2" Text="" Style="{x:Null}" VerticalAlignment="Center" SelectionChanged="cbcalendar_SelectionChanged" DropDownClosed="cbcalendar_DropDownClosed" Width="auto" Opacity="0.6" BorderThickness="5" UseLayoutRounding="False" BorderBrush="#FF8D1E1E">
             <ComboBox.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                     <GradientStop Color="#FFF0F0F0" Offset="0"/>
-                    <GradientStop Color="#FFD5F4F7" Offset="1"/>
+                    <GradientStop Color="#FF9E1D1D" Offset="1"/>
                 </LinearGradientBrush>
             </ComboBox.Background>
-        </ComboBox>
-        <Label Name="LabProc" Content="Nazwa procesu:&#xD;&#xA;" HorizontalAlignment="Left" Margin="78,161,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.081,0.258" Width="116" Height="25" FontSize="14"/>
-        <Button Content="Statystyki" HorizontalAlignment="Left" Margin="140,441,0,0" VerticalAlignment="Top" Width="145" Height="30" Click="Button_Click" Background="#FF3E87B9"/>
-        <Button Name="scanbt" Background="LightGreen" Content="Skanowanie" HorizontalAlignment="Left" Margin="139,406,0,0" VerticalAlignment="Top" Width="148" Click="Button_Click_2" Height="29" RenderTransformOrigin="0.553,1.526"/>
-        <Button Name="dbwindow" Content="Baza Danych" HorizontalAlignment="Left" Margin="140,480,0,0" VerticalAlignment="Top" Width="146" Height="31" Click="dbwindow_Click" Background="#FF3E87B9"/>
-        <Label Content="Czas skanowania(h):" HorizontalAlignment="Left" Margin="8,452,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.016,-0.305" Height="26" Width="143" FontSize="13"/>
-        <TextBox TextAlignment="Center" Name="TTB" HorizontalAlignment="Left" Height="32" Margin="24,475,0,0" TextWrapping="Wrap" Text="420" VerticalAlignment="Top" Width="81" FontSize="14"/>
-        <RadioButton Name="RB1" Content="1" HorizontalAlignment="Left" Margin="308,196,0,0" VerticalAlignment="Top"  Checked="RadioButton_Checked_1" Height="18" Width="28"/>
-        <RadioButton Name="RB2" Content="2" HorizontalAlignment="Left" Margin="308,226,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked" RenderTransformOrigin="0.578,0.667" Height="18" Width="28"/>
-        <RadioButton Name="RB3" Content="3" HorizontalAlignment="Left" Margin="308,258,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked_2" RenderTransformOrigin="0.5,0.5" Height="18" Width="28">
-            <RadioButton.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="-1.075"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </RadioButton.RenderTransform>
-        </RadioButton>
-        <ComboBox x:Name="CB2" Style="{x:Null}" IsEditable="true" HorizontalAlignment="Left" Margin="44,225,0,0" VerticalAlignment="Top" Width="179" Height="22" Visibility="Visible"/>
-        <ComboBox x:Name="CB3" Style="{x:Null}" IsEditable="true" HorizontalAlignment="Left" Margin="44,257,0,0" VerticalAlignment="Top" Width="179" Height="22" Visibility="Visible"/>
-        <Label Content="Liczba procesów:" HorizontalAlignment="Left" Margin="262,161,0,0" VerticalAlignment="Top" Height="30" Width="118" FontSize="14"/>
-        <ComboBox x:Name="CB4" Style="{x:Null}" IsEditable="true" HorizontalAlignment="Left" Margin="44,289,0,0" VerticalAlignment="Top" Width="179" Height="22" Visibility="Visible"/>
-        <ComboBox x:Name="CB5" Style="{x:Null}" IsEditable="true" HorizontalAlignment="Left" Margin="44,321,0,0" VerticalAlignment="Top" Width="179" Height="22" Visibility="Visible"/>
-        <RadioButton Name="RB4" Content="4" HorizontalAlignment="Left" Margin="308,290,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked_3" Height="18" Width="28"/>
-        <RadioButton Name="RB5" Content="5" HorizontalAlignment="Left" Margin="308,322,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked_4" Height="18" Width="28"/>
-        <ComboBox Name="listname" Style="{x:Null}" HorizontalAlignment="Left" Margin="9,71,0,0" VerticalAlignment="Top" Width="130" SelectionChanged="listname_SelectionChanged" MouseEnter="mover" MaxDropDownHeight="100" MaxWidth="130" IsSynchronizedWithCurrentItem="True" Height="28" AllowDrop="True">
-            <Popup MaxWidth="50" OpacityMask="#FFCB2828"></Popup>
-        </ComboBox>
-        <ComboBox Name="listname2" Style="{x:Null}" HorizontalAlignment="Left" Margin="147,71,0,0" VerticalAlignment="Top" Width="130" SelectionChanged="listname2_SelectionChanged" Visibility="Visible" MouseEnter="mover2" AllowDrop="True" Focusable="False" Height="28"/>
-        <ComboBox Name="listname3" Style="{x:Null}" HorizontalAlignment="Left" Margin="284,71,0,0" VerticalAlignment="Top" Width="130" SelectionChanged="listname3_SelectionChanged" Visibility="Visible" MouseEnter="mover3" Height="28"/>
-        <ComboBox Name="listname4" Style="{x:Null}" HorizontalAlignment="Left" Margin="9,102,0,0" VerticalAlignment="Top" Width="130" SelectionChanged="listname4_SelectionChanged" Visibility="Visible" MouseEnter="mover4" Height="28"/>
-        <ComboBox Name="listname5" Style="{x:Null}" HorizontalAlignment="Left" Margin="147,102,0,0" VerticalAlignment="Top" Width="130" SelectionChanged="listname5_SelectionChanged" Visibility="Visible" MouseEnter="mover5" Height="28"/>
-        <ComboBox Name="listname6" Style="{x:Null}" HorizontalAlignment="Left" Margin="284,102,0,0" VerticalAlignment="Top" Width="130" SelectionChanged="listname6_SelectionChanged" Visibility="Visible" MouseEnter="mover6" Height="28"/>
-        <Button Name="listbutton" Content="Edycja listy" HorizontalAlignment="Left" Margin="151,8,0,0" VerticalAlignment="Top" Width="120" Click="Button_Click_1" Height="27" Background="#FF3E87B9">
-
-        </Button>
-        <ProgressBar Name="progressbar" HorizontalAlignment="Left" Height="13" Margin="142,393,0,0" VerticalAlignment="Top" Width="142" Minimum="0" Maximum="100"/>
-        <Slider Name="slider" HorizontalAlignment="Left" Margin="146,37,0,0" VerticalAlignment="Top" Width="130" Minimum="1" Maximum="6" IsSnapToTickEnabled="True" ValueChanged="Slider_ValueChanged" Height="18"/>
-        <ComboBox Name="cbcalendar" Text="" Style="{x:Null}" HorizontalAlignment="Left" Margin="135,369,0,0" VerticalAlignment="Top" Width="154" Height="21" SelectionChanged="cbcalendar_SelectionChanged" DropDownClosed="cbcalendar_DropDownClosed" RenderTransformOrigin="0.853,-1.238">
             <Calendar Name="cal" Language="pl" SelectionMode="MultipleRange" SelectedDatesChanged="cal_SelectedDatesChanged" Background="#FFEDEEDC" MinWidth="50" MinHeight="50">
                 <Calendar.BorderBrush>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -76,9 +92,17 @@
                 </Calendar.BorderBrush>
             </Calendar>
         </ComboBox>
-        <Label Name="daysleft" Content="Pozostało dni:" HorizontalAlignment="Left" Margin="7,395,0,0" VerticalAlignment="Top" Width="118" Height="38" FontSize="15"/>
-        <Button Name="cancelbt" Content="Anuluj skan" HorizontalAlignment="Left" Margin="296,406,0,0" VerticalAlignment="Top" Width="110" Height="32" Click="cancelbt_Click" Background="#FF4D565D"/>
-        <Label Content="Kalendarz" HorizontalAlignment="Left" Margin="180,368,0,0" VerticalAlignment="Top" Width="59"/>
-
+        <Label Name="daysleft" Grid.Column="2" Grid.Row="13" Content="Pozostało dni:" FontSize="15" VerticalAlignment="Top"/>
+        <Button Name="cancelbt" Grid.Column="3" Grid.Row="15" Content="Anuluj skan" Margin="1,1,1,1" Click="cancelbt_Click" Background="#FF4D565D" BorderBrush="#FF022744"/>
+        <Rectangle Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="5" Fill="#FF051B49"/>
+        <Rectangle Grid.Row="1" Grid.RowSpan="20" Fill="#FF051B49"/>
+        <Rectangle Grid.Row="19" Grid.Column="0" Grid.ColumnSpan="5" Fill="#FF051B49"/>
+        <Rectangle Grid.Column="5" Grid.Row="1" Grid.RowSpan="20" Fill="#FF051B49"/>
+        <Rectangle Grid.Row="0"  Grid.ColumnSpan="35" Fill="#FF132D44">
+        </Rectangle>
+        <Button x:Name="minBT" Content="-" VerticalContentAlignment="Center" Grid.Column="3" Grid.Row="0" Height="20" Width="30"  Margin="71,0,34,0" Background="#FF387272" FontWeight="Bold" FontSize="24" Padding="0,-5,0,0" Click="minBT_Click" />
+        <Button Name="exitBT" Content="X" VerticalContentAlignment="Center" Grid.Column="3" HorizontalAlignment="Right" Width="30" Height="20" Background="#FF5B0206" FontSize="14" Padding="0,1,0,0" UseLayoutRounding="False" FontFamily="Microsoft YaHei UI" Click="exitBT_Click"/>
+        <Rectangle Fill="#FF499C9C" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="12" />
+        <Label Content="PScn" Grid.Column="1" HorizontalAlignment="Center" FontSize="20" Foreground="#DDF3ABAB" Padding="0"/>
     </Grid>
 </Window>
