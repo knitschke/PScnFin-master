@@ -43,7 +43,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="8"/>
         </Grid.RowDefinitions>
-        <ListBox FontSize="12" Margin="3,3,3,3" Name="templist" Grid.Column="1" Grid.Row="9" Grid.RowSpan="6" SelectionChanged="templist_SelectionChanged" SelectionMode="Extended" BorderBrush="#FF060606" BorderThickness="1"/>
+        <ListBox FontSize="12" Margin="3,3,3,3" Name="templist" Grid.Column="1" Grid.Row="9" Grid.RowSpan="6" SelectionMode="Extended" BorderBrush="#FF060606" BorderThickness="1"/>
         <ListBox FontSize="12" Margin="3,3,3,3" Name="wholelist" Grid.Column="3" Grid.Row="9" Grid.RowSpan="6" BorderThickness="1" BorderBrush="#FF060606"/>
         <TextBox TabIndex="1" TextAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom" Grid.Column="1" Grid.Row="5" Name="beg" TextWrapping="Wrap" Text="" FontSize="14"/>
         <Button Margin="3,3,3,3" TabIndex="4" Name="add" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="7" Width="220" Content="Wczytaj wpisane adresy" Click="add_Click" />

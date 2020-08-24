@@ -32,11 +32,6 @@ namespace PScnFin
             }
         }
 
-        private void templist_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
         public void calc_ip_diff()
         {
             string ipbeg = beg.Text;
@@ -70,20 +65,20 @@ namespace PScnFin
                 int x = 0;
                 int y = 0;
                 int z = 0;
-                for (int i = 0; i < p4diff + 1; i++)
+                for (int i = 0; i < p4diff + (1+(1*p3diff)); i++)//p4diff+1
                 {
 
-                    if ((int.Parse(resultbeg[3]) + x) == 255 && y == 0)
+                    if ((int.Parse(resultbeg[3]) + x) == 256 && y == 0)//
                     {
                         x = 0;
                         y++;
                     }
-                    if (x == 255)
+                    if (x == 256)
                     {
                         x = 0;
                         y++;
                     }
-                    if (y == 255)
+                    if (y == 256)
                     {
                         y = 0;
                         z++;

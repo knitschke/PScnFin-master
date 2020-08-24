@@ -51,7 +51,7 @@
         <Button Name="scanbt" Grid.Column="2" Grid.Row="15" Margin="1,1,1,1" Background="#FF55D155" Content="Skanowanie" Click="Button_Click_2" BorderBrush="#FF032A49"/>
         <Button Name="dbwindow" Grid.Column="2" Grid.Row="17" Margin="1,1,1,1" Content="Baza Danych" Click="dbwindow_Click" Background="#FF3E87B9" BorderBrush="#FF042642"/>
         <Label Content="Czas skanowania(h):" Grid.Column="1" Grid.Row="14" FontSize="15"/>
-        <TextBox TextAlignment="Center" Grid.Column="1" Grid.Row="15" Name="TTB" TextWrapping="Wrap" Text="480" FontSize="15"/>
+        <TextBox TextAlignment="Center" Grid.Column="1" Grid.Row="15" Name="TTB" TextWrapping="Wrap" Text="8" FontSize="15"/>
         <RadioButton Name="RB1" Grid.Column="3" Grid.Row="7" Content="1" HorizontalAlignment="Center" VerticalAlignment="Center"  Checked="RadioButton_Checked_1"/>
         <RadioButton Name="RB2" Grid.Column="3" Grid.Row="8" Content="2" HorizontalAlignment="Center" VerticalAlignment="Center" Checked="RadioButton_Checked"/>
         <RadioButton Name="RB3" Grid.Column="3" Content="3" Grid.Row="9" HorizontalAlignment="Center" VerticalAlignment="Center" Checked="RadioButton_Checked_2"/>

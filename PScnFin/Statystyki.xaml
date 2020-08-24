@@ -46,7 +46,7 @@
         <TextBox Name="T2" Grid.Column="4" Grid.Row="7" IsReadOnly="True" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" TextWrapping="Wrap"/>
         <TextBox Name="T3" Grid.Column="4" Grid.Row="9" IsReadOnly="True" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" TextWrapping="Wrap"/>
         <Label Content="Używanie podczas &#10;skanowań (%):" HorizontalAlignment="Center" Grid.Column="4" Grid.RowSpan="2" Grid.Row="4" FontSize="14"/>
-        <Label Content="Czas skanowań(min):" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="4" Grid.Row="6" FontSize="14"/>
+        <Label Content="Czas skanowań (h):" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="4" Grid.Row="6" FontSize="14"/>
         <Label Content="Średnia użycia (%):" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="4" Grid.Row="8" FontSize="14"/>
         <TextBox x:Name="filter" Grid.Column="2" Grid.Row="4" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" TextAlignment="Center" Style="{x:Null}" TextWrapping="Wrap" Text="" Background="#FFD5F4F7" BorderBrush="#FF3A60D1" TextChanged="filter_TextChanged"/>
         <Rectangle Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="7" Fill="#FF051B49"/>
