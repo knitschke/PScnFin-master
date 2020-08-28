@@ -233,7 +233,7 @@ namespace PScnFin
                 }
                 ping.Dispose();
             }
-            if (reply.Status != IPStatus.Success)
+            else if (reply.Status != IPStatus.Success)
             {
                 UsersModel x = new UsersModel();
                 x.ip = ip;

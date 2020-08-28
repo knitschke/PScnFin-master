@@ -40,6 +40,8 @@ C:\Users\krzysztof.nitschke\source\repos\knitschke\PScnFin\PScnFin-master\PScnFi
 C:\Users\krzysztof.nitschke\source\repos\knitschke\PScnFin\PScnFin-master\PScnFin\bin\Debug\Dapper.dll
 C:\Users\krzysztof.nitschke\source\repos\knitschke\PScnFin\PScnFin-master\PScnFin\bin\Debug\EntityFramework.dll
 C:\Users\krzysztof.nitschke\source\repos\knitschke\PScnFin\PScnFin-master\PScnFin\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\krzysztof.nitschke\source\repos\knitschke\PScnFin\PScnFin-master\PScnFin\bin\Debug\MaterialDesignColors.dll
+C:\Users\krzysztof.nitschke\source\repos\knitschke\PScnFin\PScnFin-master\PScnFin\bin\Debug\MaterialDesignThemes.Wpf.dll
 C:\Users\krzysztof.nitschke\source\repos\knitschke\PScnFin\PScnFin-master\PScnFin\bin\Debug\System.Data.SQLite.dll
 C:\Users\krzysztof.nitschke\source\repos\knitschke\PScnFin\PScnFin-master\PScnFin\bin\Debug\System.Data.SQLite.EF6.dll
 C:\Users\krzysztof.nitschke\source\repos\knitschke\PScnFin\PScnFin-master\PScnFin\bin\Debug\System.Data.SQLite.Linq.dll
@@ -47,9 +49,13 @@ C:\Users\krzysztof.nitschke\source\repos\knitschke\PScnFin\PScnFin-master\PScnFi
 C:\Users\krzysztof.nitschke\source\repos\knitschke\PScnFin\PScnFin-master\PScnFin\bin\Debug\Dapper.xml
 C:\Users\krzysztof.nitschke\source\repos\knitschke\PScnFin\PScnFin-master\PScnFin\bin\Debug\EntityFramework.xml
 C:\Users\krzysztof.nitschke\source\repos\knitschke\PScnFin\PScnFin-master\PScnFin\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\krzysztof.nitschke\source\repos\knitschke\PScnFin\PScnFin-master\PScnFin\bin\Debug\MaterialDesignColors.pdb
+C:\Users\krzysztof.nitschke\source\repos\knitschke\PScnFin\PScnFin-master\PScnFin\bin\Debug\MaterialDesignThemes.Wpf.pdb
+C:\Users\krzysztof.nitschke\source\repos\knitschke\PScnFin\PScnFin-master\PScnFin\bin\Debug\MaterialDesignThemes.Wpf.xml
 C:\Users\krzysztof.nitschke\source\repos\knitschke\PScnFin\PScnFin-master\PScnFin\bin\Debug\System.Data.SQLite.xml
 C:\Users\krzysztof.nitschke\source\repos\knitschke\PScnFin\PScnFin-master\PScnFin\bin\Debug\System.Data.SQLite.dll.config
 C:\Users\krzysztof.nitschke\source\repos\knitschke\PScnFin\PScnFin-master\PScnFin\obj\Debug\PScnFin.csprojAssemblyReference.cache
+C:\Users\krzysztof.nitschke\source\repos\knitschke\PScnFin\PScnFin-master\PScnFin\obj\Debug\DBManage.g.cs
 C:\Users\krzysztof.nitschke\source\repos\knitschke\PScnFin\PScnFin-master\PScnFin\obj\Debug\ListSettings.g.cs
 C:\Users\krzysztof.nitschke\source\repos\knitschke\PScnFin\PScnFin-master\PScnFin\obj\Debug\MainWindow.g.cs
 C:\Users\krzysztof.nitschke\source\repos\knitschke\PScnFin\PScnFin-master\PScnFin\obj\Debug\Statystyki.g.cs
@@ -57,6 +63,8 @@ C:\Users\krzysztof.nitschke\source\repos\knitschke\PScnFin\PScnFin-master\PScnFi
 C:\Users\krzysztof.nitschke\source\repos\knitschke\PScnFin\PScnFin-master\PScnFin\obj\Debug\PScnFin_Content.g.cs
 C:\Users\krzysztof.nitschke\source\repos\knitschke\PScnFin\PScnFin-master\PScnFin\obj\Debug\PScnFin_MarkupCompile.cache
 C:\Users\krzysztof.nitschke\source\repos\knitschke\PScnFin\PScnFin-master\PScnFin\obj\Debug\PScnFin_MarkupCompile.lref
+C:\Users\krzysztof.nitschke\source\repos\knitschke\PScnFin\PScnFin-master\PScnFin\obj\Debug\App.baml
+C:\Users\krzysztof.nitschke\source\repos\knitschke\PScnFin\PScnFin-master\PScnFin\obj\Debug\DBManage.baml
 C:\Users\krzysztof.nitschke\source\repos\knitschke\PScnFin\PScnFin-master\PScnFin\obj\Debug\ListSettings.baml
 C:\Users\krzysztof.nitschke\source\repos\knitschke\PScnFin\PScnFin-master\PScnFin\obj\Debug\MainWindow.baml
 C:\Users\krzysztof.nitschke\source\repos\knitschke\PScnFin\PScnFin-master\PScnFin\obj\Debug\Statystyki.baml
@@ -67,11 +75,3 @@ C:\Users\krzysztof.nitschke\source\repos\knitschke\PScnFin\PScnFin-master\PScnFi
 C:\Users\krzysztof.nitschke\source\repos\knitschke\PScnFin\PScnFin-master\PScnFin\obj\Debug\PScnFin.csproj.CopyComplete
 C:\Users\krzysztof.nitschke\source\repos\knitschke\PScnFin\PScnFin-master\PScnFin\obj\Debug\PScnFin.exe
 C:\Users\krzysztof.nitschke\source\repos\knitschke\PScnFin\PScnFin-master\PScnFin\obj\Debug\PScnFin.pdb
-C:\Users\krzysztof.nitschke\source\repos\knitschke\PScnFin\PScnFin-master\PScnFin\obj\Debug\DBManage.g.cs
-C:\Users\krzysztof.nitschke\source\repos\knitschke\PScnFin\PScnFin-master\PScnFin\obj\Debug\DBManage.baml
-C:\Users\krzysztof.nitschke\source\repos\knitschke\PScnFin\PScnFin-master\PScnFin\bin\Debug\MaterialDesignColors.dll
-C:\Users\krzysztof.nitschke\source\repos\knitschke\PScnFin\PScnFin-master\PScnFin\bin\Debug\MaterialDesignThemes.Wpf.dll
-C:\Users\krzysztof.nitschke\source\repos\knitschke\PScnFin\PScnFin-master\PScnFin\bin\Debug\MaterialDesignColors.pdb
-C:\Users\krzysztof.nitschke\source\repos\knitschke\PScnFin\PScnFin-master\PScnFin\bin\Debug\MaterialDesignThemes.Wpf.pdb
-C:\Users\krzysztof.nitschke\source\repos\knitschke\PScnFin\PScnFin-master\PScnFin\bin\Debug\MaterialDesignThemes.Wpf.xml
-C:\Users\krzysztof.nitschke\source\repos\knitschke\PScnFin\PScnFin-master\PScnFin\obj\Debug\App.baml
