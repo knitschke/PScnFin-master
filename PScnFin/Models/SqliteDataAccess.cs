@@ -10,6 +10,25 @@ namespace PScnFin.Models
 {
     public class SqliteDataAccess
     {
+
+        public static List<String> LoadNameFromIP(string ip)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))//testit+scantime add
+            {
+                var output = cnn.Query<String>($"select pc_name from Users where ip = '{ip}'", new DynamicParameters());
+                return output.ToList();
+            }
+        }
+
+        public static List<String> ScanTime(string idscan)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))//testit+scantime add
+            {
+                var output = cnn.Query<String>($"select time from Scans where scan_id = {idscan}", new DynamicParameters());
+                return output.ToList();
+            }
+        }
+
         public static List<UsersModel> LoadUsers()
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))

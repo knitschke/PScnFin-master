@@ -41,7 +41,7 @@ namespace PScnFin
             sortcb2.Items.Add("data_id");
             sortcb2.Items.Add("positive_scan");
             sortcb2.Items.Add("negative_scan");
-            sortcb.Items.Add("ip");
+            sortcb2.Items.Add("ip");
             sortcb2.Items.Add("pc_name");
             sortcb2.Items.Add("scan_id");
             sortcb2.Items.Add("process_name");
@@ -359,7 +359,7 @@ namespace PScnFin
                 {
                     foreach (var x in dm)
                     {
-                        if (x.ip.Contains(filter))
+                        if (x.ip.Contains(filter2))
                             dmtemp.Add(x);
                     }
                     dg.ItemsSource = dmtemp;
@@ -403,12 +403,14 @@ namespace PScnFin
                 else if (sortcb2.Text == "usage")
                 {
                     int test;
-                    if (int.TryParse(filter, out test) == true)
+                    double test2;
+                    if (int.TryParse(filter2, out test) == true)
                     {
                         foreach (var x in dmtemp)
                         {
-                            if (x.usage_percentage >= double.Parse(filter2))
-                                dmtemp2.Add(x);
+                            if (double.TryParse(filter, out test2) == true)
+                                if (x.usage_percentage >= double.Parse(filter2))
+                                    dmtemp2.Add(x);
                         }
                         dg.ItemsSource = dmtemp2;
                     }

@@ -547,11 +547,13 @@ namespace PScnFin
                                             vec5[i, 2] = (int.Parse(vec5[i, 2]) + 1).ToString();
                                 }
                             }
-                            if (sw.ElapsedMilliseconds >= (Convert.ToInt64(timebox) * 3600000)) break;
+                            if (sw.ElapsedMilliseconds >= (Convert.ToInt64(timebox) * 3600000)) 
+                                break;
                         }
                         catch (Exception exc)
                         {
-                            Console.WriteLine(exc.ToString() + ":  " + prc[0] + u.pc_name);
+                            //MessageBox.Show(exc.ToString() + ":  " + prc[0] + u.pc_name);
+                            continue;
                         }
                 }
                 if (pause.Elapsed.TotalMilliseconds < 300000)//300000
@@ -893,7 +895,7 @@ namespace PScnFin
                 }
                 catch (Exception x)
                 {
-                    MessageBox.Show(x.ToString());
+                    //MessageBox.Show(x.ToString());
                 }
 
                 DateTime starthr = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 7, 30, 0);
@@ -907,7 +909,7 @@ namespace PScnFin
                         counter_scn++;
                         SM = SqliteDataAccess.LoadScans();
                     }
-                    catch (Exception xxx) { MessageBox.Show(xxx.ToString()); }
+                    catch (Exception xxx) { }//MessageBox.Show(xxx.ToString()); }
                     progbarchange(sender);
                 }
                 if (workerccl(0) == -1)

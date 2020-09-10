@@ -11,12 +11,17 @@ namespace PScnFin
         public string ip { get; set; }
         public string pc_name
         {
-            get
+            get//sql select single - new one without a class
             {
-                List<UsersModel> um;
-                um = SqliteDataAccess.LoadUserName(ip);
-                if (um.Count > 0)
-                    return um.Last().pc_name;
+                //List<UsersModel> um;
+                //um = SqliteDataAccess.LoadUserName(ip);
+                //if (um.Count > 0)
+                //    return um.Last().pc_name;
+                //else return "";
+
+                string x = SqliteDataAccess.LoadNameFromIP(this.ip).ElementAtOrDefault(0);
+                if (x!=null)
+                    return x;
                 else return "";
             }
         }
