@@ -124,6 +124,15 @@ namespace PScnFin
                 T3.Text = "0";
             else
                 T3.Text = ((countpall * 100) / (countpall + countnall)).ToString() + "%";
+            DMtime = SqliteDataAccess.LoadDataByProcAndIp(slctedproc,xx[1]);
+            countpall = 0;
+            foreach (var item in DMtime)
+            {
+                countpall += item.positive_scan;
+            }
+
+
+            Tnew.Text = (countpall / 12).ToString();
 
         }
 

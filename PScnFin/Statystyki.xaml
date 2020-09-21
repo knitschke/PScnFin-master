@@ -42,12 +42,14 @@
         </Grid.RowDefinitions>
         <ComboBox Name="CB" Grid.Column="2" Grid.Row="3" Foreground="Black" SelectionChanged="CB_SelectionChanged"/>
         <ListBox Name="LB" Grid.Column="2" Grid.Row="5" Grid.RowSpan="7" SelectionChanged="LB_SelectionChanged" BorderThickness="1" BorderBrush="#FF4E5085"/>
-        <TextBox Name="T1" Grid.Column="4" Grid.Row="5" IsReadOnly="True" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" TextWrapping="Wrap"/>
-        <TextBox Name="T2" Grid.Column="4" Grid.Row="7" IsReadOnly="True" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" TextWrapping="Wrap"/>
-        <TextBox Name="T3" Grid.Column="4" Grid.Row="9" IsReadOnly="True" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" TextWrapping="Wrap"/>
-        <Label Content="Używanie podczas &#10;skanowań (%):" HorizontalAlignment="Center" Grid.Column="4" Grid.RowSpan="2" Grid.Row="4" FontSize="14"/>
-        <Label Content="Czas skanowań (h):" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="4" Grid.Row="6" FontSize="14"/>
-        <Label Content="Średnia użycia (%):" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="4" Grid.Row="8" FontSize="14"/>
+        <TextBox Name="T1" Grid.Column="4" Grid.Row="4" IsReadOnly="True" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" TextWrapping="Wrap"/>
+        <TextBox x:Name="Tnew" Grid.Column="4" Grid.Row="6" IsReadOnly="True" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" TextWrapping="Wrap"/>
+        <TextBox Name="T2" Grid.Column="4" Grid.Row="8" IsReadOnly="True" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" TextWrapping="Wrap"/>
+        <TextBox Name="T3" Grid.Column="4" Grid.Row="10" IsReadOnly="True" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" TextWrapping="Wrap"/>
+        <Label Content="Używanie podczas &#10;skanowań (%):" HorizontalAlignment="Center" Grid.Column="4" Grid.RowSpan="2" Grid.Row="3" FontSize="14"/>
+        <Label Content="Czas skanowań (h):" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="4" Grid.Row="7" FontSize="14"/>
+        <Label Content="Czas użycia (h):" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="4" Grid.Row="5" FontSize="14"/>
+        <Label Content="Średnia użycia (%):" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="4" Grid.Row="9" FontSize="14"/>
         <TextBox x:Name="filter" Grid.Column="2" Grid.Row="4" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" TextAlignment="Center" Style="{x:Null}" TextWrapping="Wrap" Text="" Background="#FFD5F4F7" BorderBrush="#FF3A60D1" TextChanged="filter_TextChanged"/>
         <Rectangle Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="7" Fill="#FF051B49"/>
         <Rectangle Grid.Row="1" Grid.RowSpan="13" Fill="#FF051B49"/>
@@ -58,7 +60,7 @@
         <Rectangle Grid.Column="3" Grid.Row="2" Grid.RowSpan="11" Fill="#FF2C7E7E"/>
         <Button x:Name="minBT" Content="-" VerticalContentAlignment="Center" Grid.Column="4" Grid.Row="0" Height="20" Width="30"  Margin="71,0,34,0" Background="#FF387272" FontWeight="Bold" FontSize="24" Padding="0,-5,0,0" Click="minBT_Click" />
         <Button Name="exitBT" Content="X" VerticalContentAlignment="Center" Grid.Column="4" HorizontalAlignment="Right" Width="30" Height="20" Background="#FF5B0206" FontSize="14" Padding="0,1,0,0" UseLayoutRounding="False" FontFamily="Microsoft YaHei UI" Click="exitBT_Click"/>
-        <Label Content="Używanie podczas &#10;skanowań (%):" HorizontalAlignment="Center" Grid.Column="4" Grid.RowSpan="2" Grid.Row="4" FontSize="14" Foreground="#DD686060"/>
+        <Label Content="Używanie podczas &#10;skanowań (%):" HorizontalAlignment="Center" Grid.Column="4" Grid.RowSpan="1" Grid.Row="3" FontSize="14" Foreground="#DD686060"/>
         <Label Padding="0,0,0,0" Content="Statistics" Grid.Column="2" HorizontalAlignment="Center" FontSize="20" Foreground="#DDF3ABAB"/>
     </Grid>
 </Window>

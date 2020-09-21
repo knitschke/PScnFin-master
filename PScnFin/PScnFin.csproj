@@ -116,6 +116,7 @@
       <DependentUpon>ListSettings.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\DataModel.cs" />
+    <Compile Include="Models\DataViewModel.cs" />
     <Compile Include="Models\ListsModel.cs" />
     <Compile Include="Models\ProcessesModel.cs" />
     <Compile Include="Models\ScansModel.cs" />

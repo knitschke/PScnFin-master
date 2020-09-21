@@ -16,13 +16,15 @@ namespace PScnFin
         public DBManage()
         {
             InitializeComponent();
+            SqliteDataAccess.CreateViewData();
         }
 
         List<UsersModel> um = new List<UsersModel>();
-        List<DataModel> dm = new List<DataModel>();
+        //List<DataModel> dm = new List<DataModel>();
         List<SingleListModel> lm = new List<SingleListModel>();
         List<ProcessesModel> pm = new List<ProcessesModel>();
         List<ScansModel> sm = new List<ScansModel>();
+        List<DataViewModel> dm = new List<DataViewModel>();
         string current_table = "";
 
         void fill_cb_data()
@@ -96,7 +98,7 @@ namespace PScnFin
         private void datab_Click(object sender, RoutedEventArgs e)
         {
             current_table = "data";
-            dm = SqliteDataAccess.LoadData();
+            dm = SqliteDataAccess.LoadView();
             dg.ItemsSource = dm;
             fill_cb_data();
         }
@@ -159,13 +161,13 @@ namespace PScnFin
         {
             try
             {
+                SqliteDataAccess.DropView();
                 this.Close();
             }
-            catch (Exception)
+            catch (Exception eee)
             {
-
+                Console.WriteLine(eee.ToString());
             }
-
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
@@ -190,8 +192,8 @@ namespace PScnFin
         {
             List<UsersModel> umtemp = new List<UsersModel>();
             List<UsersModel> umtemp2 = new List<UsersModel>();
-            List<DataModel> dmtemp = new List<DataModel>();
-            List<DataModel> dmtemp2 = new List<DataModel>();
+            List<DataViewModel> dmtemp = new List<DataViewModel>();
+            List<DataViewModel> dmtemp2 = new List<DataViewModel>();
             List<SingleListModel> lmtemp = new List<SingleListModel>();
             List<SingleListModel> lmtemp2 = new List<SingleListModel>();
             List<ProcessesModel> pmtemp = new List<ProcessesModel>();
@@ -309,7 +311,7 @@ namespace PScnFin
                 {
                     foreach (var x in dm)
                     {
-                        if (x.scan_time.ToString().Contains(filter))
+                        if (x.time.ToString().Contains(filter))
                             dmtemp.Add(x);
                     }
                     dg.ItemsSource = dmtemp;
@@ -395,7 +397,7 @@ namespace PScnFin
                 {
                     foreach (var x in dmtemp)
                     {
-                        if (x.scan_time.ToString().Contains(filter2))
+                        if (x.time.ToString().Contains(filter2))
                             dmtemp2.Add(x);
                     }
                     dg.ItemsSource = dmtemp2;
@@ -408,7 +410,7 @@ namespace PScnFin
                     {
                         foreach (var x in dmtemp)
                         {
-                            if (double.TryParse(filter, out test2) == true)
+                            if (double.TryParse(filter2, out test2) == true)
                                 if (x.usage_percentage >= double.Parse(filter2))
                                     dmtemp2.Add(x);
                         }

@@ -19,6 +19,42 @@ namespace PScnFin.Models
                 return output.ToList();
             }
         }
+        //
+        public static void CreateViewData()
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                try
+                {
+                    cnn.Execute("CREATE view DataView as SELECT d.data_id, d.positive_scan, d.negative_scan, d.ip, u.pc_name, " +
+                                        "d.process_name, d.scan_id, s.time, ((d.positive_scan * 100) / " +
+                                        "(d.positive_scan + d.negative_scan)) as usagepercentage from Data d, Users u, Scans s" +
+                                        " where (d.scan_id = s.scan_id and d.ip = u.ip)");
+                }
+                catch (SQLiteException)
+                {
+
+                }
+                
+            }
+        }
+        //
+        public static void DropView()
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                cnn.Execute("DROP view DataView");
+            }
+        }
+
+        public static List<DataViewModel> LoadView()
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))//testit+scantime add
+            {
+                var output = cnn.Query<DataViewModel>("select * from DataView;", new DynamicParameters());
+                return output.ToList();
+            }
+        }
 
         public static List<String> ScanTime(string idscan)
         {
@@ -133,6 +169,16 @@ namespace PScnFin.Models
                 return output.ToList();
             }
         }
+        public static List<DataModel> LoadDataByProcAndIp(String proc, String Ip)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                var output = cnn.Query<DataModel>($"select * from Data where process_name='{proc}' and ip='{Ip}';", new DynamicParameters());
+                return output.ToList();
+            }
+        }
+
+
         public static List<ScansModel> LoadScans()
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
