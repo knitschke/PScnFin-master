@@ -547,7 +547,7 @@ namespace PScnFin
                                             vec5[i, 2] = (int.Parse(vec5[i, 2]) + 1).ToString();
                                 }
                             }
-                            if (sw.ElapsedMilliseconds >= (Convert.ToInt64(timebox) * 3600000)) 
+                            if (sw.ElapsedMilliseconds >= (Convert.ToInt64(timebox) * 3600000))
                                 break;
                         }
                         catch (Exception exc)
@@ -824,7 +824,7 @@ namespace PScnFin
                 }
                 else
                 {
-                    progressPercentage = (int)((double)(((sw2.ElapsedMilliseconds / 60000) * 100) / ((int.Parse(timebox)*60))));//
+                    progressPercentage = (int)((double)(((sw2.ElapsedMilliseconds / 60000) * 100) / ((int.Parse(timebox) * 60))));//
                     if (progressPercentage >= 100)
                     {
                         (sender as BackgroundWorker).ReportProgress(100);
@@ -897,9 +897,19 @@ namespace PScnFin
                 {
                     //MessageBox.Show(x.ToString());
                 }
-
-                DateTime starthr = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 7, 30, 0);
                 DateTime now = DateTime.Now;
+                if (now.DayOfWeek == DayOfWeek.Monday)
+                {
+                    timehr = 9;
+                    timemin = 0;
+                }
+                else
+                {
+                    timehr = 7;
+                    timemin = 30;
+                }
+                DateTime starthr = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, timehr, timemin, 0);
+                
                 Thread.Sleep(500);
                 if (dates.Contains(now.Day.ToString() + "." + now.Month.ToString()) && now > starthr)
                 {
@@ -925,11 +935,25 @@ namespace PScnFin
         private string namebox4;
         private string namebox5;
         private string namebox6;
+        int timehr = 7;
+        int timemin = 30;
+
 
         void scan_starter(object x)
         {
-            DateTime starthr = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 7, 30, 0);
             DateTime now = DateTime.Now;
+            if (now.DayOfWeek == DayOfWeek.Monday)
+            {
+                timehr = 9;
+                timemin = 0;
+            }
+            else
+            {
+                timehr = 7;
+                timemin = 30;
+            }
+            DateTime starthr = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, timehr, timemin, 0);
+
             if (dates.Contains(now.Day.ToString() + "." + now.Month.ToString()) && now > starthr)
             {
                 scan(x);
