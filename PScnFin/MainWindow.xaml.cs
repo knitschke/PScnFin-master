@@ -1200,6 +1200,7 @@ namespace PScnFin
             {
                 worker6.CancelAsync();
             }
+            enabledisable(true);
         }
 
         private void dbwindow_Click(object sender, RoutedEventArgs e)
