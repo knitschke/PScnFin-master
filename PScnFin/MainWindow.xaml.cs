@@ -725,14 +725,14 @@ namespace PScnFin
                 {
                     timeelsapsedworker.RunWorkerAsync();
                     proc_listing(namebox, ref proc);
-
-                    enabledisable(false);
                     Thread.Sleep(500);
                     worker.RunWorkerAsync(1);
+                    enabledisable(false);
                 }
                 catch (InvalidOperationException)
                 {
                     MessageBox.Show("Wybierz conajmniej jedną datę i jedną listę do skanowania.");
+                    return;
                 }
             else MessageBox.Show("Wybierz daty.");
         }
@@ -778,7 +778,7 @@ namespace PScnFin
         private void doubledatearray()
         {
             List<string> dates_temp = new List<string>();
-            foreach (var x in dates)
+            foreach (var x in dates.Distinct())
             {
                 dates_temp.Add(x);
             }
@@ -1201,6 +1201,7 @@ namespace PScnFin
                 worker6.CancelAsync();
             }
             enabledisable(true);
+            scanbt.Background = Brushes.LightGreen;
         }
 
         private void dbwindow_Click(object sender, RoutedEventArgs e)
