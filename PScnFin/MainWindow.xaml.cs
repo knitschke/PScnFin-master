@@ -446,7 +446,7 @@ namespace PScnFin
 
             Stopwatch pause = new Stopwatch();
             sw.Restart();
-            while (sw.ElapsedMilliseconds <= (Convert.ToInt64(timebox) * 3600000))
+            while (sw.ElapsedMilliseconds <= (Convert.ToDouble(timebox) * 3600000))
             {
 
                 pause.Restart();
@@ -547,7 +547,7 @@ namespace PScnFin
                                             vec5[i, 2] = (int.Parse(vec5[i, 2]) + 1).ToString();
                                 }
                             }
-                            if (sw.ElapsedMilliseconds >= (Convert.ToInt64(timebox) * 3600000))
+                            if (sw.ElapsedMilliseconds >= (Convert.ToDouble(timebox) * 3600000))
                                 break;
                         }
                         catch (Exception exc)
@@ -562,6 +562,10 @@ namespace PScnFin
 
             foreach (UsersModel u in um)
             {
+                if(u.ip=="10.3.5.40")
+                {
+                    Console.WriteLine("test1");
+                }
                 if (workerccl(sv) == -1)
                 {
                     return;
@@ -824,7 +828,7 @@ namespace PScnFin
                 }
                 else
                 {
-                    progressPercentage = (int)((double)(((sw2.ElapsedMilliseconds / 60000) * 100) / ((int.Parse(timebox) * 60))));//
+                    progressPercentage = (int)((double)(((sw2.ElapsedMilliseconds / 60000) * 100) / ((double.Parse(timebox) * 60))));//
                     if (progressPercentage >= 100)
                     {
                         (sender as BackgroundWorker).ReportProgress(100);
