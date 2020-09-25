@@ -161,6 +161,16 @@ namespace PScnFin.Models
                 cnn.Execute($"insert into scans (time, date) values('{time}', '{date}');");
             }
         }
+
+        public static void DelList(string name)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                cnn.Execute($"delete from Lists where list_name = '{name}';");
+            }
+
+        }
+
         public static List<DataModel> LoadDataTime(String proc)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))

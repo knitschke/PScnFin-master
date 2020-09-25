@@ -272,6 +272,7 @@ namespace PScnFin
 
         private void savelist_Click(object sender, RoutedEventArgs e)
         {
+            SqliteDataAccess.DelList(listname.Text);
             try
             {
                 if (proc1.Text.ToString() != "")
